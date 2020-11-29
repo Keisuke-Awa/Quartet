@@ -22,10 +22,15 @@ Rails.application.routes.draw do
     :sessions => 'users/sessions'
   } 
 
-  devise_scope :user do
-    get "sign_in", :to => "users/sessions#new"
-    get "sign_out", :to => "users/sessions#destroy" 
+  resources :users do
+    member do
+      get :index_friend_request
+      get :index_friend
+      get :home
+    end
   end
+
+  resources :users, only: [:show, :destroy]
 
   if Rails.env.development?  
     mount LetterOpenerWeb::Engine, at: "/letter_opener"  

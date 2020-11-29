@@ -1,0 +1,13 @@
+<div id='message_form'>
+  <% if @is_room == true %>
+    <%= link_to('メッセージへ', room_path(@room_id), class: "btn btn-primary") %>
+  <% else %>
+    <%= form_with(model: @room, local: true) do |f| %>
+      <%= fields_for @room_user do |ru| %>
+        <%= ru.hidden_field :user_id, value: @user.id %>
+      <% end%>
+      <%= f.submit "メッセージを始める", class: "btn btn-primary" %>
+    <% end %>
+  <% end %>
+  <%= javascript_pack_tag 'users/message_form' %>
+</div>
