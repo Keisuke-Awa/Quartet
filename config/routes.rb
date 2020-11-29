@@ -1,5 +1,20 @@
 Rails.application.routes.draw do
 
+  root 'homes#top'
+
+  get 'rooms/create'
+  get 'rooms/show'
+  get 'rooms/index'
+  get 'messages/create'
+  get 'meetings/new'
+  get 'meetings/show'
+  get 'meetings/create'
+  get 'meetings/destroy'
+  get 'meetings/index'
+  get 'new/show'
+  get 'new/create'
+  get 'new/destroy'
+  get 'new/index'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
   devise_for :users, :controllers => {

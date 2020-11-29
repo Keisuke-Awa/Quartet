@@ -1,0 +1,2 @@
+class MessageRoom < ApplicationRecord
+end
