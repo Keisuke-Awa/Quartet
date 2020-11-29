@@ -1,2 +1,10 @@
-<h1>Homes#top</h1>
-<p>Find me in app/views/homes/top.html.erb</p>
+<div>
+<h2>アプリ</h2>
+<p>いますぐセッティングできる</p>
+<% if user_signed_in? %>
+  <%= link_to('探す', home_user_path(current_user.id), class: "btn btn-lg btn-outline-success") %>
+<% else %>
+  <%= link_to('さっそく始める', new_user_registration_path, class: "btn btn-lg btn-outline-success") %>
+<% end %>
+</div>
+

@@ -1,0 +1,40 @@
+<nav class="navbar navbar-expand-md sticky-top pt-4">
+    <!-- サブコーポネント -->
+    <div class="container-fluid">
+      <%= image_tag '4CCE2EBB-B520-46FA-B6D5-6E00CEAA2F26.jpeg', width: "50", alt: "icon", class: "img-fluid" %>
+      <% if user_signed_in? %>
+        <%= link_to 'Quartet', home_user_path(current_user.id), class: "navbar-brand pl-2 pt-1" %>
+      <% else %>
+        <%= link_to 'Quartet', root_path, class: "navbar-brand pl-2 pt-1" %>
+      <% end %>
+      <!--<button class="navbar-toggler" type="button" data-toggle="collapse"
+        data-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false"
+        aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button> -->
+
+      <!-- ナビゲーション -->
+      <div class="collapse navbar-collapse" id="navbar-content">
+        <ul class="navbar-nav ml-auto">
+          <% if user_signed_in? %>
+            <li class="nav-item">
+              <% if current_user.avatar.attached? %>
+                <%= image_tag current_user.avatar.variant(combine_options:{gravity: :center, resize:"40x40"}).processed, alt: "icon", class: "img-fluid" %>
+              <% else %>
+                <%= image_tag 'default-icon.jpeg', width: "50", alt: "icon", class: "img-fluid" %>
+              <% end %>
+            </li>
+          <% else %>
+            <li class="nav-item">
+              <%= link_to('ログイン', new_user_session_path, class: "nav-link") %>
+            </li>
+            <li class="nav-item ml-3">
+              <%= link_to('新規登録', new_user_registration_path, class: "nav-link btn btn-dark text-white") %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+      <!-- /ナビゲーション -->
+    </div>
+    <!-- /サブコーポネント -->
+  </nav>

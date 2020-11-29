@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  root 'homes#top'
+
   get 'rooms/create'
   get 'rooms/show'
   get 'rooms/index'
@@ -13,7 +15,6 @@ Rails.application.routes.draw do
   get 'new/create'
   get 'new/destroy'
   get 'new/index'
-  get 'homes/top'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
   devise_for :users, :controllers => {
@@ -26,4 +27,7 @@ Rails.application.routes.draw do
     get "sign_out", :to => "users/sessions#destroy" 
   end
 
+  if Rails.env.development?  
+    mount LetterOpenerWeb::Engine, at: "/letter_opener"  
+  end
 end
