@@ -21,7 +21,8 @@ Rails.application.routes.draw do
   end
 
   resources :users, only: [:show, :destroy]
-  resources :rooms, only: [:index, :show, :create]
+  resources :meetings, only: [:index, :new, :create, :show, :destroy]
+  resources :messages, only: [:create]
 
   if Rails.env.development?  
     mount LetterOpenerWeb::Engine, at: "/letter_opener"  
