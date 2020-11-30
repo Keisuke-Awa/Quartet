@@ -23,7 +23,7 @@ Rails.application.routes.draw do
   end
 
   resources :users, only: [:show, :destroy]
-  resources :rooms, only: [:index, :show, :create]
+  resources :message_rooms, only: [:index, :show, :create]
   resources :messages, only: [:create]
   resources :meetings, only: [:index, :new, :create, :show, :destroy]
 
