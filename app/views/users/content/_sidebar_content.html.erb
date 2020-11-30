@@ -1,0 +1,20 @@
+<ul class="list-group list-group-flush">
+  <li class="list-group-item">
+    <%= link_to('探す', meetings_path, class: 'list-action') %>
+  </li>
+  <li class="list-group-item">
+    <%= link_to('企画する', new_meeting_path, class: 'list-action') %>
+  </li>
+  <li class="list-group-item">
+    <%= link_to('プロフィール', edit_user_registration_path, class: 'list-action') %>
+  </li>
+  <li class="list-group-item">
+    <%= link_to('メッセージ一覧', rooms_path, class: 'list-action') %>
+  </li>
+  <!-- <li class="list-group-item"><%#= link_to('フレンド一覧', index_friend_user_path(current_user.id), class: 'list-action')%></li>
+  <li class="list-group-item"><%#= link_to('フレンド申請', index_friend_request_user_path(current_user.id), class: 'list-action') %></li> -->
+  <li class="list-group-item"><%= link_to('ログアウト', destroy_user_session_path, method: :delete, class: 'list-action') %></li>
+  <li class="list-group-item">
+    <%= link_to('退会', user_path(current_user.id), data: { confirm: "本当に退会してよろしいですか?" }, method: :delete, class: 'list-action') %>
+  </li>
+</ul>
