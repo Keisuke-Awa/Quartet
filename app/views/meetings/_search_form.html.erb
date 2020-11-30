@@ -1,0 +1,15 @@
+<%= search_form_for @q do |f| %>
+  <%= f.label :meet_at_gteq, "日時" %>
+  <%= f.datetime_field :meet_at_gteq %>
+
+  <%= f.label :meet_at_lteq, "~" %>
+  <%= f.datetime_field :meet_at_lteq %>
+
+  <%= f.label :place_id_eq, "場所" %>
+  <%= f.collection_select :place_id_eq, @places, :id, :name, include_blank: '全て' %> 
+
+  <%= f.label :people_eq, "人数" %>
+  <%= f.number_field :people_eq %>
+
+  <%= f.submit "検索" %>
+<% end %>
