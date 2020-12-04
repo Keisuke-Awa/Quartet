@@ -4,8 +4,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
          #:confirmable, 
-         :lockable, :timeoutable, :trackable,
-         :omniauthable, omniauth_providers: [:google_oauth2]
+         :lockable, :timeoutable, :trackable
+        #  :omniauthable, omniauth_providers: [:google_oauth2]
 
   # has_many :sns_credentials, dependent: :destroy
 
@@ -22,8 +22,8 @@ class User < ApplicationRecord
   # has_many :friends, through: :friendships
   
   has_many :messages, dependent: :destroy
-  has_many :room_users, dependent: :destroy
-  has_many :rooms, through: :room_users, dependent: :destroy
+  has_many :message_room_users, dependent: :destroy
+  has_many :message_rooms, through: :message_room_users, dependent: :destroy
 
   has_many :meetings, dependent: :destroy
 
