@@ -10,8 +10,6 @@ Rails.application.routes.draw do
 
   resources :users do
     member do
-      get :index_friend_request
-      get :index_friend
       get :home
     end
   end

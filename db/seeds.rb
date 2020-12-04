@@ -26,10 +26,10 @@ def rand_time(from, to)
 end
 
 300.times do |n|
-  context = Faker::Lorem.sentence
+  detail = Faker::Lorem.sentence
   meet_at = rand_time(Time.now, 7.days.since)
   people = rand(6) + 1
   place_id = rand(Place.count) + 1
   user = User.find(n + 1)
-  Meeting.create!(context: context, meet_at: meet_at, people: people, place_id: place_id, user_id: user.id)
+  Meeting.create!(detail: detail, meet_at: meet_at, people: people, place_id: place_id, user_id: user.id)
 end
