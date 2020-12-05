@@ -19,7 +19,7 @@
                   <%= m.meet_at.strftime("%m月%d日%H:%M") %><br/>
                   <%= m.people %>人
                 </p>
-                <a class="btn btn-success" href="#">詳細</a>
+                <%= link_to('詳細', meeting_path(m), class: "btn btn-success" ) %>
             </div>
         </div>
     </div>
