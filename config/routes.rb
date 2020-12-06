@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   resources :users do
     member do
       get :home
+      get :index_meeting
     end
   end
 

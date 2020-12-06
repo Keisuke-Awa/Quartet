@@ -1,4 +1,5 @@
 class MeetingsController < ApplicationController
+
   def new
     @meeting = Meeting.new
     @places = Place.all

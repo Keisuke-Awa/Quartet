@@ -1,30 +1,9 @@
 <h3>プラン検索</h3>
 <%= render 'search_form' %>
 
-<% @meetings.each do |m| %>
-  <% unless current_user?(m.planning_user) %>
-    <div class="card mb-3 col-6 d-inline-block" style="max-width: 400px;">
-      <div class="row no-gutters">
-          <div class="col-md-5 my-auto">
-            <% if m.planning_user.avatar.attached? %>
-              <%= image_tag m.planning_user.avatar.variant(combine_options:{gravity: :center, resize:"80x80"}).processed, alt: "icon", class: "img-fluid" %>
-            <% else %>
-              <%= image_tag 'default-icon.jpeg', width: "150", alt: "icon", class: "img-fluid" %>
-            <% end %>
-          </div>
-          <div class="col-md-7">
-              <div class="card-body">
-                  <h5 class="card-title"><%= m.planning_user.name %></h5>
-                  <p>
-                    <%= m.place.name %><br/>
-                    <%= m.meet_at.strftime("%m月%d日%H:%M") %><br/>
-                    <%= m.people %>人
-                  </p>
-                  <%= link_to('詳細', meeting_path(m), class: "btn btn-success" ) %>
-              </div>
-          </div>
-      </div>
-    </div>
+<% @meetings.each do |meeting| %>
+  <% unless current_user?(meeting.planning_user) %>
+    <%= render meeting %>
   <% end %>
 <% end %>
 <%= paginate @meetings, remote: true %>

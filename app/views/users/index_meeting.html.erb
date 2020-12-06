@@ -1,0 +1,14 @@
+<div id='pagenate'>
+  <div>作成したプラン一覧</div>
+  <div><%= current_user.meetings.count %>件のプランがあります</div>
+  <% if @meetings.any? %>
+    <ul>
+    <% @meetings.each do |meeting| %>
+    <li id='meeting-<%= meeting.id %>'>
+      <%= meeting.place.name %>
+    </li>
+    <% end %>
+  </ul>
+  <%= paginate @meetings, remote: true %>
+  <% end %>
+</div>

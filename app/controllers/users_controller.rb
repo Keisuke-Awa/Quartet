@@ -46,6 +46,10 @@ class UsersController < ApplicationController
     #     format.js
     #   end
     # end
+
+    def index_meeting
+      @meetings = current_user.meetings.page(params[:page])
+    end
   
   private
   
