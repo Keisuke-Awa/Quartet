@@ -1,4 +1,7 @@
 <div>
   <%= @meeting.planning_user.name %>
-  <%= @meeting.planning_user.place %>
+  <%= @meeting.place.name %>
 </div>
+<% unless current_user?(@meeting.planning_user) %>
+  <div><%= render "meeting_application_form" %></div>
+<% end %>

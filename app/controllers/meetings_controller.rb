@@ -18,7 +18,7 @@ class MeetingsController < ApplicationController
 
   def index
     @q = Meeting.ransack(params[:q])
-    @meetings = @q.result(distinct: true).eager_load([{user: :avatar_attachment}, :place]).page(params[:page]).per(10)
+    @meetings = @q.result(distinct: true).eager_load([{planning_user: :avatar_attachment}, :place]).page(params[:page]).per(10)
     @places = Place.all
     # @week = (0..6).to_a.map {|i| (Time.now + i.days).strftime("%m/%d")}
   end

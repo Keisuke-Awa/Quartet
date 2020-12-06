@@ -26,6 +26,8 @@ class User < ApplicationRecord
   has_many :message_rooms, through: :message_room_users, dependent: :destroy
 
   has_many :meetings, dependent: :destroy
+  has_many :meeting_applications, foreign_key: "applicant_id", dependent: :destroy
+  has_many :applying_meetings, through: :meeting_applications, source: :meeting
 
   validates :name, presence: true, length: { maximum: 30 }
 
@@ -58,4 +60,16 @@ class User < ApplicationRecord
   #   friendships.find_by(friend_id: other_user.id).destroy
   #   other_user.friendships.find_by(friend_id: self.id).destroy
   # end
+
+  def apply_meeting(meeting)
+    meeting_applications << meeting
+  end
+
+  def unapply_meeting(meeting)
+    meeting_applications.find_by(meeting_id: meeting.id).destroy
+  end
+
+  def applying?(meeting_application)
+    meeting_applications.include?(meeting_application)
+  end
 end
