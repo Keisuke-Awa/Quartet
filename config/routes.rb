@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
-
-  get 'meeting_applications/create'
-  get 'meeting_applications/destroy'
+  
   root 'homes#top'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
@@ -26,6 +24,7 @@ Rails.application.routes.draw do
   resources :message_rooms, only: [:index, :show, :create]
   resources :messages, only: [:create]
   resources :meetings, only: [:index, :new, :create, :show, :destroy]
+  resources :meeting_applications, only: [:create, :destroy]
 
   if Rails.env.development?  
     mount LetterOpenerWeb::Engine, at: "/letter_opener"  

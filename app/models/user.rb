@@ -62,14 +62,14 @@ class User < ApplicationRecord
   # end
 
   def apply_meeting(meeting)
-    meeting_applications << meeting
+    applying_meetings << meeting
   end
 
   def unapply_meeting(meeting)
     meeting_applications.find_by(meeting_id: meeting.id).destroy
   end
 
-  def applying?(meeting_application)
-    meeting_applications.include?(meeting_application)
+  def applying?(meeting)
+    applying_meetings.include?(meeting)
   end
 end
