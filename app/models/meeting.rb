@@ -4,4 +4,6 @@ class Meeting < ApplicationRecord
 
   has_many :meeting_applications, dependent: :destroy
   # has_many :applicants, through: :meeting_application, source: :applicant
+
+  belongs_to :appointment
 end
