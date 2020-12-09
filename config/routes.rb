@@ -8,24 +8,22 @@ Rails.application.routes.draw do
     :sessions => 'users/sessions'
   } 
 
-  resources :users do
+
+  resources :users, only: [:show, :destroy] do
     member do
       get :home
+      get :index_meeting
     end
   end
 
-  resources :meetings do
-    collection do
-      get :search
-    end
+  resources :meetings, only: [:index, :new, :create, :show, :destroy] do
+    get :search, on: :collection
+    get :index_meeting_application, on: :member
+    resources :meeting_applications, only: [:create, :destroy]
   end
-
-  resources :users, only: [:show, :destroy]
   resources :message_rooms, only: [:index, :show, :create]
   resources :messages, only: [:create]
-  resources :meetings, only: [:index, :new, :create, :show, :destroy]
-  resources :meeting_applications, only: [:create, :destroy]
-
+  
   if Rails.env.development?  
     mount LetterOpenerWeb::Engine, at: "/letter_opener"  
   end

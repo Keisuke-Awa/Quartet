@@ -1,4 +1,5 @@
 class MeetingsController < ApplicationController
+
   def new
     @meeting = Meeting.new
     @places = Place.all
@@ -23,6 +24,10 @@ class MeetingsController < ApplicationController
     # @week = (0..6).to_a.map {|i| (Time.now + i.days).strftime("%m/%d")}
   end
 
+  def index_meeting_application
+    @meeting = Meeting.find(params[:id])
+    @meeting_applications = @meeting.meeting_applications
+  end
 
   private
 

@@ -1,0 +1,22 @@
+<div class="card mb-3 col-6 d-inline-block" style="max-width: 400px;">
+      <div class="row no-gutters">
+          <div class="col-md-5 my-auto">
+            <% if meeting.planning_user.avatar.attached? %>
+              <%= image_tag meeting.planning_user.avatar.variant(combine_options:{gravity: :center, resize:"80x80"}).processed, alt: "icon", class: "img-fluid" %>
+            <% else %>
+              <%= image_tag 'default-icon.jpeg', width: "150", alt: "icon", class: "img-fluid" %>
+            <% end %>
+          </div>
+          <div class="col-md-7">
+              <div class="card-body">
+                  <h5 class="card-title"><%= meeting.planning_user.name %></h5>
+                  <p>
+                    <%= meeting.place.name %><br/>
+                    <%= meeting.meet_at.strftime("%m月%d日%H:%M") %><br/>
+                    <%= meeting.people %>人
+                  </p>
+                  <%= link_to('詳細', meeting_path(meeting), class: "btn btn-success" ) %>
+              </div>
+          </div>
+      </div>
+    </div>

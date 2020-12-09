@@ -6,6 +6,9 @@
     <%= link_to('企画する', new_meeting_path, class: 'list-action') %>
   </li>
   <li class="list-group-item">
+    <%= link_to('申請一覧', index_meeting_user_path(current_user), class: 'list-action') %>
+  </li>
+  <li class="list-group-item">
     <%= link_to('プロフィール', edit_user_registration_path, class: 'list-action') %>
   </li>
   <li class="list-group-item">
