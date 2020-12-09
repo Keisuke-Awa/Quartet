@@ -5,7 +5,7 @@
     <ul>
     <% @meetings.each do |meeting| %>
     <li id='meeting-<%= meeting.id %>'>
-      <%= meeting.place.name %>
+      <%= link_to(meeting.meet_at.strftime("%Y/%m/%d(%a) %H:%M"), index_meeting_application_meeting_path(meeting.id), class: 'list-action') %>
     </li>
     <% end %>
   </ul>

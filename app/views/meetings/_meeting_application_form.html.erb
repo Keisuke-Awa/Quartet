@@ -1,11 +1,11 @@
 <div>
   <% if current_user.applying?(@meeting) %>
-    <%= form_with(model: current_user.meeting_applications.find_by(meeting_id: @meeting.id),
+    <%= form_with(model: [@meeting, current_user.meeting_applications.find_by(meeting_id: @meeting.id)],
                         html: { method: :delete }, remote: true) do |f| %>
       <%= f.submit "キャンセル", class: "btn btn-primary" %>
     <% end %>
   <% else %>
-    <%= form_with(model: current_user.meeting_applications.build, remote: true) do |f| %>
+    <%= form_with(model: [@meeting, current_user.meeting_applications.build], remote: true) do |f| %>
       <div><%= hidden_field_tag :meeting_id, @meeting.id %></div>
       <%= f.submit "申請する", class: "btn btn-primary" %>
     <% end %>
