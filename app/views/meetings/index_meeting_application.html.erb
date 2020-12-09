@@ -2,6 +2,6 @@
 
 <% if @meeting_applications.any? %>
   <% @meeting_applications.each do |ma| %>
-    <%= ma.applicant.name %>
+    <%= link_to( ma.applicant.name,  %>
   <% end %>
 <% end %>

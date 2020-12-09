@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
   
+  get 'appointments/create'
+  get 'appointments/destroy'
+  get 'appointments/show'
+  get 'appointments/index'
   root 'homes#top'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
@@ -21,8 +25,12 @@ Rails.application.routes.draw do
     get :index_meeting_application, on: :member
     resources :meeting_applications, only: [:create, :destroy]
   end
-  resources :message_rooms, only: [:index, :show, :create]
-  resources :messages, only: [:create]
+
+  resources :message_rooms, only: [:index, :show, :create] do
+    resources :messages, only: [:create]
+  end
+
+  resources :appointments, only: [:create, :destroy, :index, :show]
   
   if Rails.env.development?  
     mount LetterOpenerWeb::Engine, at: "/letter_opener"  

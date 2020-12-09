@@ -29,6 +29,8 @@ class User < ApplicationRecord
   has_many :meeting_applications, foreign_key: "applicant_id", dependent: :destroy
   has_many :applying_meetings, through: :meeting_applications, source: :meeting
 
+  has_many :appointments
+
   validates :name, presence: true, length: { maximum: 30 }
 
   # def request_friendship(other_user)

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_05_054226) do
+ActiveRecord::Schema.define(version: 2020_12_09_220947) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -31,6 +31,19 @@ ActiveRecord::Schema.define(version: 2020_12_05_054226) do
     t.string "checksum", null: false
     t.datetime "created_at", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
+  create_table "appointments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "meeting_id", null: false
+    t.bigint "planning_user_id", null: false
+    t.bigint "approved_user_id", null: false
+    t.bigint "message_room_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["approved_user_id"], name: "index_appointments_on_approved_user_id"
+    t.index ["meeting_id"], name: "index_appointments_on_meeting_id"
+    t.index ["message_room_id"], name: "index_appointments_on_message_room_id"
+    t.index ["planning_user_id"], name: "index_appointments_on_planning_user_id"
   end
 
   create_table "meeting_applications", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -110,6 +123,10 @@ ActiveRecord::Schema.define(version: 2020_12_05_054226) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "appointments", "meetings"
+  add_foreign_key "appointments", "message_rooms"
+  add_foreign_key "appointments", "users", column: "approved_user_id"
+  add_foreign_key "appointments", "users", column: "planning_user_id"
   add_foreign_key "meeting_applications", "meetings"
   add_foreign_key "meeting_applications", "users", column: "applicant_id"
   add_foreign_key "meetings", "places"
