@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_12_062532) do
+ActiveRecord::Schema.define(version: 2020_12_12_074737) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -82,13 +82,13 @@ ActiveRecord::Schema.define(version: 2020_12_12_062532) do
   create_table "meetings", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.datetime "meet_at"
     t.integer "people"
-    t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "place_id", null: false
     t.string "detail"
+    t.bigint "planning_user_id", null: false
     t.index ["place_id"], name: "index_meetings_on_place_id"
-    t.index ["user_id"], name: "index_meetings_on_user_id"
+    t.index ["planning_user_id"], name: "index_meetings_on_planning_user_id"
   end
 
   create_table "message_room_users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -157,7 +157,7 @@ ActiveRecord::Schema.define(version: 2020_12_12_062532) do
   add_foreign_key "meeting_applications", "meetings"
   add_foreign_key "meeting_applications", "users", column: "applicant_id"
   add_foreign_key "meetings", "places"
-  add_foreign_key "meetings", "users"
+  add_foreign_key "meetings", "users", column: "planning_user_id"
   add_foreign_key "message_room_users", "message_rooms"
   add_foreign_key "message_room_users", "users"
   add_foreign_key "messages", "message_rooms"

@@ -1,9 +1,10 @@
 class Meeting < ApplicationRecord
-  belongs_to :planning_user, class_name: "User", foreign_key: "user_id"
+  belongs_to :planning_user, class_name: "User"
   belongs_to :place
 
   has_many :meeting_applications, dependent: :destroy
   # has_many :applicants, through: :meeting_application, source: :applicant
 
-  belongs_to :appointment
+  has_many :meal_type_tag_meetings
+  has_many :meal_type_tags, through: :meal_type_tag_meetings
 end

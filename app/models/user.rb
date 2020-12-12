@@ -25,7 +25,7 @@ class User < ApplicationRecord
   has_many :message_room_users, dependent: :destroy
   has_many :message_rooms, through: :message_room_users, dependent: :destroy
 
-  has_many :meetings, dependent: :destroy
+  has_many :meetings, foreign_key: "planning_user_id", dependent: :destroy
   has_many :meeting_applications, foreign_key: "applicant_id", dependent: :destroy
   has_many :applying_meetings, through: :meeting_applications, source: :meeting
 
