@@ -1,0 +1,3 @@
+<%= form_with(model: [current_user.appointments.build], remote: true) do |f| %>
+
+<%= f.submit "承認する", class: "btn btn-success" %>
