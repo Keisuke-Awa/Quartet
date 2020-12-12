@@ -31,5 +31,19 @@ end
   people = rand(6) + 1
   place_id = rand(Place.count) + 1
   user = User.find(n + 1)
-  Meeting.create!(detail: detail, meet_at: meet_at, people: people, place_id: place_id, user_id: user.id)
+  Meeting.create!(detail: detail, meet_at: meet_at, people: people, place_id: place_id, planning_user_id: user.id)
 end
+
+cmeal = MealTypeCategory.create!(name: "料理")
+catmosphere = MealTypeCategory.create!(name: "雰囲気")
+cother = MealTypeCategory.create!(name: "その他")
+
+MealTypeTag.create!(name: "中華料理", category_id: cmeal.id)
+MealTypeTag.create!(name: "和食", category_id: cmeal.id)
+MealTypeTag.create!(name: "イタリアン", category_id: cmeal.id)
+
+MealTypeTag.create!(name: "にぎやか", category_id: catmosphere.id)
+MealTypeTag.create!(name: "落ち着いた", category_id: catmosphere.id)
+MealTypeTag.create!(name: "夜景がきれい", category_id: catmosphere.id)
+
+MealTypeTag.create!(name: "お任せします", category_id: cother.id)
