@@ -2,7 +2,7 @@ class MeetingApplicationsController < ApplicationController
 
   def create
     @meeting = Meeting.find(params[:meeting_id])
-    current_user.apply_meeting(@meeting)
+    @meeting_application = MeetingApplication.create!(meeting_application_params)
     respond_to do |format|
       format.html { redirect_to @meeting}
       format.js
@@ -16,5 +16,11 @@ class MeetingApplicationsController < ApplicationController
       format.html { redirect_to @meeting}
       format.js
     end
+  end
+
+  private
+
+  def meeting_application_params
+    params.require(:meeting_application).permit(:detail).merge(meeting_id: params[:meeting_id], applicant_id: current_user.id)
   end
 end
