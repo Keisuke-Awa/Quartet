@@ -1,0 +1,2 @@
+class MealTypeCategory < ApplicationRecord
+end
