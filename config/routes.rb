@@ -17,6 +17,7 @@ Rails.application.routes.draw do
     member do
       get :home
       get :index_meeting
+      get :index_appointment
     end
   end
 
@@ -30,7 +31,7 @@ Rails.application.routes.draw do
     resources :messages, only: [:create]
   end
 
-  resources :appointments, only: [:create, :destroy, :index, :show]
+  resources :appointments, only: [:create, :destroy, :show]
   
   if Rails.env.development?  
     mount LetterOpenerWeb::Engine, at: "/letter_opener"  

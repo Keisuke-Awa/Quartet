@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_12_094752) do
+ActiveRecord::Schema.define(version: 2020_12_13_112022) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -35,13 +35,9 @@ ActiveRecord::Schema.define(version: 2020_12_12_094752) do
 
   create_table "appointments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "meeting_id", null: false
-    t.bigint "planning_user_id", null: false
-    t.bigint "approved_user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["approved_user_id"], name: "index_appointments_on_approved_user_id"
     t.index ["meeting_id"], name: "index_appointments_on_meeting_id"
-    t.index ["planning_user_id"], name: "index_appointments_on_planning_user_id"
   end
 
   create_table "meal_type_categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -121,6 +117,15 @@ ActiveRecord::Schema.define(version: 2020_12_12_094752) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "user_appointments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "appointment_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["appointment_id"], name: "index_user_appointments_on_appointment_id"
+    t.index ["user_id"], name: "index_user_appointments_on_user_id"
+  end
+
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -148,8 +153,6 @@ ActiveRecord::Schema.define(version: 2020_12_12_094752) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "appointments", "meetings"
-  add_foreign_key "appointments", "users", column: "approved_user_id"
-  add_foreign_key "appointments", "users", column: "planning_user_id"
   add_foreign_key "meal_type_tag_meetings", "meal_type_tags"
   add_foreign_key "meal_type_tag_meetings", "meetings"
   add_foreign_key "meal_type_tags", "meal_type_categories", column: "category_id"
@@ -162,4 +165,6 @@ ActiveRecord::Schema.define(version: 2020_12_12_094752) do
   add_foreign_key "message_rooms", "appointments"
   add_foreign_key "messages", "message_rooms"
   add_foreign_key "messages", "users"
+  add_foreign_key "user_appointments", "appointments"
+  add_foreign_key "user_appointments", "users"
 end

@@ -24,6 +24,7 @@ class MeetingApplicationsController < ApplicationController
   end
 
   def show
+    @meeting = Meeting.find(params[:meeting_id])
     @meeting_application = MeetingApplication.find(params[:id])
   end
 

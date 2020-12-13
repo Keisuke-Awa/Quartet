@@ -51,6 +51,9 @@ class UsersController < ApplicationController
       @meetings = current_user.meetings.page(params[:page])
     end
 
+    def index_appointment
+      @appointments = current_user.appointments
+    end
   
   private
   

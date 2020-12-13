@@ -29,7 +29,8 @@ class User < ApplicationRecord
   has_many :meeting_applications, foreign_key: "applicant_id", dependent: :destroy
   has_many :applying_meetings, through: :meeting_applications, source: :meeting
 
-  has_many :appointments
+  has_many :user_appointments, dependent: :destroy
+  has_many :appointments, through: :user_appointments
 
   validates :name, presence: true, length: { maximum: 30 }
 
@@ -73,5 +74,15 @@ class User < ApplicationRecord
 
   def applying?(meeting)
     applying_meetings.include?(meeting)
+  end
+
+  def make_appointment(appointment, other_user)
+    appointments << appointment
+    other_user.appointments << appointment
+  end
+
+  def destroy_appointment(meeting, other_user)
+    appointments.find_by(meeting_id: meeting.id).destroy!
+    other_user.appointments.find_by(meeting_id: meeting.id).destroy!
   end
 end

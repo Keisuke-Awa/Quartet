@@ -7,4 +7,7 @@ class Meeting < ApplicationRecord
 
   has_many :meal_type_tag_meetings
   has_many :meal_type_tags, through: :meal_type_tag_meetings
+
+  has_one :appointment
+
 end
