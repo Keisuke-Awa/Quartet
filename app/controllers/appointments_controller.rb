@@ -5,7 +5,7 @@ class AppointmentsController < ApplicationController
     ActiveRecord::Base.transaction do
       @appointment = Appointment.create!(meeting_id: @meeting.id)
       current_user.make_appointment(@appointment, applicant)
-      @meeting.meeting_applications.destroy_all
+      @meeting.meeting_applications.delete_all
     end
     respond_to do |format|
       format.html { redirect_to index_appointment_user_path(current_user) }
