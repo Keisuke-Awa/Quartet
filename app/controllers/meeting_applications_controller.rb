@@ -20,7 +20,7 @@ class MeetingApplicationsController < ApplicationController
 
   def index
     @meeting = Meeting.find(params[:meeting_id])
-    @meeting_applications = @meeting.meeting_applications
+    @meeting_applications = @meeting.meeting_applications.includes([:applicant])
   end
 
   def show
