@@ -1,0 +1,7 @@
+<% unless @meeting.appointment.present? %>
+  <%= form_with(model: current_user.appointments.build, local: true) do |f| %>
+    <%= hidden_field_tag :applicant_id, @meeting_application.applicant_id %>
+    <%= f.hidden_field :meeting_id, value: @meeting.id %>
+    <%= f.submit "承認する", class: "btn btn-success" %>
+  <% end %>
+<% end %>

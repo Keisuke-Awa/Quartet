@@ -17,20 +17,21 @@ Rails.application.routes.draw do
     member do
       get :home
       get :index_meeting
+      get :index_appointment
     end
   end
 
   resources :meetings, only: [:index, :new, :create, :show, :destroy] do
     get :search, on: :collection
-    get :index_meeting_application, on: :member
-    resources :meeting_applications, only: [:create, :destroy]
+    #get :index_meeting_application, on: :member
+    resources :meeting_applications, only: [:create, :destroy, :index, :show]
   end
 
   resources :message_rooms, only: [:index, :show, :create] do
     resources :messages, only: [:create]
   end
 
-  resources :appointments, only: [:create, :destroy, :index, :show]
+  resources :appointments, only: [:create, :destroy, :show]
   
   if Rails.env.development?  
     mount LetterOpenerWeb::Engine, at: "/letter_opener"  

@@ -1,6 +1,7 @@
 class Appointment < ApplicationRecord
   belongs_to :meeting
-  belongs_to :planning_user, class_name: "User", foreign_key: "user_id"
-  belongs_to :approved_user, class_name: "User", foreign_key: "user_id"
-  belongs_to :message_room
+  has_one :message_room
+  
+  has_many :user_appointments, dependent: :destroy
+  has_many :users, through: :user_appointments
 end

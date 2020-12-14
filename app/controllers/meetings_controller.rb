@@ -24,15 +24,15 @@ class MeetingsController < ApplicationController
     # @week = (0..6).to_a.map {|i| (Time.now + i.days).strftime("%m/%d")}
   end
 
-  def index_meeting_application
-    @meeting = Meeting.find(params[:id])
-    @meeting_applications = @meeting.meeting_applications
-  end
+  # def index_meeting_application
+  #   @meeting = Meeting.find(params[:id])
+  #   @meeting_applications = @meeting.meeting_applications
+  # end
 
   private
 
   def meeting_params
-    params.require(:meeting).permit(:place_id, :people, :meet_at).merge(user_id: current_user.id)
+    params.require(:meeting).permit(:place_id, :people, :meet_at).merge(planning_user_id: current_user.id)
   end
 
   def search_params
