@@ -2,8 +2,6 @@
 <%= render 'search_form' %>
 
 <% @meetings.each do |meeting| %>
-  <% unless current_user?(meeting.planning_user) %>
-    <%= render meeting %>
-  <% end %>
+  <%= render meeting %>
 <% end %>
 <%= paginate @meetings, remote: true %>

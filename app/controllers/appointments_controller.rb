@@ -5,6 +5,7 @@ class AppointmentsController < ApplicationController
     ActiveRecord::Base.transaction do
       @appointment = Appointment.create!(meeting_id: @meeting.id)
       current_user.make_appointment(@appointment, applicant)
+      @meeting.update!( appointment_id: @appointment.id )
       @meeting.meeting_applications.delete_all
     end
     respond_to do |format|
