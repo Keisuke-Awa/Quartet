@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_13_112022) do
+ActiveRecord::Schema.define(version: 2020_12_15_091359) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -81,6 +81,8 @@ ActiveRecord::Schema.define(version: 2020_12_13_112022) do
     t.bigint "place_id", null: false
     t.string "detail"
     t.bigint "planning_user_id", null: false
+    t.bigint "appointment_id"
+    t.index ["appointment_id"], name: "index_meetings_on_appointment_id"
     t.index ["place_id"], name: "index_meetings_on_place_id"
     t.index ["planning_user_id"], name: "index_meetings_on_planning_user_id"
   end
@@ -158,6 +160,7 @@ ActiveRecord::Schema.define(version: 2020_12_13_112022) do
   add_foreign_key "meal_type_tags", "meal_type_categories", column: "category_id"
   add_foreign_key "meeting_applications", "meetings"
   add_foreign_key "meeting_applications", "users", column: "applicant_id"
+  add_foreign_key "meetings", "appointments"
   add_foreign_key "meetings", "places"
   add_foreign_key "meetings", "users", column: "planning_user_id"
   add_foreign_key "message_room_users", "message_rooms"
