@@ -48,7 +48,7 @@ class UsersController < ApplicationController
     # end
 
     def index_meeting
-      @meetings = current_user.meetings.page(params[:page])
+      @meetings = current_user.meetings.where(appointment_id: nil).page(params[:page])
     end
 
     def index_appointment
