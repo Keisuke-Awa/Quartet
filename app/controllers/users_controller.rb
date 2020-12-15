@@ -30,30 +30,19 @@ class UsersController < ApplicationController
     flash[:success] = 'ユーザーを削除しました。'
     redirect_to root_url
   end
-  
-    # def index_friend_request
-    #   @requested_users = @user.requested_users.eager_load([:avatar_attachment]).page(params[:page])
-    #   respond_to do |format|
-    #     format.html
-    #     format.js
-    #   end
-    # end
-  
-    # def index_friend
-    #   @friends = @user.friends.eager_load([:avatar_attachment]).page(params[:page])
-    #   respond_to do |format|
-    #     format.html
-    #     format.js
-    #   end
-    # end
 
-    def index_meeting
-      @meetings = current_user.meetings.where(appointment_id: nil).page(params[:page])
-    end
+  def index_meeting
+    @meetings = current_user.meetings.where(appointment_id: nil).page(params[:page])
+  end
 
-    def index_appointment
-      @appointments = current_user.appointments
-    end
+  def index_appointment
+    @appointments = current_user.appointments
+  end
+
+  def show_mypage
+    @user = current_user
+    render layout: 'mypage'
+  end
   
   private
   
