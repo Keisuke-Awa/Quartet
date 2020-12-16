@@ -14,7 +14,7 @@ pref = ["北海道","青森県","岩手県","宮城県","秋田県","山形県",
   "徳島県","香川県","愛媛県","高知県","福岡県","佐賀県","長崎県",
   "熊本県","大分県","宮崎県","鹿児島県","沖縄県"]
 
-pref.each { |p| Prefecture.create!(prefecture_name: p)}
+pref.each { |p| PrefectureMst.create!(prefecture_name: p)}
 
 
 300.times do |n|
