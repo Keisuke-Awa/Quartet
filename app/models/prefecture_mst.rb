@@ -1,0 +1,2 @@
+class PrefectureMst < ApplicationRecord
+end
