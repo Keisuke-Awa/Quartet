@@ -16,25 +16,31 @@ pref = ["北海道","青森県","岩手県","宮城県","秋田県","山形県",
 
 pref.each { |p| PrefectureMst.create!(prefecture_name: p)}
 
+def rand_time(from, to)
+  Time.at(rand_in_range(from.to_f, to.to_f))
+end
 
 300.times do |n|
   name = Faker::Name.name
   email = "rails#{n+1}@sample.com"
   password = "password"
-  User.create!(name: name, email: email, password: password)
+  birth_date = Faker::Date.birthday(min_age: 20, max_age: 40)
+  if n < 150
+    sex = '1'
+  else
+    sex = '2'
+  end
+  User.create!(name: name, email: email, password: password, birth_date: birth_date, sex: sex, residence_id: 13)
 end
 
-Place.create!(name: "新宿")
-Place.create!(name: "池袋")
-Place.create!(name: "渋谷")
+Place.create!(name: "新宿", prefecture_id: 13)
+Place.create!(name: "池袋", prefecture_id: 13) 
+Place.create!(name: "渋谷", prefecture_id: 13)
 
 def rand_in_range(from, to)
   rand * (to - from) + from
 end
 
-def rand_time(from, to)
-  Time.at(rand_in_range(from.to_f, to.to_f))
-end
 
 300.times do |n|
   detail = Faker::Lorem.sentence

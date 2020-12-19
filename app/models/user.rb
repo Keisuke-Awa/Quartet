@@ -32,6 +32,8 @@ class User < ApplicationRecord
   has_many :user_appointments, dependent: :destroy
   has_many :appointments, through: :user_appointments
 
+  belongs_to :residence, class_name: 'PrefectureMst'
+
   validates :name, presence: true, length: { maximum: 30 }
 
   # def request_friendship(other_user)
