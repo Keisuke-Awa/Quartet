@@ -26,11 +26,11 @@
             </li>
           <% else %>
             <li class="nav-item">
-              <%= link_to('ログイン', new_user_session_path, class: "nav-link") %>
+              <%= link_to('ログイン', new_user_session_path, class: "nav-link btn btn-dark") %>
             </li>
-            <li class="nav-item ml-3">
-              <%= link_to('新規登録', new_user_registration_path, class: "nav-link btn btn-dark text-white") %>
-            </li>
+            <%# <li class="nav-item ml-3">
+              <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#signupAuthModal">新規登録</button>
+            </li> %>
           <% end %>
         </ul>
       </div>

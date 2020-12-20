@@ -1,0 +1,6 @@
+<h5>届いた6桁の認証コードを入力してください</h5>
+ <%= form_with( url: sms_identifications_check_code_path, local: true) do |f| %>
+    <%= f.number_field :auth_code %>
+    <%= f.submit '送信', class: 'btn btn-success' %>
+  <% end %>
+

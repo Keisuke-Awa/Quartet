@@ -1,0 +1,49 @@
+  <div class="modal fade" id="signupAuthModal" tabindex="-1" role="dialog" aria-labelledby="signupAuthModal">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">新規登録</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="閉じる">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <button type="button" class="btn btn-success">facebook認証</button>
+            <%= link_to('電話番号認証', sms_identifications_input_code_path, class: 'btn btn-success') %>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <%# <%= render 'sms_identifications/new' %>
+
+   <script>
+    // $("#smsFormModalButton").click( function() {
+    //      $('#signupAuthModal').modal('hide');
+    // })
+
+    // phoneNumberForm = `<div class="modal-content">
+    //     <%= form_with( url: sms_identifications_send_code_path) do |f| %>
+    //     <div class="modal-header">
+    //       <h5 class="modal-title">電話番号認証</h5>
+    //       <button type="button" class="close" data-dismiss="modal" aria-label="閉じる">
+    //         <span aria-hidden="true">&times;</span>
+    //       </button>
+    //     </div>
+    //     <div class="modal-body">
+    //       <%= f.telephone_field :phone_number %>
+    //     </div>
+    //     <div class="modal-footer">
+    //       <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+    //       <%= f.submit '送信', class: 'btn btn-success' %>
+    //     </div>
+    //     <% end %>
+    //   </div>`
+
+    // $("#smsFormModalButton").click( function() {
+    //   $('.modal-content').replaceWith(phoneNumberForm);
+    // })
+  </script>

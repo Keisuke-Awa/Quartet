@@ -8,7 +8,6 @@ Rails.application.routes.draw do
     :sessions => 'users/sessions'
   } 
 
-
   resources :users, only: [:show, :destroy] do
     member do
       get :home
@@ -17,6 +16,8 @@ Rails.application.routes.draw do
       get :show_mypage
     end
   end
+
+
 
   resources :meetings, only: [:index, :new, :create, :show, :destroy] do
     get :search, on: :collection
@@ -30,6 +31,10 @@ Rails.application.routes.draw do
 
   resources :appointments, only: [:create, :destroy, :show, :index]
   
+  post 'sms_identifications/send_code'
+  post 'sms_identifications/check_code'
+  get 'sms_identifications/input_code'
+
   if Rails.env.development?  
     mount LetterOpenerWeb::Engine, at: "/letter_opener"  
   end

@@ -178,6 +178,10 @@ GEM
       omniauth-oauth (~> 1.1)
       rack
     orm_adapter (0.5.0)
+    phony (2.18.18)
+    phony_rails (0.14.13)
+      activesupport (>= 3.0)
+      phony (> 2.15)
     polyamorous (2.3.2)
       activerecord (>= 5.2.1)
     popper_js (1.16.0)
@@ -261,6 +265,10 @@ GEM
     turbolinks (5.2.1)
       turbolinks-source (~> 5.2)
     turbolinks-source (5.2.0)
+    twilio-ruby (5.45.1)
+      faraday (>= 0.9, < 2.0)
+      jwt (>= 1.5, <= 2.5)
+      nokogiri (>= 1.6, < 2.0)
     tzinfo (1.2.8)
       thread_safe (~> 0.1)
     uniform_notifier (1.13.0)
@@ -304,6 +312,7 @@ DEPENDENCIES
   omniauth-facebook
   omniauth-google-oauth2
   omniauth-twitter
+  phony_rails
   puma (~> 4.1)
   rails (~> 6.0.3, >= 6.0.3.4)
   rails-i18n
@@ -312,6 +321,7 @@ DEPENDENCIES
   spring
   spring-watcher-listen (~> 2.0.0)
   turbolinks (~> 5)
+  twilio-ruby
   tzinfo-data
   web-console (>= 3.3.0)
   webpacker (~> 4.0)
