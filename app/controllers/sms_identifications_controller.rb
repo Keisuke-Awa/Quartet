@@ -19,7 +19,7 @@ class SmsIdentificationsController < ApplicationController
       render template: 'sms_identifications/send_code'
     rescue Twilio::Rest::RestError => e
       @messages = "エラーコード[#{e.code}] ：” #{e.message}”"
-      render template: 'home/top'
+      redirect_to root_path
     end
   end
 
@@ -31,6 +31,8 @@ class SmsIdentificationsController < ApplicationController
     end
 
     if session[:auth_code] == params[:auth_code]
+      session[:authenticated_code] = params[:auth_code]
+      session[:auth_code].clear
       redirect_to new_user_registration_path
     else
       @messages = '認証番号が一致しません'
