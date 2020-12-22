@@ -7,8 +7,7 @@ class ApplicationController < ActionController::Base
 
   def configure_permitted_parameters
     #deviseのpermitted_parameterを追加する
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:name])
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:avatar])
+    devise_parameter_sanitizer.permit(:sign_up, keys: %i(name avatar sex birth_date residence_id))
     devise_parameter_sanitizer.permit(:account_update, keys: [:name])
     devise_parameter_sanitizer.permit(:account_update, keys: [:avatar] )
   end
