@@ -2,13 +2,15 @@
 
 class Users::RegistrationsController < Devise::RegistrationsController
   layout 'mypage', only: :edit
-  # before_action :configure_sign_up_params, only: [:create]
+  # before_action :authenticate_phone_number?, only: :new
+  before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
 
   # GET /resource/sign_up
-  # def new
-  #   super
-  # end
+  def new
+    @places = Place.all
+    super
+  end
 
   # POST /resource
   # def create
@@ -45,9 +47,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # protected
 
   # If you have extra params to permit, append them to the sanitizer.
-  # def configure_sign_up_params
-  #   devise_parameter_sanitizer.permit(:sign_up, keys: [:attribute])
-  # end
+  def configure_sign_up_params
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:attribute])
+  end
 
   # If you have extra params to permit, append them to the sanitizer.
   # def configure_account_update_params
@@ -63,4 +65,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # def after_inactive_sign_up_path_for(resource)
   #   super(resource)
   # end
+
+  def  authenticate_phone_number?
+    redirect_to root_path unless session[:authenticated_code].present?
+  end
 end

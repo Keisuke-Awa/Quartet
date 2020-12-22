@@ -4,7 +4,9 @@
 <% if user_signed_in? %>
   <%= link_to('探す', home_user_path(current_user.id), class: "btn btn-lg btn-outline-success") %>
 <% else %>
-  <%= link_to('さっそく始める', new_user_registration_path, class: "btn btn-lg btn-outline-success") %>
+  <button type="button" class="btn btn-outline-success" data-toggle="modal" 
+                                          data-target="#signupAuthModal">さっそく始める</button>
 <% end %>
+ <%= render "users/registrations/auth_select_modal" %>
 </div>
 
