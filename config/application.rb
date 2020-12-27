@@ -1,6 +1,6 @@
 require_relative 'boot'
 
-require "rails"
+require "rails/all"
 # Pick the frameworks you want:
 require "active_model/railtie"
 require "active_job/railtie"
@@ -32,7 +32,12 @@ module Quartet
     # Don't generate system test files.
     config.generators.system_tests = nil
 
+    config.time_zone = 'Tokyo'
+    config.active_record.default_timezone = :local
+
     config.i18n.available_locales = %i[ja en]
     config.i18n.default_locale = :ja
+
+    config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
   end
 end
