@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_21_104208) do
+ActiveRecord::Schema.define(version: 2020_12_26_082625) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -127,6 +127,15 @@ ActiveRecord::Schema.define(version: 2020_12_21_104208) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "sns_credentials", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "uid"
+    t.string "provider"
+    t.bigint "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_sns_credentials_on_user_id"
+  end
+
   create_table "user_appointments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "appointment_id", null: false
@@ -181,6 +190,7 @@ ActiveRecord::Schema.define(version: 2020_12_21_104208) do
   add_foreign_key "message_rooms", "appointments"
   add_foreign_key "messages", "message_rooms"
   add_foreign_key "messages", "users"
+  add_foreign_key "sns_credentials", "users"
   add_foreign_key "user_appointments", "appointments"
   add_foreign_key "user_appointments", "users"
   add_foreign_key "users", "prefecture_msts", column: "residence_id"

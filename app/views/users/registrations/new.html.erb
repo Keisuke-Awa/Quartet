@@ -10,7 +10,7 @@
 
   <div class="field">
     <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    <%= f.email_field :email, autofocus: true, autocomplete: "email", id: 'emailField' %>
   </div>
 
   <div class="field">
@@ -50,3 +50,13 @@
 <% end %>
 
 <%= render "users/shared/links" %>
+
+<script>
+  window.onload = function() {
+    const emailField = document.getElementById("emailField");
+    console.log(emailField);
+    if (emailField.value !== "") {
+      emailField.readOnly = true;
+    }
+  }
+</script>
