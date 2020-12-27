@@ -3,9 +3,10 @@ Rails.application.routes.draw do
   root 'homes#top'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
-  devise_for :users, :controllers => {
-    :registrations => 'users/registrations',
-    :sessions => 'users/sessions'
+  devise_for :users, controllers: {
+    registrations: 'users/registrations',
+    sessions: 'users/sessions',
+    omniauth_callbacks: 'users/omniauth_callbacks'
   } 
 
   resources :users, only: [:show, :destroy] do
