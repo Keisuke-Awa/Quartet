@@ -26,6 +26,10 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     callback_from :facebook
   end
 
+  def failure
+    redirect_to root_url, alert: "Authentication failed."
+  end
+
   protected
 
   # The path used when OmniAuth fails
@@ -45,6 +49,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       render template: "users/registrations/new" 
     end
   end
+
 
   # def callback_from(provider)
   #   provider = provider.to_s

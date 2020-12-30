@@ -99,6 +99,9 @@ class User < ApplicationRecord
         user_id: user.id
       )
     else
+      # if auth.extra.raw_info.birthday
+      #   birth_date = Date.strptime(auth.extra.raw_info.birthday, '%m/%d/%Y')
+      # end
       user = User.new(
         email: auth.info.email
       )
@@ -113,6 +116,9 @@ class User < ApplicationRecord
   def self.sign_in_by_sns_credential(auth, sns_credential)
     user = User.where(id: sns_credential.user_id).first
     unless user.present?
+      # if auth.extra.raw_info.birthday
+      #   birth_date = Date.strptime(auth.extra.raw_info.birthday, '%m/%d/%Y')
+      # end
       user = User.new(
         email: auth.info.email
       )

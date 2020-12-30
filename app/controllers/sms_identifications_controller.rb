@@ -31,8 +31,6 @@ class SmsIdentificationsController < ApplicationController
     end
 
     if session[:auth_code] == params[:auth_code]
-      session[:authenticated_code] = params[:auth_code]
-      session[:auth_code].clear
       redirect_to new_user_registration_path
     else
       @messages = '認証番号が一致しません'

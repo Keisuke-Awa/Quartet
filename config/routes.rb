@@ -40,8 +40,11 @@ Rails.application.routes.draw do
 
   end
 
-  devise_for :users, only: :omniauth_callbacks, controllers: {omniauth_callbacks: 'users/omniauth_callbacks'}
+  devise_for :users, only: :omniauth_callbacks, controllers: {
+    omniauth_callbacks: 'users/omniauth_callbacks'
+  }
   get '/:locale' => 'homes#top'
+  # match 'users/auth/failure' => 'users/omniauth_callbacks#failure', via: [:get, :post]
 
   if Rails.env.development?  
     mount LetterOpenerWeb::Engine, at: "/letter_opener"  

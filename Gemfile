@@ -48,6 +48,7 @@ gem 'ransack'
 gem 'twilio-ruby'
 gem 'phony_rails'
 gem 'dotenv-rails'
+gem 'koala'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
