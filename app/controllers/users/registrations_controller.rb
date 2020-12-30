@@ -2,20 +2,21 @@
 
 class Users::RegistrationsController < Devise::RegistrationsController
   layout 'mypage', only: :edit
-  # before_action :authenticate_phone_number?, only: :new
+  before_action :authenticated?, only: [:new]
   before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
 
   # GET /resource/sign_up
   def new
     @places = Place.all
+    session[:auth_code].clear
     super
   end
 
   # POST /resource
-  # def create
-  #   super
-  # end
+  def create
+    super
+  end
 
   # GET /resource/edit
   # def edit
@@ -66,7 +67,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   #   super(resource)
   # end
 
-  def  authenticate_phone_number?
-    redirect_to root_path unless session[:authenticated_code].present?
+  def authenticated?
+    redirect_to root_path unless session[:auth_code].present?
   end
 end
