@@ -1,0 +1,16 @@
+<div id='pagenate'>
+  <div>作成したプラン一覧</div>
+  <% if @meetings.any? %>
+    <div><%= current_user.meetings.count %>件のプランがあります</div>
+    <ul>
+      <% @meetings.each do |meeting| %>
+      <li id='meeting-<%= meeting.id %>'>
+        <%= link_to(meeting.meet_at.strftime("%Y/%m/%d(%a) %H:%M"), meeting_meeting_applications_path(meeting), class: 'list-action') %>
+      </li>
+      <% end %>
+    </ul>
+    <%= paginate @meetings, remote: true %>
+  <% else %>
+    <div>募集中のプランはありません</div>  
+  <% end %>
+</div>

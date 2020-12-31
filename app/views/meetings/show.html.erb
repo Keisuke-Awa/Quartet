@@ -1,2 +1,9 @@
-<h1>Meetings#show</h1>
-<p>Find me in app/views/meetings/show.html.erb</p>
+<div>
+  <%= @meeting.planning_user.name %>
+  <%= @meeting.place.name %>
+</div>
+<% unless current_user?(@meeting.planning_user) %>
+  <div id="meeting_application_form">
+    <%= render "meeting_application_form" %>
+  </div>
+<% end %>

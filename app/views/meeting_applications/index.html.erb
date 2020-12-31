@@ -1,0 +1,7 @@
+<h4><%= @meeting.meet_at.strftime("%Y/%m/%d(%a) %H:%M") + @meeting.place.name %>の申請一覧</h4>
+
+<% if @meeting_applications.any? %>
+  <% @meeting_applications.each do |ma| %>
+    <%= link_to( ma.applicant.name, meeting_meeting_application_path(@meeting, ma) ) %>
+  <% end %>
+<% end %>

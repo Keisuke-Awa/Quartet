@@ -1,0 +1,13 @@
+<div>
+  <% if current_user.applying?(@meeting) %>
+    <%= form_with(model: [@meeting, current_user.meeting_applications.find_by(meeting_id: @meeting.id)],
+                        html: { method: :delete }, remote: true) do |f| %>
+      <%= f.submit "キャンセル", class: "btn btn-success" %>
+    <% end %>
+  <% else %>
+    <button type="button" class="btn btn-success mb-12" data-toggle="modal" data-target="#meetingApplicationModal">申請する</button>
+    
+  <% end %>
+</div>
+
+<%= render "meeting_applications/new" %>

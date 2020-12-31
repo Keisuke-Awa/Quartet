@@ -45,6 +45,10 @@ gem 'letter_opener_web'
 gem 'faker', '2.1.2'
 gem 'mini_magick'
 gem 'ransack'
+gem 'twilio-ruby'
+gem 'phony_rails'
+gem 'dotenv-rails'
+gem 'koala'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
