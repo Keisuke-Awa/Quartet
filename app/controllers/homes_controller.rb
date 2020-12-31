@@ -5,5 +5,6 @@ class HomesController < ApplicationController
     if user_signed_in?
       redirect_to home_user_path(current_user.id)
     end
+    render layout: 'top'
   end
 end
