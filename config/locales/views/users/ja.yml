@@ -1,4 +1,7 @@
 ja:
   users:
+    content:
+      sidebar_content:
+        search_meeting: '探す'
     home:
       title: 'おはよう'
