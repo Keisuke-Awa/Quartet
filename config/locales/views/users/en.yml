@@ -1,4 +1,7 @@
 en:
   users:
+    content:
+      sidebar_content:
+        search_meeting: 'Search'
     home:
       title: 'Hello'
