@@ -10,22 +10,7 @@
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
-    <body>
-    <%= render 'layouts/nav' %>
-    <div class="container-fluid">
-      <p class="notice"><%= notice %></p>
-      <p class="alert"><%= alert %></p>
-      <div class="row">
-        <div class="sidebar-content col-3">
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item">
-              <%= link_to('プロフィール編集', edit_user_registration_path, class: 'list-action') %>
-            </li>
-        </div>
-        <div class="main-content col-9">
-          <%= yield %>
-        </div>
-      </div>
-    </div>
+  <body>
+    <%= yield %>
   </body>
 </html>
