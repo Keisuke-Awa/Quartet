@@ -46,7 +46,6 @@ Rails.application.routes.draw do
     omniauth_callbacks: 'users/omniauth_callbacks'
   }
   get '/:locale' => 'homes#top'
-  # match 'users/auth/failure' => 'users/omniauth_callbacks#failure', via: [:get, :post]
 
   if Rails.env.development?  
     mount LetterOpenerWeb::Engine, at: "/letter_opener"  

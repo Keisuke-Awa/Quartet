@@ -1,0 +1,19 @@
+<h2>プロフィール登録</h2>
+
+<%= form_with(model: @user_profile, local: true) do |f| %>
+  <div class="form-group">
+    <%= f.label :place, "開催場所:", class: "mt-4" %>
+    <%= f.collection_select :place_id, @places, :id, :name, class: "form-control mb-4" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :people, "参加人数:", class: "mt-4" %>
+    <%= f.number_field :people, min: 2, max: 10, class: "mb-4" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :meet_at, "開催日時:", class: "mt-4"%>
+    <%= f.datetime_field	:meet_at, class: "mb-4" %>
+  </div>
+  <div class="form-group">
+    <%= f.submit "プラン作成", class: "btn btn-success" %>
+  </div>
+<% end %>

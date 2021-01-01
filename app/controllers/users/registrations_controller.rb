@@ -22,10 +22,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
     yield resource if block_given?
     if resource.persisted?
+      session[:phone_number].clear if session[:phone_number].present?
       if resource.active_for_authentication?
         set_flash_message! :notice, :signed_up
         sign_up(resource_name, resource)
-        session[:phone_number].clear if session[:phone_number].present?
         respond_with resource, location: after_sign_up_path_for(resource)
       else
         set_flash_message! :notice, :"signed_up_but_#{resource.inactive_message}"
@@ -84,9 +84,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   # The path used after sign up for inactive accounts.
-  # def after_inactive_sign_up_path_for(resource)
-  #   super(resource)
-  # end
+  def after_inactive_sign_up_path_for(resource)
+    new_user_user_profile_path(resource)
+  end
 
   def authenticated?
     redirect_to root_path unless session[:auth_code].present?
