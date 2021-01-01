@@ -18,6 +18,8 @@ Rails.application.routes.draw do
         get :index_appointment
         get :show_mypage
       end
+
+      resource :user_profile, only: %i(new edit update show)
     end
 
 

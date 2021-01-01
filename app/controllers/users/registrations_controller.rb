@@ -9,13 +9,34 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # GET /resource/sign_up
   def new
     @places = Place.all
-    session[:auth_code].clear
     super
   end
 
   # POST /resource
   def create
-    super
+    build_resource(sign_up_params.merge(phone_number: session[:phone_number]))
+    ActiveRecord::Base.transaction do
+      resource.save
+      UserProfile.create!(user_id: resource.id)
+    end
+
+    yield resource if block_given?
+    if resource.persisted?
+      if resource.active_for_authentication?
+        set_flash_message! :notice, :signed_up
+        sign_up(resource_name, resource)
+        session[:phone_number].clear if session[:phone_number].present?
+        respond_with resource, location: after_sign_up_path_for(resource)
+      else
+        set_flash_message! :notice, :"signed_up_but_#{resource.inactive_message}"
+        expire_data_after_sign_in!
+        respond_with resource, location: after_inactive_sign_up_path_for(resource)
+      end
+    else
+      clean_up_passwords resource
+      set_minimum_password_length
+      respond_with resource
+    end
   end
 
   # GET /resource/edit
@@ -58,9 +79,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # The path used after sign up.
-  # def after_sign_up_path_for(resource)
-  #   super(resource)
-  # end
+  def after_sign_up_path_for(resource)
+    new_user_user_profile_path(resource)
+  end
 
   # The path used after sign up for inactive accounts.
   # def after_inactive_sign_up_path_for(resource)
@@ -69,5 +90,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def authenticated?
     redirect_to root_path unless session[:auth_code].present?
+    session[:auth_code] = nil
   end
 end
