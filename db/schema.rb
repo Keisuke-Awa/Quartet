@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_01_153133) do
+ActiveRecord::Schema.define(version: 2021_01_03_081112) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -37,6 +37,8 @@ ActiveRecord::Schema.define(version: 2021_01_01_153133) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "income_range"
+    t.integer "amount_or_more"
+    t.integer "less_than_amount"
   end
 
   create_table "appointments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -171,8 +173,8 @@ ActiveRecord::Schema.define(version: 2021_01_01_153133) do
   end
 
   create_table "user_profiles", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "height"
-    t.string "weight"
+    t.integer "height"
+    t.integer "weight"
     t.string "blood_type"
     t.bigint "birthplace_id"
     t.bigint "occupation_id"

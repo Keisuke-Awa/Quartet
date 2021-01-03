@@ -19,7 +19,7 @@ Rails.application.routes.draw do
         get :show_mypage
       end
 
-      resource :user_profile, only: %i(new edit update show)
+      resource :user_profile, only: %i(new edit update show create)
     end
 
 
