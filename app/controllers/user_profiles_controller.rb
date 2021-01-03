@@ -2,6 +2,7 @@ class UserProfilesController < ApplicationController
   before_action :initialize_form_option, only: :new
 
   def new
+    @user_profile = current_user.user_profile
   end
 
   def update
