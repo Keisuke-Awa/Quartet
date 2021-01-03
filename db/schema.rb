@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_30_065708) do
+ActiveRecord::Schema.define(version: 2021_01_03_081112) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -33,11 +33,25 @@ ActiveRecord::Schema.define(version: 2020_12_30_065708) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
+  create_table "annual_income_msts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "income_range"
+    t.integer "amount_or_more"
+    t.integer "less_than_amount"
+  end
+
   create_table "appointments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "meeting_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["meeting_id"], name: "index_appointments_on_meeting_id"
+  end
+
+  create_table "educational_bg_msts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "ebg_name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "meal_type_categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -114,6 +128,12 @@ ActiveRecord::Schema.define(version: 2020_12_30_065708) do
     t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
+  create_table "occupation_msts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "occupation_name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "places", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -128,10 +148,16 @@ ActiveRecord::Schema.define(version: 2020_12_30_065708) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "smoking_msts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "smoking_status"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "sns_credentials", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "uid"
     t.string "provider"
-    t.bigint "user_id"
+    t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_sns_credentials_on_user_id"
@@ -144,6 +170,26 @@ ActiveRecord::Schema.define(version: 2020_12_30_065708) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["appointment_id"], name: "index_user_appointments_on_appointment_id"
     t.index ["user_id"], name: "index_user_appointments_on_user_id"
+  end
+
+  create_table "user_profiles", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.integer "height"
+    t.integer "weight"
+    t.string "blood_type"
+    t.bigint "birthplace_id"
+    t.bigint "occupation_id"
+    t.bigint "educational_bg_id"
+    t.bigint "annual_income_id"
+    t.bigint "smoking_status_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id", null: false
+    t.index ["annual_income_id"], name: "index_user_profiles_on_annual_income_id"
+    t.index ["birthplace_id"], name: "index_user_profiles_on_birthplace_id"
+    t.index ["educational_bg_id"], name: "index_user_profiles_on_educational_bg_id"
+    t.index ["occupation_id"], name: "index_user_profiles_on_occupation_id"
+    t.index ["smoking_status_id"], name: "index_user_profiles_on_smoking_status_id"
+    t.index ["user_id"], name: "index_user_profiles_on_user_id"
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -172,6 +218,7 @@ ActiveRecord::Schema.define(version: 2020_12_30_065708) do
     t.bigint "residence_id", null: false
     t.string "phone_number"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["phone_number"], name: "index_users_on_phone_number", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["residence_id"], name: "index_users_on_residence_id"
   end
@@ -194,5 +241,11 @@ ActiveRecord::Schema.define(version: 2020_12_30_065708) do
   add_foreign_key "sns_credentials", "users"
   add_foreign_key "user_appointments", "appointments"
   add_foreign_key "user_appointments", "users"
+  add_foreign_key "user_profiles", "annual_income_msts", column: "annual_income_id"
+  add_foreign_key "user_profiles", "educational_bg_msts", column: "educational_bg_id"
+  add_foreign_key "user_profiles", "occupation_msts", column: "occupation_id"
+  add_foreign_key "user_profiles", "prefecture_msts", column: "birthplace_id"
+  add_foreign_key "user_profiles", "smoking_msts", column: "smoking_status_id"
+  add_foreign_key "user_profiles", "users"
   add_foreign_key "users", "prefecture_msts", column: "residence_id"
 end

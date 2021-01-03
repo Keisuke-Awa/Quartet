@@ -18,6 +18,8 @@ Rails.application.routes.draw do
         get :index_appointment
         get :show_mypage
       end
+
+      resource :user_profile, only: %i(new edit update show create)
     end
 
 
@@ -44,7 +46,6 @@ Rails.application.routes.draw do
     omniauth_callbacks: 'users/omniauth_callbacks'
   }
   get '/:locale' => 'homes#top'
-  # match 'users/auth/failure' => 'users/omniauth_callbacks#failure', via: [:get, :post]
 
   if Rails.env.development?  
     mount LetterOpenerWeb::Engine, at: "/letter_opener"  

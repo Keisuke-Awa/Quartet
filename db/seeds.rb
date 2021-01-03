@@ -14,7 +14,24 @@ pref = ["北海道","青森県","岩手県","宮城県","秋田県","山形県",
   "徳島県","香川県","愛媛県","高知県","福岡県","佐賀県","長崎県",
   "熊本県","大分県","宮崎県","鹿児島県","沖縄県"]
 
+occupation = ['上場企業', '金融', '公務員', 'コンサル', '経営者・役員']
+
+educational_bg = ['高校卒', '短大/専門学校/大学院卒', '大学卒', '大学院卒', 'その他']
+
+annual_income = [['200万円未満', nil, 200], ['200万円以上〜400万円未満', 200, 400],
+  ['400万円以上〜600万円未満', 400, 600], ['600万円以上〜800万円未満', 600, 800],
+  ['800万円以上〜1000万円未満', 800, 1000], ['1000万円以上〜1500万円未満', 1000, 1500], 
+  ['1500万円以上〜2000万円未満', 1500, 2000], ['2000万円以上〜3000万円未満', 2000, 3000], ['3000万円以上', 3000, nil]]
+
+smoking_status = ['吸わない', '吸う', '吸う（電子タバコ）', '時々吸う', '非喫煙者の前では吸わない']
+
 pref.each { |p| PrefectureMst.create!(prefecture_name: p)}
+occupation.each { |op| OccupationMst.create!(occupation_name: op)}
+educational_bg.each { |eb| EducationalBgMst.create!(ebg_name: eb)}
+annual_income.each { |ai| AnnualIncomeMst.create!(income_range: ai[0], amount_or_more: ai[1], less_than_amount: ai[2])}
+smoking_status.each { |st| SmokingMst.create!(smoking_status: st)}
+
+
 
 def rand_time(from, to)
   Time.at(rand_in_range(from.to_f, to.to_f))

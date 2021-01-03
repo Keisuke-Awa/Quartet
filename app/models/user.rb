@@ -35,6 +35,8 @@ class User < ApplicationRecord
 
   has_one :sns_credential, dependent: :destroy
 
+  has_one :user_profile, dependent: :destroy
+
   validates :name, presence: true, length: { maximum: 30 }
   # validates :email, presence: true, email: true
 
