@@ -1,11 +1,10 @@
 <nav class="navbar navbar-expand-md sticky-top pt-4">
     <!-- サブコーポネント -->
     <div class="container-fluid">
-      <%= image_tag '4CCE2EBB-B520-46FA-B6D5-6E00CEAA2F26.jpeg', width: "50", alt: "icon", class: "img-fluid" %>
       <% if user_signed_in? %>
-        <%= link_to 'Quartet', home_user_path(current_user.id), class: "navbar-brand pl-2 pt-1" %>
+        <%= link_to image_tag('logo-nav.jpeg', width: "300", alt: "icon", class: "img-fluid"), home_user_path(current_user.id), class: "navbar-brand pl-2 pt-1" %>
       <% else %>
-        <%= link_to 'Quartet', root_path, class: "navbar-brand pl-2 pt-1" %>
+        <%= link_to image_tag('logo-nav.jpeg', width: "300", alt: "icon", class: "img-fluid"), root_path, class: "navbar-brand pl-2 pt-1" %>
       <% end %>
       <!--<button class="navbar-toggler" type="button" data-toggle="collapse"
         data-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false"
