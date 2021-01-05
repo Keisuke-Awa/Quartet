@@ -10,4 +10,6 @@ class Meeting < ApplicationRecord
 
   belongs_to :appointment, optional: true
 
+  acts_as_taggable
+
 end
