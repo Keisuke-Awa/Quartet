@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_04_232937) do
+ActiveRecord::Schema.define(version: 2021_01_05_233111) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -52,29 +52,6 @@ ActiveRecord::Schema.define(version: 2021_01_04_232937) do
     t.string "ebg_name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "meal_type_categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "name", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "meal_type_tag_meetings", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.bigint "meeting_id", null: false
-    t.bigint "meal_type_tag_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["meal_type_tag_id"], name: "index_meal_type_tag_meetings_on_meal_type_tag_id"
-    t.index ["meeting_id"], name: "index_meal_type_tag_meetings_on_meeting_id"
-  end
-
-  create_table "meal_type_tags", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "name", null: false
-    t.bigint "category_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["category_id"], name: "index_meal_type_tags_on_category_id"
   end
 
   create_table "meeting_applications", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -163,6 +140,12 @@ ActiveRecord::Schema.define(version: 2021_01_04_232937) do
     t.index ["user_id"], name: "index_sns_credentials_on_user_id"
   end
 
+  create_table "tag_categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "category_name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "taggings", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "tag_id"
     t.string "taggable_type"
@@ -187,6 +170,8 @@ ActiveRecord::Schema.define(version: 2021_01_04_232937) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer "taggings_count", default: 0
+    t.string "ancestry"
+    t.index ["ancestry"], name: "index_tags_on_ancestry"
     t.index ["name"], name: "index_tags_on_name", unique: true
   end
 
@@ -252,9 +237,6 @@ ActiveRecord::Schema.define(version: 2021_01_04_232937) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "appointments", "meetings"
-  add_foreign_key "meal_type_tag_meetings", "meal_type_tags"
-  add_foreign_key "meal_type_tag_meetings", "meetings"
-  add_foreign_key "meal_type_tags", "meal_type_categories", column: "category_id"
   add_foreign_key "meeting_applications", "meetings"
   add_foreign_key "meeting_applications", "users", column: "applicant_id"
   add_foreign_key "meetings", "appointments"
