@@ -33,7 +33,7 @@ class MeetingsController < ApplicationController
   private
 
   def meeting_params
-    params.require(:meeting).permit(:place_id, :people, :meet_at).merge(planning_user_id: current_user.id)
+    params.require(:meeting).permit(:place_id, :people, :meet_at, :tag_list).merge(planning_user_id: current_user.id)
   end
 
   def search_params

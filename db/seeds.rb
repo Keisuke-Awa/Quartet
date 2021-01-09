@@ -68,16 +68,22 @@ end
   Meeting.create!(detail: detail, meet_at: meet_at, people: people, place_id: place_id, planning_user_id: user.id)
 end
 
-# cmeal = MealTypeCategory.create!(name: "料理")
-# catmosphere = MealTypeCategory.create!(name: "雰囲気")
-# cother = MealTypeCategory.create!(name: "その他")
+cmeal = TagCategory.create!(category_name: "料理")
+catmosphere = TagCategory.create!(category_name: "雰囲気")
+cother = TagCategory.create!(category_name: "その他")
 
-# MealTypeTag.create!(name: "中華料理", category_id: cmeal.id)
-# MealTypeTag.create!(name: "和食", category_id: cmeal.id)
-# MealTypeTag.create!(name: "イタリアン", category_id: cmeal.id)
+tag1 = Tag.create!(name: "辛いもの", tag_category_id: cmeal.id)
+tag1.children.create!(name: "麻婆豆腐", tag_category_id: tag1.tag_category_id)
+tag1.children.create!(name: "エビチリ", tag_category_id: tag1.tag_category_id)
+tag2 = Tag.create!(name: "肉料理", tag_category_id: cmeal.id)
+tag2.children.create!(name: "焼肉", tag_category_id: tag2.tag_category_id)
+tag2.children.create!(name: "サムギョプサル", tag_category_id: tag2.tag_category_id)
+tag2_1 = tag2.children.create!(name: "鳥料理", tag_category_id: tag2.tag_category_id)
+tag2_1.children.create!(name: "焼き鳥", tag_category_id: tag2.tag_category_id)
 
-# MealTypeTag.create!(name: "にぎやか", category_id: catmosphere.id)
-# MealTypeTag.create!(name: "落ち着いた", category_id: catmosphere.id)
-# MealTypeTag.create!(name: "夜景がきれい", category_id: catmosphere.id)
 
-# MealTypeTag.create!(name: "お任せします", category_id: cother.id)
+Tag.create!(name: "にぎやか", tag_category_id: catmosphere.id)
+Tag.create!(name: "落ち着いた", tag_category_id: catmosphere.id)
+Tag.create!(name: "夜景がきれい", tag_category_id: catmosphere.id)
+
+Tag.create!(name: "お任せします", tag_category_id: cother.id)
