@@ -3,6 +3,7 @@ class MeetingsController < ApplicationController
   def new
     @meeting = Meeting.new
     @places = Place.all
+    @tag_category = TagCategory.all.includes([:tags])
   end
 
   def show
@@ -39,4 +40,5 @@ class MeetingsController < ApplicationController
   def search_params
     params.require(:q).permit(:meet_at_gteq, :meet_at_lteq, :place_id_eq, :people_eq)
   end
+
 end
