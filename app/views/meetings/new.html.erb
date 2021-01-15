@@ -2,23 +2,55 @@
   <!-- <div class="form-group">
     <%= f.hidden_field :user_id, value: current_user.id, class: "form-control" %>
   </div> -->
-  <div class="form-group">
-    <%= f.label :place, "開催場所:", class: "mt-4" %>
-    <%= f.collection_select :place_id, @places, :id, :name, class: "form-control mb-4" %>
+  <div id="firstMeetingForm">
+    <div class="form-group">
+      <%= f.label :place, "開催場所:", class: "mt-4" %>
+      <%= f.collection_select :place_id, @places, :id, :name, class: "form-control mb-4" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :people, "参加人数:", class: "mt-4" %>
+      <%= f.number_field :people, min: 2, max: 10, class: "mb-4" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :meet_at, "開催日時:", class: "mt-4"%>
+      <%= f.datetime_field	:meet_at, class: "mb-4" %>
+    </div>
+    <div class="btn btn-success" id="nextButton">次へ</div>
   </div>
-  <div class="form-group">
-    <%= f.label :people, "参加人数:", class: "mt-4" %>
-    <%= f.number_field :people, min: 2, max: 10, class: "mb-4" %>
-  </div>
-  <div class="form-group">
-    <%= f.label :meet_at, "開催日時:", class: "mt-4"%>
-    <%= f.datetime_field	:meet_at, class: "mb-4" %>
-  </div>
-  <div class="form-group">
-    <%= f.label :tag_list %>
-    <%= f.text_field :tag_list, value: @meeting.tag_list.join(','), class: "form-control"%>
-  </div>
-  <div class="form-group">
-    <%= f.submit "プラン作成", class: "btn btn-success" %>
+  <div id="secondMeetingForm">
+    <div class="form-group">
+      <%= f.label :tag_list %>
+      <%= f.text_field :tag_list, value: @meeting.tag_list.join(','), class: "form-control" %>
+    </div>
+    <% @tag_category.each do |tag_category| %>
+      <div><%= tag_category.category_name %></div>
+      <% Array(tag_category.tags).each do |parent_tag| %>
+        <div><%= parent_tag.name %></div>
+        <% Array(parent_tag.children).each do |child_tag| %>
+          <span class="badge badge-pill badge-secondary"><%= child_tag.name %></span>
+          <% Array(child_tag.children).each do |indirect_tag| %>
+            <span type="button"><%= indirect_tag.name %></span>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+    <div class="form-group">
+      <div class="btn btn-success" id="beforeButton">戻る</div>
+      <%= f.submit "プラン作成", class: "btn btn-success" %>
+    </div>
   </div>
 <% end %>
+
+<script>
+const firstForm = document.getElementById('firstMeetingForm');
+const secondForm = document.getElementById('secondMeetingForm');
+secondForm.style.display ="none";
+document.getElementById('nextButton').onclick = function(e) {
+  firstForm.style.display = "none";
+  secondForm.style.display = "block";
+};
+document.getElementById('beforeButton').onclick = function(e) {
+  firstForm.style.display = "block";
+  secondForm.style.display = "none";
+};
+</script>

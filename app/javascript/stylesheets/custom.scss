@@ -1,0 +1,120 @@
+$red: #FF2020;
+$yellow: #FFB500;
+$orange: #CA692A;
+$gray: #4D4D4C;
+
+html {
+  height: 100%;
+  width: 100%;
+  display: block;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+// * {
+//   font-family: "Lato", sans-serif;
+// }
+
+body {
+  height: 100%;
+  width: 100%;
+}
+
+
+
+
+/* トップページ */
+
+
+main {
+  .top-first-page {
+    text-align: center;
+    padding-top: 2.0rem;
+    background-color: gray;
+    height: 100vh;
+    .container {
+      .top-logo {
+        width: 300px;
+        height: 300px;
+        margin-top: 2.5rem;
+      }
+      .top-button-content{
+        margin-top: 1.5rem;
+        .sign-up-button {
+          border-color: $orange;
+          color: $orange;
+          margin-right: 0.8rem;
+          outline: none;
+          &:hover {
+            background-color: $orange;
+            color: white;
+          }
+        }
+        .login-button {
+          margin-left: 0.8rem;
+        }
+      }
+    }
+  }
+}
+
+
+
+.navbar-brand {
+  letter-spacing: 0.2rem;
+  &:link, &:visited, &:hover, &:active {
+    color: black
+  }
+}
+
+.nav-link {
+  &:hover {
+    color: #28a745;
+  }
+}
+
+.top-content {
+  height: 0;
+  width: 100%;
+}
+
+/* サイドバー */
+
+.list-group {
+  position: sticky;
+  padding-top: 50px;
+  top: 70px;
+}
+
+.list-group-item {
+  font-weight: bold;
+  .list-action {
+    &:link, &:visited, &:active {
+      color: black;
+      text-decoration: none;
+    }
+    &:hover {
+      color: #28a745;
+    }
+  }
+}
+
+/* メインコンテンツ */
+
+/* number_fieldカスタマイズ */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type="number"] {
+  -moz-appearance:textfield;
+  width: 100px;
+}
+
+/* タグ */
+
+
+
+

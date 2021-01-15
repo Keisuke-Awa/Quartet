@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_09_121833) do
+ActiveRecord::Schema.define(version: 2021_01_10_095319) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -171,7 +171,7 @@ ActiveRecord::Schema.define(version: 2021_01_09_121833) do
     t.datetime "updated_at"
     t.integer "taggings_count", default: 0
     t.string "ancestry"
-    t.bigint "tag_category_id", null: false
+    t.bigint "tag_category_id"
     t.index ["ancestry"], name: "index_tags_on_ancestry"
     t.index ["name"], name: "index_tags_on_name", unique: true
     t.index ["tag_category_id"], name: "index_tags_on_tag_category_id"
