@@ -4,11 +4,13 @@
     <title>Quartet</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    <script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.polyfills.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag "application", media: "all", "data-turbolinks-track": "reload" %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <script src="https://code.jquery.com/jquery-1.9.1.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/flick/jquery-ui.css">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/jquery.tagit.css">
+    <script type="text/javascript" src="js/tag-it.min.js"></script>
   </head>
     <body>
     <%= render 'layouts/nav' %>

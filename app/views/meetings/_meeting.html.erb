@@ -2,9 +2,9 @@
       <div class="row no-gutters">
           <div class="col-md-5 my-auto">
             <% if meeting.planning_user.avatar.attached? %>
-              <%= image_tag meeting.planning_user.avatar.variant(combine_options:{gravity: :center, resize:"80x80"}).processed, alt: "icon", class: "img-fluid" %>
+              <%= image_pack_tag meeting.planning_user.avatar.variant(combine_options:{gravity: :center, resize:"80x80"}).processed, alt: "icon", class: "img-fluid" %>
             <% else %>
-              <%= image_tag 'default-icon.jpeg', width: "150", alt: "icon", class: "img-fluid" %>
+              <%= image_pack_tag 'default-icon.jpeg', width: "150", alt: "icon", class: "img-fluid" %>
             <% end %>
           </div>
           <div class="col-md-7">

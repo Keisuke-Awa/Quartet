@@ -20,16 +20,16 @@
   <div id="secondMeetingForm">
     <div class="form-group">
       <%= f.label :tag_list %>
-      <%= f.text_field :tag_list, value: @meeting.tag_list.join(','), class: "form-control"%>
+      <%= f.text_field :tag_list, value: @meeting.tag_list.join(','), class: "form-control" %>
     </div>
     <% @tag_category.each do |tag_category| %>
       <div><%= tag_category.category_name %></div>
       <% Array(tag_category.tags).each do |parent_tag| %>
         <div><%= parent_tag.name %></div>
         <% Array(parent_tag.children).each do |child_tag| %>
-          <%= child_tag.name %>
+          <span class="badge badge-pill badge-secondary"><%= child_tag.name %></span>
           <% Array(child_tag.children).each do |indirect_tag| %>
-            <%= indirect_tag.name %>
+            <span type="button"><%= indirect_tag.name %></span>
           <% end %>
         <% end %>
       <% end %>
