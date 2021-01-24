@@ -6,6 +6,8 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
     && apt-get update \
     && apt-get install -y vim \
     && mkdir /Quartet
+ENV PATH $PATH:./node_modules/.bin
+RUN echo $PATH
 WORKDIR /Quartet
 COPY Gemfile /Quartet/Gemfile
 COPY Gemfile.lock /Quartet/Gemfile.lock
