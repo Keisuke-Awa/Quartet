@@ -273,9 +273,6 @@ GEM
     thor (1.0.1)
     thread_safe (0.3.6)
     tilt (2.0.10)
-    turbolinks (5.2.1)
-      turbolinks-source (~> 5.2)
-    turbolinks-source (5.2.0)
     twilio-ruby (5.45.1)
       faraday (>= 0.9, < 2.0)
       jwt (>= 1.5, <= 2.5)
@@ -290,10 +287,6 @@ GEM
       activemodel (>= 6.0.0)
       bindex (>= 0.4.0)
       railties (>= 6.0.0)
-    webpacker (4.3.0)
-      activesupport (>= 4.2)
-      rack-proxy (>= 0.6.1)
-      railties (>= 4.2)
     websocket-driver (0.7.3)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
@@ -329,17 +322,16 @@ DEPENDENCIES
   omniauth-twitter
   phony_rails
   puma (~> 4.1)
+  rack-proxy
   rails (~> 6.0.3, >= 6.0.3.4)
   rails-i18n
   ransack
   sassc-rails
   spring
   spring-watcher-listen (~> 2.0.0)
-  turbolinks (~> 5)
   twilio-ruby
   tzinfo-data
   web-console (>= 3.3.0)
-  webpacker (~> 4.0)
 
 RUBY VERSION
    ruby 2.6.6p146

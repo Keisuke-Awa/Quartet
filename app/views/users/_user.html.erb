@@ -1,6 +1,6 @@
 <% if user.avatar.attached? %>
-  <%= image_pack_tag user.avatar.variant(combine_options:{gravity: :center, resize:"40x40"}).processed, alt: "icon", class: "img-fluid" %>
+  <%= image_tag user.avatar.variant(combine_options:{gravity: :center, resize:"40x40"}).processed, alt: "icon", class: "img-fluid" %>
 <% else %>
-  <%= image_pack_tag 'default-icon.jpeg', width: "50", alt: "icon", class: "img-fluid" %>
+  <%= image_tag '/assets/images/default-icon.jpeg', width: "50", alt: "icon", class: "img-fluid" %>
 <% end %>
 <%= link_to(user.name, user_path(user.id)) %>

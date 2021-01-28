@@ -2,9 +2,9 @@
     <!-- サブコーポネント -->
     <div class="container-fluid">
       <% if user_signed_in? %>
-        <%= link_to image_pack_tag('logo-nav.jpeg', width: "300", alt: "icon", class: "img-fluid"), home_user_path(current_user.id), class: "navbar-brand pl-2 pt-1" %>
+        <%= link_to image_tag('/assets/images/logo-nav.jpeg', width: "300", alt: "icon", class: "img-fluid"), home_user_path(current_user.id), class: "navbar-brand pl-2 pt-1" %>
       <% else %>
-        <%= link_to image_pack_tag('logo-nav.jpeg', width: "300", alt: "icon", class: "img-fluid"), root_path, class: "navbar-brand pl-2 pt-1" %>
+        <%= link_to image_tag('/assets/images/logo-nav.jpeg', width: "300", alt: "icon", class: "img-fluid"), root_path, class: "navbar-brand pl-2 pt-1" %>
       <% end %>
       <!--<button class="navbar-toggler" type="button" data-toggle="collapse"
         data-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false"
@@ -18,9 +18,9 @@
           <% if user_signed_in? %>
             <li class="nav-item">
               <% if current_user.avatar.attached? %>
-                <%= image_pack_tag current_user.avatar.variant(combine_options:{gravity: :center, resize:"40x40"}).processed, alt: "icon", class: "img-fluid" %>
+                <%= image_tag current_user.avatar.variant(combine_options:{gravity: :center, resize:"40x40"}).processed, alt: "icon", class: "img-fluid" %>
               <% else %>
-                <%= image_pack_tag 'default-icon.jpeg', width: "50", alt: "icon", class: "img-fluid" %>
+                <%= image_tag '/assets/images/default-icon.jpeg', width: "50", alt: "icon", class: "img-fluid" %>
               <% end %>
             </li>
           <% else %>

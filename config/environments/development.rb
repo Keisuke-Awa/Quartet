@@ -1,3 +1,5 @@
+require_relative '../../lib/tasks/assets_path_proxy'
+
 Rails.application.configure do
   config.after_initialize do
       Bullet.enable        = true
@@ -67,4 +69,6 @@ Rails.application.configure do
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+
+  # config.middleware.use AssetsPathProxy, ssl_verify_none: true
 end
