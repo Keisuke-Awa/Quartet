@@ -1,7 +1,7 @@
 <main>
   <div class="top-first-page">
     <div class="container">
-      <%= image_pack_tag 'logo.jpeg', class: "img-fluid top-logo" %>
+      <%= image_tag '/assets/images/logo.jpeg', class: "img-fluid top-logo" %>
       <p class="top-button-content">
       <% if user_signed_in? %>
         <%= link_to(t('.make_meeting'), home_user_path(current_user.id), class: "btn btn-lg btn-outline-success") %>

@@ -200,6 +200,8 @@ GEM
     puma (4.3.6)
       nio4r (~> 2.0)
     rack (2.2.3)
+    rack-proxy (0.6.5)
+      rack
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
     rails (6.0.3.4)
@@ -320,6 +322,7 @@ DEPENDENCIES
   omniauth-twitter
   phony_rails
   puma (~> 4.1)
+  rack-proxy
   rails (~> 6.0.3, >= 6.0.3.4)
   rails-i18n
   ransack

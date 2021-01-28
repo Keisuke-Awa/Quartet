@@ -13,20 +13,21 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 // jQueryで使用
 const webpack = require('webpack');
 
-// const TerserPlugin = require('terser-webpack-plugin');
+const AutoPrefixer = require('autoprefixer');
+const TerserPlugin = require('terser-webpack-plugin');
 
-let entries = {}
-glob.sync("./src/js/*.js").map(file => {
-  let name = file.split("/")[2].split(".")[0]
-  entries[name] = file
-})
+// let entries = {}
+// glob.sync("./src/js/*.js").map(file => {
+//   let name = file.split("/")[2].split(".")[0]
+//   entries[name] = file
+// })
 
 module.exports = {
   mode: 'development',
-  entry: entries,
+  entry: {application: './src/js/index.js'},
   output: {
     filename: "js/[name]-[hash].js",
-    path: path.join(__dirname, 'public')
+    path: path.join(__dirname, 'public/assets')
   },
   module: {
     rules: [
@@ -43,23 +44,29 @@ module.exports = {
         ]
       },
       {
-        test: /\.css$/,
-        use: [
-          "style-loader",
-          "css-loader"
-        ],
-      },
-      {
-        test: /\.scss$/,
+        test: /\.(c|sc)ss$/,
         use: [
           {
             loader: MiniCssExtractPlugin.loader,
             options: {
-              esModule: false,
-            },
+              publicPath: path.resolve(__dirname, 'public/assets/stylesheets'),
+            }
           },
-          { loader: 'css-loader' },
-          { loader: 'sass-loader' },
+          {
+            loader: 'css-loader',
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              postcssOptions: {
+                plugins: [
+                    require('cssnano')(),
+                    require('autoprefixer')({ grid: true })
+                ],
+              },
+            }
+          },
+          { loader: 'sass-loader', }
         ]
       },
       {
@@ -79,16 +86,28 @@ module.exports = {
   plugins: [
     new webpack.ProvidePlugin({
       $: 'jquery',
+      jQuery: 'jquery',
+      'window.jQuery': 'jquery'
     }),
     new MiniCssExtractPlugin({ 
       filename: 'stylesheets/[name].css'
     }),
     new WebpackManifestPlugin({
       fileName: 'manifest.json',
+      publicPath: '/assets/',
       writeToFileEmit: true,
     }),
   ],
   optimization: {
     minimizer: [new OptimizeCSSAssetsPlugin({})],
+  },
+  devServer: {
+    host: 'localhost',
+    port: 3035,
+    publicPath: 'http://localhost:3035/public/assets/',
+    contentBase: path.resolve(__dirname, 'public/assets'),
+    hot: true,
+    disableHostCheck: true,
+    historyApiFallback: true
   },
 }
