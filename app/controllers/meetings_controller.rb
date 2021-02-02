@@ -23,7 +23,8 @@ class MeetingsController < ApplicationController
     @meetings = @q.result(distinct: true).where.not(planning_user_id: current_user.id)
                 .where(appointment_id: nil).eager_load([{planning_user: :avatar_attachment}, :place]).page(params[:page]).per(10)
     @places = Place.all
-    # @week = (0..6).to_a.map {|i| (Time.now + i.days).strftime("%m/%d")}
+    @first_week = (0..6).to_a.map {|i| (Time.now + i.days).strftime("%m/%d" )}
+    @second_week = (7..13).to_a.map {|i| (Time.now + i.days).strftime("%m/%d" )}
   end
 
   # def index_meeting_application

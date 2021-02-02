@@ -1,9 +1,28 @@
+<div class="meeting-search-form">
 <%= search_form_for @q do |f| %>
-  <%= f.label :meet_at_gteq, "日時" %>
-  <%= f.datetime_field :meet_at_gteq %>
+  <div class="date-search-form" id="dateSearchFirst">
+    <div class="date-search">
+      <% @first_week.each do |date| %>
+        <div>
+          <%= f.radio_button :meet_at_gteq, date %>
+          <%= f.label :meet_at_gteq, date %>
+        </div>
+      <% end %>
+    </div>
+    <div id="nextWeekButton" class="week-button"></div>
+  </div>
 
-  <%= f.label :meet_at_lteq, "~" %>
-  <%= f.datetime_field :meet_at_lteq %>
+  <div class="date-search-form" id="dateSearchSecond">
+    <div id="beforeWeekButton" class="week-button"></div>
+    <div class="date-search">
+      <% @second_week.each do |date| %>
+        <div>
+          <%= f.radio_button :meet_at_gteq, date %>
+          <%= f.label :meet_at_gteq, date %>
+        </div>
+      <% end %>
+    </div>
+  </div>
 
   <%= f.label :place_id_eq, "場所" %>
   <%= f.collection_select :place_id_eq, @places, :id, :name, include_blank: '全て' %> 
@@ -13,3 +32,22 @@
 
   <%= f.submit "検索" %>
 <% end %>
+
+<script>
+const next_button = document.getElementById('nextWeekButton');
+const before_button = document.getElementById('beforeWeekButton');
+const dateSearchFirst = document.getElementById('dateSearchFirst');
+const dateSearchSecond = document.getElementById('dateSearchSecond');
+dateSearchSecond.style.display="none";
+
+next_button.onclick = function() {
+  dateSearchFirst.style.display = "none";
+  dateSearchSecond.style.display = "flex";
+}
+
+before_button.onclick = function() {
+  dateSearchFirst.style.display = "flex";
+  dateSearchSecond.style.display = "none";
+}
+</script>
+

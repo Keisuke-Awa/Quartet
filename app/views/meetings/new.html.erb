@@ -20,22 +20,31 @@
   <div id="secondMeetingForm">
     <div class="form-group">
       <%= f.label :tag_list %>
-      <%= f.text_field :tag_list, value: @meeting.tag_list.join(','), data: {role: "tagsinput"}, class: "form-control" %>
+      <%= f.text_field :tag_list, value: @meeting.tag_list.join(','), data: {role: "tagsinput"}, class: "form-control", id: "tagForm" %>
     </div>
-    <% @tag_category.each do |tag_category| %>
-      <div><%= tag_category.category_name %></div>
-      <div>
-        <% Array(tag_category.tags).each do |parent_tag| %>
-          <div type="button"><%= parent_tag.name %></div>
-          <% Array(parent_tag.children).each do |child_tag| %>
-            <span type="button" class="badge badge-pill badge-secondary"><%= child_tag.name %></span>
-            <% Array(child_tag.children).each do |indirect_tag| %>
-              <span type="button"><%= indirect_tag.name %></span>
+    <div class="tag-content">
+      <% @tag_category.each_with_index do |tag_category, tci| %>
+        <label for=<%= "tagCategory-#{tci}" %>><%= tag_category.category_name %></label>
+        <input type="checkbox" id=<%="tagCategory-#{tci}"%> class="tag-category">
+        <div class="tag-list">
+          <% Array(tag_category.tags).each_with_index do |parent_tag, pti| %>
+            <span onclick="clickTag(this)">
+              <input type="text" class="tag-btn" onclick="clickTag(this)" data-role="tagsinput" value=<%= parent_tag.name %> >
+            </span onclick="clickTag(this)">
+            <% Array(parent_tag.children).each_with_index do |child_tag, cti| %>
+              <span>
+                <input type="text" class="tag-btn" onclick="clickTag(this)" data-role="tagsinput" value=<%= child_tag.name %> >
+              </span>
+              <% Array(child_tag.children).each_with_index do |indirect_tag, iti| %>
+                <span onclick="clickTag(this)">
+                  <input type="text" class="tag-btn" onclick="clickTag(this)" data-role="tagsinput" value=<%= indirect_tag.name %> >
+                </span>
+              <% end %>
             <% end %>
           <% end %>
-        <% end %>
-      </div>
-    <% end %>
+        </div>
+      <% end %>
+    </div>
     <div class="form-group">
       <div class="btn btn-success" id="beforeButton">戻る</div>
       <%= f.submit "プラン作成", class: "btn btn-success" %>
@@ -55,4 +64,18 @@ document.getElementById('beforeButton').onclick = function(e) {
   firstForm.style.display = "block";
   secondForm.style.display = "none";
 };
+
+// const tagCategory = document.getElementById();
+// const tagList = document.getElementById('selectTagList');
+// tagList.style.display = "none";
+
+// const tagBtns = document.getElementsByClassName('tag-btn');
+const tagForm = document.getElementById('tagForm');
+function clickTag(obj) {
+  let tagBtn = obj.childNodes;
+  console.log(tagBtn[2]);
+  tagBtn[2].style.display = "none";
+  // console.log(tagBtn[2].value);
+}
+
 </script>
