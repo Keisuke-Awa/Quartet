@@ -1,5 +1,5 @@
 <div class="meeting-search-form">
-<%= search_form_for @q do |f| %>
+<%= search_form_for @q, remote: true do |f| %>
   <div class="date-search-form" id="dateSearchFirst">
     <div class="date-search">
       <% @first_week.each do |date| %>

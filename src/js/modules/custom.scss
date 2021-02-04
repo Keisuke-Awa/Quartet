@@ -74,7 +74,7 @@ main {
 
 .nav-link {
   &:hover {
-    color: #28a745;
+    color: $red;
   }
 }
 
@@ -99,7 +99,7 @@ main {
       text-decoration: none;
     }
     &:hover {
-      color: #28a745;
+      color: $orange;
     }
   }
 }

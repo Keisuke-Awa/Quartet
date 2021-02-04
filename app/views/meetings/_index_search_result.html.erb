@@ -1,0 +1,4 @@
+<% @meetings.each do |meeting| %>
+  <%= render meeting %>
+<% end %>
+<%= paginate @meetings, remote: true %>

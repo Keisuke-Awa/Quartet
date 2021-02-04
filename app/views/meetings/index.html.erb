@@ -1,7 +1,6 @@
 <h3>プラン検索</h3>
 <%= render 'search_form' %>
 
-<% @meetings.each do |meeting| %>
-  <%= render meeting %>
-<% end %>
-<%= paginate @meetings %>
+<div id="meetingPaginate">
+  <%= render "index_search_result" %>
+</div>
