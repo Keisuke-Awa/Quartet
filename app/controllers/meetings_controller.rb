@@ -1,4 +1,5 @@
 class MeetingsController < ApplicationController
+  require "date"
 
   def new
     @meeting = Meeting.new
@@ -20,11 +21,11 @@ class MeetingsController < ApplicationController
 
   def index
     @q = Meeting.ransack(params[:q])
-    @meetings = @q.result(distinct: true).where.not(planning_user_id: current_user.id)
+    @meetings = @q.result(distinct: true).where.not(planning_user_id: current_user.id).where(meet_at: Time.now..Float::INFINITY)
                 .where(appointment_id: nil).eager_load([{planning_user: :avatar_attachment}, :place]).page(params[:page]).per(10)
     @places = Place.all
-    @first_week = (0..6).to_a.map {|i| (Time.now + i.days).strftime("%m/%d" )}
-    @second_week = (7..13).to_a.map {|i| (Time.now + i.days).strftime("%m/%d" )}
+    @first_week = (0..6).to_a.map {|i| Date.today.to_time + i.days }
+    @second_week = (7..13).to_a.map {|i| Date.today.to_time + i.days }
   end
 
   # def index_meeting_application
@@ -39,7 +40,7 @@ class MeetingsController < ApplicationController
   end
 
   def search_params
-    params.require(:q).permit(:meet_at_gteq, :meet_at_lteq, :place_id_eq, :people_eq)
+    params.require(:q).permit(:meet_at_equals_date, :place_id_eq, :people_eq)
   end
 
 end

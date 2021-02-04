@@ -158,7 +158,7 @@ input[type="number"] {
 
   .date-search-form {
     display: flex;
-/* 日付 */
+    /* 日付 */
     .date-search {
       display: flex;
       border-radius: 3px;
@@ -173,7 +173,7 @@ input[type="number"] {
         flex: 1;
 
         input {
-          width: 50%;
+          width: 100%;
           height: 60px;
           opacity: 0;
         }

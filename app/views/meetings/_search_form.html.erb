@@ -4,8 +4,8 @@
     <div class="date-search">
       <% @first_week.each do |date| %>
         <div>
-          <%= f.radio_button :meet_at_gteq, date %>
-          <%= f.label :meet_at_gteq, date %>
+          <%= f.radio_button :meet_at_equals_date, date %>
+          <%= f.label :meet_at_equals_date, date.strftime("%m/%d" ) %>
         </div>
       <% end %>
     </div>
@@ -17,8 +17,8 @@
     <div class="date-search">
       <% @second_week.each do |date| %>
         <div>
-          <%= f.radio_button :meet_at_gteq, date %>
-          <%= f.label :meet_at_gteq, date %>
+          <%= f.radio_button :meet_at_equals_date, date %>
+          <%= f.label :meet_at_equals_date, date.strftime("%m/%d" ) %>
         </div>
       <% end %>
     </div>
