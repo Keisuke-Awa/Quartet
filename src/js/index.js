@@ -7,4 +7,4 @@ import 'jquery';
 import "bootstrap";
 import 'bootstrap4-tagsinput/tagsinput.js'
 import Rails from 'rails-ujs'
-Rails.start()
+Rails.start();
