@@ -94,8 +94,26 @@ main {
 .list-group-item {
   font-weight: bold;
   .list-action {
-    &:link, &:visited, &:active {
+    &:link, &:visited {
       color: black;
+      text-decoration: none;
+    }
+    &:hover {
+      color: $red;
+    }
+  }
+  .sidebar-color {
+    &:link, &:visited {
+      color: black;
+      text-decoration: none;
+    }
+    &:hover {
+      color: black;
+    }
+  }
+  .click-sidebar-color {
+    &:link, &:visited {
+      color: $orange;
       text-decoration: none;
     }
     &:hover {
@@ -151,9 +169,12 @@ input[type="number"] {
   cursor: pointer;
 }
 
+/* プラン企画 */
+#secondMeetingForm {
+  display: none;
+}
 
 /* プラン検索 */
-
 .meeting-search-form {
 
   .date-search-form {

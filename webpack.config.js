@@ -24,7 +24,10 @@ const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = {
   mode: 'development',
-  entry: {application: './src/js/index.js'},
+  entry: {
+    application: './src/js/index.js',
+    meetings_new: './src/js/modules/meetings-new.js',
+    meetings_index: './src/js/modules/meetings-index.js'},
   output: {
     filename: "js/[name]-[hash].js",
     path: path.join(__dirname, 'public/assets')
