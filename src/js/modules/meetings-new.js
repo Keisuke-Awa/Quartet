@@ -1,7 +1,7 @@
 function initialize() {
   const firstForm = document.getElementById('firstMeetingForm');
   const secondForm = document.getElementById('secondMeetingForm');
-  secondForm.style.display ="none";
+
   document.getElementById('nextButton').onclick = function(e) {
     firstForm.style.display = "none";
     secondForm.style.display = "block";
@@ -17,12 +17,12 @@ function initialize() {
 
   // const tagBtns = document.getElementsByClassName('tag-btn');
   const tagForm = document.getElementById('tagForm');
-  function clickTag(obj) {
-    let tagBtn = obj.childNodes;
-    console.log(tagBtn[2]);
-    tagBtn[2].style.display = "none";
+  // function clickTag(obj) {
+  //   let tagBtn = obj.childNodes;
+  //   console.log(tagBtn[2]);
+  //   tagBtn[2].style.display = "none";
     // console.log(tagBtn[2].value);
-  }
+  // }
 }
 
 initialize();
