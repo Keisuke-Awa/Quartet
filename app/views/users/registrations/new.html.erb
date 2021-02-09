@@ -1,55 +1,65 @@
-<h2>Sign up</h2>
+<div class="form">
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= render "users/shared/error_messages", resource: resource %>
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+    <%= render "users/shared/error_messages", resource: resource %>
 
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name, autofocus: true, autocomplete: "name" %>
-  </div>
+    <div class="field">
+      <%= f.text_field :name, autofocus: true, autocomplete: "name", class: "text-field", placeholder: "" %>
+      <%= f.label :name, "名前" %>
+      <span class="focus-line"></span>
+    </div>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email", id: 'emailField' %>
-  </div>
+    <div class="field">
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", id: 'emailField', class: "text-field", placeholder: "" %>
+      <%= f.label :email, "Email" %>
+      <span class="focus-line"></span>
+    </div>
 
-  <div class="field">
-    <%= f.label :birth_date %><br />
-    <%= f.date_select :birth_date, autofocus: true, autocomplete: "birth_date" %>
-  </div>
+    <div class="field">
+      <%= f.number_field :birth_date, autofocus: true, autocomplete: "birth_date",
+              class: "text-field", placeholder: "19950724", maxlength: "8" %>
+      <%= f.label :birth_date, "誕生日" %>
+      <span class="focus-line"></span>
+    </div>
 
-  <div class="field">
-    <%= f.label :sex %><br />
-    <%= f.label :gender, "男性", {value: "1", style: "display: inline-block;"} %>
-    <%= f.radio_button :sex, "1" %>
-    <%= f.label :gender, "女性", {value: "2", style: "display: inline-block;"} %>
-    <%= f.radio_button :sex, "2" %>
-  </div>
+    <div class="field radio-box">
+      <%= f.label :gender, "性別" %>
+      <%= f.radio_button :sex, "1" %>
+      <%= f.label :sex, "男性", value: "1", class: "radio" %>
+      <%= f.radio_button :sex, "2" %>
+      <%= f.label :sex, "女性", value: "2", class: "radio" %>
+    </div>
 
-  <div class="field">
-    <%= f.label :residence %><br />
-    <%= f.collection_select(:residence_id, PrefectureMst.all, :id, :prefecture_name) %>
-  </div>
+    <div class="field select-box">
+      <%= f.collection_select :residence_id, PrefectureMst.all, :id, :prefecture_name,
+                { include_blank: true }, { class: "select-field" } %>
+      <span class="select-highlight"></span>
+      <span class="select-bar"></span>
+      <%= f.label :residence, "居住地", class: "select-label" %>
+    </div>
 
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-  </div>
+    <div class="field">
+      <% if @minimum_password_length %>
+      <em>(<%= @minimum_password_length %> characters minimum)</em>
+      <% end %>
+      <%= f.password_field :password, autocomplete: "new-password", class: "text-field" %>
+      <%= f.label :password %>
+      <span class="focus-line"></span>
+    </div>
 
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
+    <div class="field">
+      <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "text-field" %>
+      <%= f.label :password_confirmation %>
+      <span class="focus-line"></span>
+    </div>
 
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
-<% end %>
+    <div class="actions">
+      <%= f.submit "Sign up", class: "btn btn-yellow-red" %>
+    </div>
+  <% end %>
 
-<%= render "users/shared/links" %>
+  <%= render "users/shared/links" %>
+</div>
 
 <script>
   window.onload = function() {

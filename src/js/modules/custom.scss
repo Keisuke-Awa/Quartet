@@ -4,6 +4,7 @@ $orange: #CA692A;
 $gray: #4D4D4C;
 $whitesmoke: #f5f5f5;
 $ghostwhite : #f8f8ff;
+$iconColor: #FF2020;
 
 html {
   height: 100%;
@@ -27,9 +28,38 @@ body {
   width: 100%;
 }
 
+/* ボタン */
+.actions {
+  text-align: center;
+}
+.btn.focus, .btn:focus {
+  outline: 0;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+.btn-yellow {
+  background-color: $yellow;
+  color: white;
+  &:link, &:visited, &:hover {
+    background-color: $yellow;
+    color: white;
+    text-decoration: none;
+  }
+}
+
+.btn-yellow-red {
+  background-color: $yellow;
+  color: white;
+  &:link, &:visited, &:hover {
+    background-color: $red;
+    color: white;
+    text-decoration: none;
+  }
+}
+
 
 /* トップページ */
-
 
 main {
   .top-first-page {
@@ -62,6 +92,270 @@ main {
     }
   }
 }
+
+
+/* フォーム */
+
+h2 {
+  text-align: center;
+}
+
+.form {
+  margin: 0 auto;
+  width: 40%;
+  .field {
+    position: relative;
+    width: 80%;
+    margin: 40px 3%;
+    .text-field {
+      padding: 4px 0;
+      border: 0;
+      border-bottom: 1px solid #1b2538;
+      background-color: transparent;
+    }
+    input[type= text], input[type=email], input[type=number], input[type=password] {
+      font: 15px/24px sans-serif;
+      box-sizing: border-box;
+      width: 100%;
+      letter-spacing: 1px;
+      padding-left: 4em;
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+  .select-box {
+    position: relative;
+	  width: 80%;
+	  margin: 40px 3%;
+    text-align: center;
+    &:after {
+      position: absolute;
+      top: 18px;
+      right: 10px;
+      width: 0;
+      height: 0;
+      padding: 0;
+      content: '';
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      border-top: 6px solid rgba(0, 0, 0, 0.3);
+      pointer-events: none;
+    }
+    .select-field {
+      position: relative;
+	    font-family: inherit;
+	    background-color: transparent;
+	    width: 50%;
+	    padding: 10px 10px 10px 0;
+	    font-size: 18px;
+	    border-radius: 0;
+	    border: none;
+      border-bottom: 1px solid rgba(0,0,0, 0.3);
+      &:focus {
+        outline: none;
+	      border-bottom: 1px solid rgba(0,0,0, 0);
+      }
+    }
+    // .select-label {
+    //   color: rgba(0,0,0, 0.5);
+	  //   font-size: 18px;
+	  //   font-weight: normal;
+	  //   position: absolute;
+	  //   pointer-events: none;
+	  //   left: 0;
+	  //   top: 10px;
+	  //   transition: 0.2s ease all;
+    // }
+    .select-bar {
+      position: relative;
+	    display: block;
+      width: 100%;
+      &:before, &:after {
+        content: '';
+	      height: 2px;
+	      width: 0;
+	      bottom: 1px;
+	      position: absolute;
+	      background: $red;
+	      transition: 0.2s ease all;
+      }
+      &::before {
+        left: 50%;
+      }
+      &::after {
+        right: 50%;
+      }
+    }
+    .select-highlight {
+      position: absolute;
+	    top: 25%;
+	    left: 0;
+	    pointer-events: none;
+	    opacity: 0.5;
+    }
+  }
+}
+
+
+/* テキストフィールド */
+.text-field ~ .focus-line {
+  position: absolute;
+	bottom: 0;
+	left: 50%;
+	width: 0;
+	height: 2px;
+	transition: 0.4s;
+	background-color: $red;
+}
+
+.text-field:focus ~ .focus-line, .field.text-field ~ .focus-line {
+  left: 0;
+	width: 100%;
+	transition: 0.4s;
+}
+
+.text-field ~ label {
+  position: absolute;
+	z-index: -1;
+	top: -18px;
+	left: 0;
+	width: 100%;
+	transition: 0.3s;
+  letter-spacing: 0.5px;
+  font-size: 16px;
+	color: #aaaaaa;
+}
+
+.text-field:focus ~ label, .field.text-field ~ label {
+	color: $red;
+}
+
+
+/* ラジオボタン */
+input[type=radio] {
+  display: none;
+}
+
+.radio {
+  box-sizing: border-box;
+  -webkit-transition: background-color 0.2s linear;
+  transition: background-color 0.2s linear;
+  position: relative;
+  display: inline-block;
+  margin: 0 20px 8px 0;
+  padding: 12px 12px 12px 42px;
+  border-radius: 8px;
+  background-color: #f6f7f8;
+  vertical-align: middle;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #e2edd7;
+    &:after {
+      border-color: $iconColor;
+    }
+  }
+
+  &:after {
+    -webkit-transition: border-color 0.2s linear;
+    transition: border-color 0.2s linear;
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    display: block;
+    margin-top: -10px;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #bbb;
+    border-radius: 6px;
+    content: '';
+  }
+}
+.radio {
+  &:before {
+    -webkit-transition: opacity 0.2s linear;
+    transition: opacity 0.2s linear;
+    position: absolute;
+    top: 50%;
+    left: 20px;
+    display: block;
+    margin-top: -5px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: $iconColor;
+    content: '';
+    opacity: 0;
+    input[type=radio]:checked + & {
+      opacity: 1;
+    }
+  }
+}
+
+// .checkbox {
+//   &:before {
+//     -webkit-transition: opacity 0.2s linear;
+//     transition: opacity 0.2s linear;
+//     position: absolute;
+//     top: 50%;
+//     left: 21px;
+//     display: block;
+//     margin-top: -7px;
+//     width: 5px;
+//     height: 9px;
+//     border-right: 3px solid $iconColor;
+//     border-bottom: 3px solid $iconColor;
+//     content: '';
+//     opacity: 0;
+//     -webkit-transform: rotate(45deg);
+//     -ms-transform: rotate(45deg);
+//     transform: rotate(45deg);
+//     input[type=checkbox]:checked + & {
+//       opacity: 1;
+//     }
+//   }
+// }
+
+/* セレクトボックス */
+.select-box .select-field {
+  appearance: none;
+	-webkit-appearance:none
+}
+
+.select-box select::-ms-expand {
+	display: none;
+}
+
+.select-field:focus ~ .select-label, .select-field:valid ~ .select-label {
+  color: $red;
+	top: -20px;
+	transition: 0.2s ease all;
+	font-size: 14px;
+}
+
+.select-field:focus ~ .select-bar:before, .select-field:focus ~ .select-bar:after {
+  width: 50%;
+}
+
+.select-field ~ .select-label {
+  position: absolute;
+	z-index: -1;
+	top: 4px;
+	left: 0;
+	width: 100%;
+	transition: 0.3s;
+	letter-spacing: 0.5px;
+	color: #aaaaaa;
+}
+
+.select-field:focus ~ .select-label, .field.text-field ~ .select-label {
+  font-size: 12px;
+	top: -16px;
+	transition: 0.3s;
+	color: $red;
+}
+
 
 
 

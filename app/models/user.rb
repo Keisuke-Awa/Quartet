@@ -38,7 +38,12 @@ class User < ApplicationRecord
   has_one :user_profile, dependent: :destroy
 
   validates :name, presence: true, length: { maximum: 30 }
-  # validates :email, presence: true, email: true
+  validates :email, presence: true
+  validates :birth_date, presence: true
+  validates :sex, presence: true
+  validates :residence, presence: true
+  validates :password, presence: true
+  validates :password_confirmation, presence: true
 
   # def request_friendship(other_user)
   #   requesting_users << other_user
