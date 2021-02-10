@@ -4,7 +4,8 @@ $orange: #CA692A;
 $gray: #4D4D4C;
 $whitesmoke: #f5f5f5;
 $ghostwhite : #f8f8ff;
-$iconColor: #FF2020;
+$iconColor: #FFB500;
+$errorColor: red;
 
 html {
   height: 100%;
@@ -58,6 +59,46 @@ body {
   }
 }
 
+.btn-login {
+  margin-bottom: 20px;
+}
+
+.btn-facebook {
+  padding: 0.5em;
+  margin: 10px 0;
+  display: block;
+  background: white;
+  border-color: #1877F2;
+  color: #1877F2;
+  height: 40px;
+  text-align: center;
+  width: 150px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size:14px;
+  &:before {
+    content: "";
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin: -3px 5px 0 0;
+    background: url("./images/f_logo_RGB-Blue_58.png") no-repeat;
+    background-size: contain;
+    vertical-align: middle;
+  }
+  &:hover {
+    border-color: white;
+    background: #1877F2;
+    color: white;
+  }
+}
+
+/* アラート*/
+.notice-before-login, .alert-before-login {
+  text-align: center;
+  color: red;
+}
+
 
 /* トップページ */
 
@@ -96,25 +137,26 @@ main {
 
 /* フォーム */
 
-h2 {
-  text-align: center;
-}
-
 .form {
   margin: 0 auto;
-  width: 40%;
+  width: 30%;
   .field {
+    display: inline-block;
     position: relative;
     width: 80%;
-    margin: 40px 3%;
+    margin: 40px 3% 20px 8%;
+    
     .text-field {
       padding: 4px 0;
       border: 0;
       border-bottom: 1px solid #1b2538;
       background-color: transparent;
+      &:focus {
+        border-bottom: none;
+      }
     }
     input[type= text], input[type=email], input[type=number], input[type=password] {
-      font: 15px/24px sans-serif;
+      font: 16px/26px sans-serif;
       box-sizing: border-box;
       width: 100%;
       letter-spacing: 1px;
@@ -177,7 +219,7 @@ h2 {
 	      width: 0;
 	      bottom: 1px;
 	      position: absolute;
-	      background: $red;
+	      background: $iconColor;
 	      transition: 0.2s ease all;
       }
       &::before {
@@ -206,7 +248,7 @@ h2 {
 	width: 0;
 	height: 2px;
 	transition: 0.4s;
-	background-color: $red;
+  background-color: $iconColor;
 }
 
 .text-field:focus ~ .focus-line, .field.text-field ~ .focus-line {
@@ -218,7 +260,7 @@ h2 {
 .text-field ~ label {
   position: absolute;
 	z-index: -1;
-	top: -18px;
+	top: -20px;
 	left: 0;
 	width: 100%;
 	transition: 0.3s;
@@ -228,7 +270,7 @@ h2 {
 }
 
 .text-field:focus ~ label, .field.text-field ~ label {
-	color: $red;
+	color: $iconColor;
 }
 
 
@@ -328,7 +370,7 @@ input[type=radio] {
 }
 
 .select-field:focus ~ .select-label, .select-field:valid ~ .select-label {
-  color: $red;
+  color: $iconColor;
 	top: -20px;
 	transition: 0.2s ease all;
 	font-size: 14px;
@@ -353,11 +395,14 @@ input[type=radio] {
   font-size: 12px;
 	top: -16px;
 	transition: 0.3s;
-	color: $red;
+	color: $iconColor;
 }
 
 
-
+/* エラーメッセージ */
+.feedback {
+  display: inline-block;
+}
 
 .navbar-brand {
   letter-spacing: 0.2rem;
