@@ -1,24 +1,48 @@
 <ul class="list-group list-group-flush">
   <li class="list-group-item">
-    <%= link_to(t('.search_meeting'), meetings_path, class: 'list-action') %>
+    <%= link_to(t('.search_meeting'), meetings_path, class: 'list-action sidebar-color', remote: true) %>
   </li>
   <li class="list-group-item">
-    <%= link_to('企画する', new_meeting_path, class: 'list-action') %>
+    <%= link_to('企画する', new_meeting_path, class: 'list-action sidebar-color', remote: true) %>
   </li>
   <li class="list-group-item">
-    <%= link_to('申請一覧', index_meeting_user_path(current_user), class: 'list-action') %>
+    <%= link_to('申請一覧', index_meeting_user_path(current_user), class: 'list-action sidebar-color', remote: true) %>
   </li>
   <li class="list-group-item">
-    <%= link_to('マッチング一覧', index_appointment_user_path(current_user), class: 'list-action') %>
+    <%= link_to('マッチング一覧', index_appointment_user_path(current_user), class: 'list-action sidebar-color', remote: true) %>
   </li>
+  <!--<li class="list-group-item">
+    <%= link_to('マイページ', show_mypage_user_path(current_user), class: 'list-action sidebar-color') %>
+  </li> %>-->
   <li class="list-group-item">
-    <%= link_to('マイページ', show_mypage_user_path(current_user), class: 'list-action') %>
+    <%= link_to('メッセージ一覧', message_rooms_path, class: 'list-action sidebar-color', remote: true) %>
   </li>
+  <li class="list-group-item"><%= link_to('ログアウト', destroy_user_session_path, method: :delete, class: 'list-action sidebar-color') %></li>
   <li class="list-group-item">
-    <%= link_to('メッセージ一覧', message_rooms_path, class: 'list-action') %>
-  </li>
-  <li class="list-group-item"><%= link_to('ログアウト', destroy_user_session_path, method: :delete, class: 'list-action') %></li>
-  <li class="list-group-item">
-    <%= link_to('退会', user_path(current_user.id), data: { confirm: "本当に退会してよろしいですか?" }, method: :delete, class: 'list-action') %>
+    <%= link_to('退会', user_path(current_user.id), data: { confirm: "本当に退会してよろしいですか?" }, method: :delete, class: 'list-action sidebar-color') %>
   </li>
 </ul>
+
+<script>
+const sidebar_link = document.getElementsByClassName('list-action');
+
+for (let i = 0; i < sidebar_link.length; i++) {
+  clickSidebarLinkAction(sidebar_link[i], i);
+}
+
+function clickSidebarLinkAction(sidebar_link_element, num) {
+  sidebar_link_element.addEventListener("click", function() {
+    this.classList.add('click-sidebar-color');
+    this.classList.remove('sidebar-color');
+
+    for (let i = 0; i < sidebar_link.length; i++) {
+      if(num !== i){
+        if(sidebar_link[i].classList.contains('click-sidebar-color')){
+          sidebar_link[i].classList.remove('click-sidebar-color');
+          sidebar_link[i].classList.add('sidebar-color');
+        }
+      }
+    }
+  })
+}
+</script>

@@ -1,4 +1,4 @@
-<div class="card mb-3 col-6 d-inline-block" style="max-width: 400px;">
+<div class="card mb-3 col-6 d-inline-block" style="max-width: 300px;">
       <div class="row no-gutters">
           <div class="col-md-5 my-auto">
             <% if meeting.planning_user.avatar.attached? %>
@@ -15,7 +15,7 @@
                     <%= meeting.meet_at.strftime("%m月%d日%H:%M") %><br/>
                     <%= meeting.people %>人
                   </p>
-                  <%= link_to('詳細', meeting_path(meeting), class: "btn btn-success" ) %>
+                  <%= link_to('詳細', meeting_path(meeting), class: "btn btn-yellow" ) %>
               </div>
           </div>
       </div>

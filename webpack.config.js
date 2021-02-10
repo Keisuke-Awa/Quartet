@@ -24,7 +24,10 @@ const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = {
   mode: 'development',
-  entry: {application: './src/js/index.js'},
+  entry: {
+    application: './src/js/index.js',
+    meetings_new: './src/js/modules/meetings-new.js',
+    meetings_index: './src/js/modules/meetings-index.js'},
   output: {
     filename: "js/[name]-[hash].js",
     path: path.join(__dirname, 'public/assets')
@@ -70,13 +73,13 @@ module.exports = {
         ]
       },
       {
-        test: /\.(png|jpe?g|gif)$/i,
+        test: /\.(png|jpg|gif)$/i,
         use: [
           {
-            loader: 'file-loader',
+            loader: 'url-loader',
             options: {
-              limit: 51200,
-              name: '../images/[name].[ext]'
+              limit: 50 * 1024, 
+              name: './images/[name].[ext]',
             }
           }
         ]

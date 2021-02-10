@@ -1,10 +1,16 @@
 class MeetingsController < ApplicationController
   require "date"
 
+  before_action :initialize_search_form, only: %i[index search]
+
   def new
     @meeting = Meeting.new
     @places = Place.all
     @tag_category = TagCategory.all.includes([:tags])
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def show
@@ -19,13 +25,20 @@ class MeetingsController < ApplicationController
   def destroy
   end
 
-  def index
-    @q = Meeting.ransack(params[:q])
-    @meetings = @q.result(distinct: true).where.not(planning_user_id: current_user.id).where(meet_at: Time.now..Float::INFINITY)
-                .where(appointment_id: nil).eager_load([{planning_user: :avatar_attachment}, :place]).page(params[:page]).per(10)
-    @places = Place.all
-    @first_week = (0..6).to_a.map {|i| Date.today.to_time + i.days }
-    @second_week = (7..13).to_a.map {|i| Date.today.to_time + i.days }
+  def index  
+    search_result
+    respond_to do |format|
+      format.html
+      format.js
+    end
+  end
+
+  def search
+    search_result
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   # def index_meeting_application
@@ -43,4 +56,15 @@ class MeetingsController < ApplicationController
     params.require(:q).permit(:meet_at_equals_date, :place_id_eq, :people_eq)
   end
 
+  def search_result
+    @q = Meeting.ransack(params[:q])
+    @meetings = @q.result(distinct: true).where.not(planning_user_id: current_user.id)
+            .where(appointment_id: nil).eager_load([{planning_user: :avatar_attachment}, :place]).page(params[:page]).per(10)
+  end
+  
+  def initialize_search_form
+    @places = Place.all
+    @first_week = (0..6).to_a.map {|i| Date.today + i.days }
+    @second_week = (7..13).to_a.map {|i| Date.today + i.days }
+  end
 end

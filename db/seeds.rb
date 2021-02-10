@@ -25,47 +25,75 @@ annual_income = [['200万円未満', nil, 200], ['200万円以上〜400万円未
 
 smoking_status = ['吸わない', '吸う', '吸う（電子タバコ）', '時々吸う', '非喫煙者の前では吸わない']
 
+def rand_time(from, to)
+  Time.at(rand_in_range(from.to_f, to.to_f))
+end
+
+def rand_in_range(from, to)
+  rand * (to - from) + from
+end
+
+def make_appointment(appointment, other_user)
+  appointments << appointment
+  other_user.appointments << appointment
+end
+
+
 pref.each { |p| PrefectureMst.create!(prefecture_name: p)}
 occupation.each { |op| OccupationMst.create!(occupation_name: op)}
 educational_bg.each { |eb| EducationalBgMst.create!(ebg_name: eb)}
 annual_income.each { |ai| AnnualIncomeMst.create!(income_range: ai[0], amount_or_more: ai[1], less_than_amount: ai[2])}
 smoking_status.each { |st| SmokingMst.create!(smoking_status: st)}
 
-
-
-def rand_time(from, to)
-  Time.at(rand_in_range(from.to_f, to.to_f))
-end
-
-300.times do |n|
-  name = Faker::Name.name
-  email = "rails#{n+1}@sample.com"
-  password = "password"
-  birth_date = Faker::Date.birthday(min_age: 20, max_age: 40)
-  if n < 150
-    sex = '1'
-  else
-    sex = '2'
-  end
-  User.create!(name: name, email: email, password: password, birth_date: birth_date, sex: sex, residence_id: 13)
-end
-
 Place.create!(name: "新宿", prefecture_id: 13)
 Place.create!(name: "池袋", prefecture_id: 13) 
 Place.create!(name: "渋谷", prefecture_id: 13)
 
-def rand_in_range(from, to)
-  rand * (to - from) + from
+ActiveRecord::Base.transaction do
+  300.times do |n|
+    name = Faker::Name.name
+    email = "rails#{n+1}@sample.com"
+    password = "password"
+    birth_date = Faker::Date.birthday(min_age: 20, max_age: 40)
+    if n < 150
+      sex = '1'
+    else
+      sex = '2'
+    end
+    User.create!(name: name, email: email, password: password, birth_date: birth_date, sex: sex, residence_id: 13)
+  end
 end
 
+ActiveRecord::Base.transaction do
+  300.times do |n|
+    count = 0
+    while count < 5
+      detail = Faker::Lorem.sentence
+      meet_at = rand_time(Time.now, 7.days.since)
+      people = rand(6) + 1
+      place_id = rand(Place.count) + 1
+      user = User.find(n + 1)
+      meeting = Meeting.create!(detail: detail, meet_at: meet_at, people: people, place_id: place_id, planning_user_id: user.id)
 
-300.times do |n|
-  detail = Faker::Lorem.sentence
-  meet_at = rand_time(Time.now, 7.days.since)
-  people = rand(6) + 1
-  place_id = rand(Place.count) + 1
-  user = User.find(n + 1)
-  Meeting.create!(detail: detail, meet_at: meet_at, people: people, place_id: place_id, planning_user_id: user.id)
+      10.times do |an|
+        application_detail = Faker::Lorem.sentence
+        applicant = User.find(rand(280) + 1)
+        MeetingApplication.create!(detail: application_detail, meeting_id: meeting.id, applicant_id: applicant.id + an)
+      end
+      count += 1
+    end
+  end
+end
+
+ActiveRecord::Base.transaction do
+  300.times do |n|
+    meeting = User.find(n + 1).meetings.first
+    meeting_application = meeting.meeting_applications.first
+    appointment = Appointment.create!(meeting_id: meeting.id)
+    meeting.planning_user.make_appointment(appointment, meeting_application.applicant)
+    meeting.update!( appointment_id: appointment.id )
+    meeting.meeting_applications.delete_all
+  end
 end
 
 cmeal = TagCategory.create!(category_name: "料理")

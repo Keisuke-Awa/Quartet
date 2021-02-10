@@ -16,8 +16,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def create
     build_resource(sign_up_params.merge(phone_number: session[:phone_number]))
     ActiveRecord::Base.transaction do
-      resource.save
-      UserProfile.create!(user_id: resource.id)
+      UserProfile.create!(user_id: resource.id) if resource.save
     end
 
     yield resource if block_given?

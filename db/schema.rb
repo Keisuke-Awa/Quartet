@@ -54,6 +54,12 @@ ActiveRecord::Schema.define(version: 2021_01_10_095319) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "meal_type_categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "meeting_applications", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "meeting_id", null: false
     t.bigint "applicant_id", null: false
@@ -134,7 +140,7 @@ ActiveRecord::Schema.define(version: 2021_01_10_095319) do
   create_table "sns_credentials", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "uid"
     t.string "provider"
-    t.bigint "user_id"
+    t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_sns_credentials_on_user_id"
@@ -249,6 +255,7 @@ ActiveRecord::Schema.define(version: 2021_01_10_095319) do
   add_foreign_key "message_rooms", "appointments"
   add_foreign_key "messages", "message_rooms"
   add_foreign_key "messages", "users"
+  add_foreign_key "places", "prefecture_msts", column: "prefecture_id"
   add_foreign_key "sns_credentials", "users"
   add_foreign_key "tags", "tag_categories"
   add_foreign_key "user_appointments", "appointments"

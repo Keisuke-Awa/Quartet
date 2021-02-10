@@ -10,18 +10,20 @@
   <body>
     <%= render 'layouts/nav' %>
     <div class="container-fluid">
+      <% if user_signed_in? %>
       <p class="notice"><%= notice %></p>
       <p class="alert"><%= alert %></p>
-      <% if user_signed_in? %>
         <div class="row">
           <div class="sidebar-content col-3">
             <%= render 'users/content/sidebar_content'%>
           </div>
-          <div class="main-content col-9">
+          <div class="main-content col-9" id='mainContent'>
             <%= yield %>
           </div>
         </div>
       <% else %>
+        <p class="notice notice-before-login"><%= notice %></p>
+        <p class="alert alert-before-login"><%= alert %></p>
         <%= yield %>
       <% end %>
     </div>

@@ -33,10 +33,18 @@ class UsersController < ApplicationController
 
   def index_meeting
     @meetings = current_user.meetings.where(appointment_id: nil).page(params[:page])
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def index_appointment
     @appointments = current_user.appointments
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def show_mypage

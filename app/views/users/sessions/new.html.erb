@@ -1,26 +1,32 @@
-<h2>Log in</h2>
+<div class="form">
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
-  </div>
-
-  <% if devise_mapping.rememberable? %>
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name), class: "login-form") do |f| %>
     <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", required: true,
+                class: "text-field" %>
+      <%= f.label :email %>
+      <span class="focus-line"></span>
     </div>
+
+    <div class="field">
+      <%= f.password_field :password, autocomplete: "current-password", required: true,
+                  minlength: "8", maxlength: "16", class: "text-field" %>
+      <%= f.label :password %>
+      <span class="focus-line"></span>
+    </div>
+
+    <% if devise_mapping.rememberable? %>
+      <div class="field">
+        <%= f.check_box :remember_me %>
+        <%= f.label :remember_me %>
+      </div>
+    <% end %>
+
+    <div class="actions">
+      <%= f.submit "Log in", class: "btn btn-yellow-red btn-login" %>
+    </div>
+
   <% end %>
-
-  <div class="actions">
-    <%= f.submit "Log in" %>
-  </div>
-<% end %>
-
-<%= render "users/shared/links" %>
+  <%= link_to("Facebook認証", user_facebook_omniauth_authorize_path, class: 'btn btn-facebook') %>
+  <%= render "users/shared/links" %>
+</div>
