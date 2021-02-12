@@ -4,51 +4,53 @@
     <%= render "users/shared/error_messages", resource: resource %>
 
     <div class="field">
-      <%= f.text_field :name, autofocus: true, autocomplete: "name", class: "text-field", placeholder: "" %>
+      <%= f.text_field :name, autofocus: true, autocomplete: "name", required: true, 
+                    class: "text-field", placeholder: "" %>
       <%= f.label :name, "名前" %>
       <span class="focus-line"></span>
     </div>
 
     <div class="field">
-      <%= f.email_field :email, autofocus: true, autocomplete: "email", id: 'emailField', class: "text-field", placeholder: "" %>
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", id: 'emailField', required: true,
+                class: "text-field", placeholder: "" %>
       <%= f.label :email, "Email" %>
       <span class="focus-line"></span>
     </div>
 
     <div class="field">
-      <%= f.number_field :birth_date, autofocus: true, autocomplete: "birth_date",
-              class: "text-field", placeholder: "19950724", maxlength: "8" %>
+      <%= f.date_field :birth_date, autofocus: true, autocomplete: "birth_date", required: true,
+              class: "text-field", id: "birthDateField", min: "1950-01-01", max: "#{Date.today - 20.years}" %>
       <%= f.label :birth_date, "誕生日" %>
       <span class="focus-line"></span>
     </div>
 
-    <div class="field radio-box">
-      <%= f.label :gender, "性別" %>
-      <%= f.radio_button :sex, "1" %>
-      <%= f.label :sex, "男性", value: "1", class: "radio" %>
-      <%= f.radio_button :sex, "2" %>
-      <%= f.label :sex, "女性", value: "2", class: "radio" %>
+    <div class="field">
+      <span class="radio-span-first"><span>
+      <%= f.radio_button :sex, "1", required: true, class: "text-field" %>
+      <span class="radio-span">男性</span>
+      <%= f.radio_button :sex, "2", class: "text-field" %>
+      <span class="radio-span">女性</span>
+      <%= f.label :gender, "性別", class: "radio-label" %>
     </div>
 
-    <div class="field select-box">
+    <div class="field">
       <%= f.collection_select :residence_id, PrefectureMst.all, :id, :prefecture_name,
-                { include_blank: true }, { class: "select-field" } %>
-      <span class="select-highlight"></span>
-      <span class="select-bar"></span>
-      <%= f.label :residence, "居住地", class: "select-label" %>
+                { include_blank: true, required: true }, { class: "select-field text-field" } %>
+      <%= f.label :residence, "居住地"  %>
+      <span class="focus-line"></span>
     </div>
 
     <div class="field">
       <% if @minimum_password_length %>
       <em>(<%= @minimum_password_length %> characters minimum)</em>
       <% end %>
-      <%= f.password_field :password, autocomplete: "new-password", class: "text-field" %>
+      <%= f.password_field :password, autocomplete: "new-password", required: true, class: "text-field" %>
       <%= f.label :password %>
       <span class="focus-line"></span>
     </div>
 
     <div class="field">
-      <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "text-field" %>
+      <%= f.password_field :password_confirmation, autocomplete: "new-password", required: true, class: "text-field" %>
       <%= f.label :password_confirmation %>
       <span class="focus-line"></span>
     </div>
@@ -70,4 +72,16 @@
     }
   }
 
+  // const birth_date = document.getElementById('birthDateField');
+
+  // birth_date.onblur = function() {
+  //   console.log(birth_date.value.length);
+  //   if (birth_date.value.length === 8) {
+  //     const year = parseInt(birth_date.value.substr(0,4));
+  //     const month = parseInt(birth_date.value.substr(4,2)) -1;
+  //     const day = parseInt(birth_date.value.substr(6,2));
+  //     birth_date.value = `${year}-${month}-${day}`
+
+  //   }
+  // } 
 </script>
