@@ -1,22 +1,20 @@
   <div class="modal fade" id="signupAuthModal" tabindex="-1" role="dialog" aria-labelledby="signupAuthModal">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-sm" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">新規登録</h5>
+          <h5 class="modal-title">Sign up</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="閉じる">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body">
-            <%= link_to("Facebook認証", user_facebook_omniauth_authorize_path, class: 'btn btn-facebook') %>
-            <%= link_to('電話番号認証', sms_identifications_input_code_path, class: 'btn btn-yellow') %>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+        <div class="modal-body ">
+          <div class="btn-modal-box"><%= link_to("Facebook認証", user_facebook_omniauth_authorize_path, class: 'btn btn-facebook btn-modal') %><div>
+          <div class="btn-modal-box"><%= link_to('SMS認証', sms_identifications_input_code_path, class: 'btn btn-sms btn-modal') %></div>
         </div>
       </div>
     </div>
   </div>
+
 
   <%# <%= render 'sms_identifications/new' %>
 

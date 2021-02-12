@@ -6,7 +6,9 @@ import "./modules/application.scss";
 import 'jquery';
 import "bootstrap";
 import 'bootstrap4-tagsinput/tagsinput.js'
+// import "@fortawesome/fontawesome-free/js/all";
 import Rails from 'rails-ujs'
 
 Rails.start();
+
 window.$ = $;
