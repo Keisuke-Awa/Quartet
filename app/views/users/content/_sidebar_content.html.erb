@@ -1,30 +1,30 @@
-<ul class="list-group list-group-flush">
-  <li class="list-group-item">
-    <%= link_to(t('.search_meeting'), meetings_path, class: 'list-action sidebar-color', remote: true) %>
+<ul class="nav flex-column side-bar">
+  <li class="nav-item">
+    <%= link_to(t('.search_meeting'), meetings_path, class: 'nav-link sidebar-color', remote: true) %>
   </li>
-  <li class="list-group-item">
-    <%= link_to('企画する', new_meeting_path, class: 'list-action sidebar-color', remote: true) %>
+  <li class="nav-item">
+    <%= link_to('企画する', new_meeting_path, class: 'nav-link sidebar-color', remote: true) %>
   </li>
-  <li class="list-group-item">
-    <%= link_to('申請一覧', index_meeting_user_path(current_user), class: 'list-action sidebar-color', remote: true) %>
+  <li class="nav-item">
+    <%= link_to('申請一覧', index_meeting_user_path(current_user), class: 'nav-link sidebar-color', remote: true) %>
   </li>
-  <li class="list-group-item">
-    <%= link_to('マッチング一覧', index_appointment_user_path(current_user), class: 'list-action sidebar-color', remote: true) %>
+  <li class="nav-item">
+    <%= link_to('マッチング一覧', index_appointment_user_path(current_user), class: 'nav-link sidebar-color', remote: true) %>
   </li>
-  <!--<li class="list-group-item">
-    <%= link_to('マイページ', show_mypage_user_path(current_user), class: 'list-action sidebar-color') %>
+  <!--<li class="nav-item">
+    <%= link_to('マイページ', show_mypage_user_path(current_user), class: 'nav-link sidebar-color') %>
   </li> %>-->
-  <li class="list-group-item">
-    <%= link_to('メッセージ一覧', message_rooms_path, class: 'list-action sidebar-color', remote: true) %>
+  <li class="nav-item">
+    <%= link_to('メッセージ一覧', index_message_room_user_path(current_user), class: 'nav-link sidebar-color', remote: true) %>
   </li>
-  <li class="list-group-item"><%= link_to('ログアウト', destroy_user_session_path, method: :delete, class: 'list-action sidebar-color') %></li>
-  <li class="list-group-item">
-    <%= link_to('退会', user_path(current_user.id), data: { confirm: "本当に退会してよろしいですか?" }, method: :delete, class: 'list-action sidebar-color') %>
+  <li class="nav-item"><%= link_to('ログアウト', destroy_user_session_path, method: :delete, class: 'nav-link sidebar-color') %></li>
+  <li class="nav-item">
+    <%= link_to('退会', user_path(current_user.id), data: { confirm: "本当に退会してよろしいですか?" }, method: :delete, class: 'nav-link sidebar-color') %>
   </li>
 </ul>
 
 <script>
-const sidebar_link = document.getElementsByClassName('list-action');
+const sidebar_link = document.getElementsByClassName('nav-link');
 
 for (let i = 0; i < sidebar_link.length; i++) {
   clickSidebarLinkAction(sidebar_link[i], i);

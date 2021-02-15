@@ -1,4 +1,4 @@
 <h3>成立したプラン</h3>
 <% current_user.appointments.each do |appointment| %>
-  <%= link_to appointment.meeting.meet_at, "#" %>
+  <%= link_to appointment.meeting.meet_at, appointment_path(appointment) %>
 <% end %>

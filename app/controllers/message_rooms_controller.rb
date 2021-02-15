@@ -2,21 +2,20 @@ class MessageRoomsController < ApplicationController
   before_action :set_room, only: :show
   
   def create
+    user = User.find(params[:user_id])
     ActiveRecord::Base.transaction do
-      @room = MessageRoom.create!
-      @room_user1 = MessageRoomUser.create!(room_id: @room.id, user_id: current_user.id)
-      @room_user2 = MessageRoomUser.create!(params.require(:room_user).permit(:user_id, :room_id).merge(room_id: @room.id))
+      @message_room = MessageRoom.create!
+      MessageRoomUser.create!(message_room_id: @message_room.id, user_id: current_user.id)
+      @room_user = MessageRoomUser.create!(message_room_id: @message_room.id, user_id: user.id)
     end
-    redirect_to room_path(@room.id)
-  rescue => e
-    redirect_to root_path
+    redirect_to message_room_path(@message_room.id)
   end
 
   def show
-    if MessageRoomUser.where(user_id: current_user.id, room_id: @room.id).present?
-      @messages = @room.messages
+    if MessageRoomUser.where(user_id: current_user.id, message_room_id: @message_room.id).present?
+      @messages = @message_room.messages
       @message = Message.new
-      @room.users.each do |user|
+      @message_room.users.each do |user|
         @user = user unless user == current_user
       end
     else
@@ -35,7 +34,7 @@ class MessageRoomsController < ApplicationController
   private
 
   def set_room
-    @room = Room.find(params[:id])
+    @message_room = MessageRoom.find(params[:id])
   end
 
 end
