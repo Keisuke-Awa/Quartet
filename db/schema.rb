@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_10_095319) do
+ActiveRecord::Schema.define(version: 2021_02_15_143752) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -97,8 +97,6 @@ ActiveRecord::Schema.define(version: 2021_01_10_095319) do
   create_table "message_rooms", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "appointment_id", null: false
-    t.index ["appointment_id"], name: "index_message_rooms_on_appointment_id"
   end
 
   create_table "messages", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -252,7 +250,6 @@ ActiveRecord::Schema.define(version: 2021_01_10_095319) do
   add_foreign_key "meetings", "users", column: "planning_user_id"
   add_foreign_key "message_room_users", "message_rooms"
   add_foreign_key "message_room_users", "users"
-  add_foreign_key "message_rooms", "appointments"
   add_foreign_key "messages", "message_rooms"
   add_foreign_key "messages", "users"
   add_foreign_key "places", "prefecture_msts", column: "prefecture_id"

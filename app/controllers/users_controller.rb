@@ -40,7 +40,15 @@ class UsersController < ApplicationController
   end
 
   def index_appointment
-    @appointments = current_user.appointments
+    @appointments = current_user.appointments.includes(:meeting)
+    respond_to do |format|
+      format.html
+      format.js
+    end
+  end
+
+  def index_message_room
+    @message_rooms = current_user.message_rooms
     respond_to do |format|
       format.html
       format.js

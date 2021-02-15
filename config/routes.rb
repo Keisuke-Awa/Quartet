@@ -16,6 +16,7 @@ Rails.application.routes.draw do
         get :home
         get :index_meeting
         get :index_appointment
+        get :index_message_room
         get :show_mypage
       end
 

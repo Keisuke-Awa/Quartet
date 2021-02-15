@@ -1,3 +1,6 @@
 @import '~bootstrap/scss/bootstrap';
 @import "~bootstrap4-tagsinput/tagsinput";
+$fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
+@import "~@fortawesome/fontawesome-free/scss/solid.scss";
+@import "~@fortawesome/fontawesome-free/scss/fontawesome.scss";
 @import 'custom';

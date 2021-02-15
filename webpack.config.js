@@ -78,12 +78,22 @@ module.exports = {
           {
             loader: 'url-loader',
             options: {
-              limit: 50 * 1024, 
               name: './images/[name].[ext]',
             }
           }
         ]
-      }
+      },
+      {
+        test: /\.(ttf|eot|woff|woff2|svg)$/,
+        use: [{
+            loader: 'file-loader',
+            options: {
+                name: "[name].[ext]",
+                outputPath: './webfonts',
+                publicPath: '../webfonts',
+            }
+        }]
+      },
     ],
   },
   plugins: [
