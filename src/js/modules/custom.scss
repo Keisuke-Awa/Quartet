@@ -1,12 +1,13 @@
 $red: #FF2020;
 $yellow: #FFB500;
 $green: #79f100;
-$orange: #CA692A;
+$orange: #fda520;
 $gray: #4D4D4C;
-$whitesmoke: #f5f5f5;
+$menuwhite: #f5f5f5;
 $ghostwhite : #f8f8ff;
 $iconColor: #FFB500;
 $errorColor: red;
+$navColor: #f8f8ff;
 
 html {
   height: 100%;
@@ -28,12 +29,18 @@ html {
 body {
   height: 100%;
   width: 100%;
+  background: $ghostwhite;
 }
 
 /* ボタン */
 .actions {
   text-align: center;
 }
+
+.btn {
+  border-radius: 1.5em;
+}
+
 .btn.focus, .btn:focus {
   outline: 0;
   -webkit-box-shadow: none;
@@ -136,13 +143,16 @@ body {
 
 /* トップページ */
 
-main {
-  .top-first-page {
-    text-align: center;
-    padding-top: 2.0rem;
-    background-color: gray;
-    height: 100vh;
-    .container {
+.top-first-page {
+  height: 100%;
+  width: 100%; 
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  .row {
+    height: 50%;
+    .top-content {
+      height: 100%;
       .top-logo {
         width: 300px;
         height: 300px;
@@ -167,6 +177,42 @@ main {
     }
   }
 }
+
+.top-first-page {
+  animation: bgAnime 10s infinite;
+}
+@keyframes bgAnime {
+  0% {
+    background-image: url('./images/yumikoIMGL7854_TP_V.jpg');
+  }
+  50% {
+   background-image: url('./images/carshare501IMGL2465_TP_V.jpg');
+ }
+  100% { 
+    background-image: url('./images/yumikoIMGL7854_TP_V.jpg');
+  }
+}
+
+/* body */
+header {
+  height: 15vh;
+  width: 100%;
+  background-color: $navColor;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+}
+
+.notice, .alert {
+  height: 5vh;
+}
+
+.body-content {
+  padding-top: 15vh;
+}
+
+
 
 /* サインアップモーダル */
 .modal-body {
@@ -289,39 +335,33 @@ input[type=date] {
 
 /* サイドバー */
 
-.list-group {
+.sidebar-content {
+  height: 60vh;
   position: sticky;
-  padding-top: 50px;
-  top: 70px;
+  top: calc(25vh + 2rem);
 }
-
-.list-group-item {
-  font-weight: bold;
-  .list-action {
-    &:link, &:visited {
+.side-bar {
+  height: 60vh;
+  width: 50%;
+  background-color: $menuwhite;
+  .nav-item {
+    .sidebar-color {
       color: black;
       text-decoration: none;
+      &:link, &:visited {
+        text-decoration: none;
+      }
+      &:hover {
+        color: white;
+        background-color: $yellow;
+      }
     }
-    &:hover {
-      color: $red;
-    }
-  }
-  .sidebar-color {
-    &:link, &:visited {
-      color: black;
-      text-decoration: none;
-    }
-    &:hover {
-      color: black;
-    }
-  }
-  .click-sidebar-color {
-    &:link, &:visited {
-      color: $orange;
-      text-decoration: none;
-    }
-    &:hover {
-      color: $orange;
+    .click-sidebar-color {
+      background-color: $red;
+      color: white;
+      &:link, &:visited {
+        text-decoration: none;
+      }
     }
   }
 }

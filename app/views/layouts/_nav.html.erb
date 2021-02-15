@@ -1,46 +1,38 @@
-<nav class="navbar navbar-expand-md sticky-top pt-4">
-    <!-- サブコーポネント -->
-    <div class="container-fluid">
-      <% if user_signed_in? %>
-        <%= link_to image_tag('/assets/images/logo-nav.jpeg', width: "300", alt: "icon", class: "img-fluid"), home_user_path(current_user.id), class: "navbar-brand pl-2 pt-1" %>
-      <% else %>
-        <%= link_to image_tag('/assets/images/logo-nav.jpeg', width: "300", alt: "icon", class: "img-fluid"), root_path, class: "navbar-brand pl-2 pt-1" %>
-      <% end %>
-      <!--<button class="navbar-toggler" type="button" data-toggle="collapse"
-        data-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false"
-        aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button> -->
+<nav class="navbar navbar-expand-md">
+  <% if user_signed_in? %>
+    <%= link_to image_tag('/assets/images/logo-nav.jpeg', width: "280", alt: "icon", class: "img-fluid"), home_user_path(current_user.id), class: "navbar-brand" %>
+  <% else %>
+    <%= link_to image_tag('/assets/images/logo-nav.jpeg', width: "280", alt: "icon", class: "img-fluid"), root_path, class: "navbar-brand" %>
+  <% end %>
 
-      <!-- ナビゲーション -->
-      <div class="collapse navbar-collapse" id="navbar-content">
-        <ul class="navbar-nav ml-auto">
-          <% if user_signed_in? %>
-            <li class="nav-item">
-              <% if current_user.avatar.attached? %>
-                <%= image_tag current_user.avatar.variant(combine_options:{gravity: :center, resize:"40x40"}).processed, alt: "icon", class: "img-fluid" %>
-              <% else %>
-                <%= image_tag '/assets/images/default-icon.jpeg', width: "50", alt: "icon", class: "img-fluid" %>
-              <% end %>
-            </li>
+  <!-- ナビゲーション -->
+  
+  <div class="collapse navbar-collapse" id="navbar-content">
+    <ul class="navbar-nav ml-auto">
+      <% if user_signed_in? %>
+        <li class="nav-item">
+          <% if current_user.avatar.attached? %>
+            <%= image_tag current_user.avatar.variant(combine_options:{gravity: :center, resize:"40x40"}).processed, alt: "icon", class: "img-fluid" %>
           <% else %>
-            <li class="nav-item">
-              <%= link_to( 'ログイン', new_user_session_path, class: "nav-link btn btn-dark") %>
-            </li>
-            <%# <li class="nav-item ml-3">
-              <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#signupAuthModal">新規登録</button>
-            </li> %>
+            <%= image_tag '/assets/images/default-icon.jpeg', width: "50", alt: "icon", class: "img-fluid" %>
           <% end %>
-          <li>
-            <% if I18n.locale.to_s == "en" %>
-              <%= link_to('日本語', root_path(locale: 'ja'), class: "nav-link btn btn-dark" ) %>
-            <% else %>
-              <%= link_to('English', root_path(locale: 'en'), class: "nav-link btn btn-dark" ) %>
-            <% end %>
-          </li>
-        </ul>
-      </div>
-      <!-- /ナビゲーション -->
-    </div>
-    <!-- /サブコーポネント -->
-  </nav>
+        </li>
+      <% else %>
+        <li class="nav-item">
+          <%= link_to( 'ログイン', new_user_session_path, class: "nav-link btn btn-dark") %>
+        </li>
+        <%# <li class="nav-item ml-3">
+          <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#signupAuthModal">新規登録</button>
+        </li> %>
+      <% end %>
+      <li>
+        <% if I18n.locale.to_s == "en" %>
+          <%= link_to('日本語', root_path(locale: 'ja'), class: "nav-link btn btn-dark" ) %>
+        <% else %>
+          <%= link_to('English', root_path(locale: 'en'), class: "nav-link btn btn-dark" ) %>
+        <% end %>
+      </li>
+    </ul>
+  </div>
+  <!-- /ナビゲーション -->
+</nav>
