@@ -58,10 +58,10 @@ class MeetingsController < ApplicationController
 
   def search_result
     @q = Meeting.ransack(params[:q])
-    @meetings = @q.result(distinct: true).where.not(planning_user_id: current_user.id)
+    @meetings = @q.result(distinct: true).where.not(planning_user_id: current_user.id).where(meet_at: DateTime.now..Float::INFINITY)
             .where(appointment_id: nil).eager_load([{planning_user: :avatar_attachment}, :place]).page(params[:page]).per(10)
   end
-  
+
   def initialize_search_form
     @places = Place.all
     @first_week = (0..6).to_a.map {|i| Date.today + i.days }

@@ -9,6 +9,12 @@ $iconColor: #FFB500;
 $errorColor: red;
 $navColor: #f8f8ff;
 
+/* メッセージ機能 */
+$titleColor:   #273246;
+$baseColor:    #7494c0;
+$myTextColor:  #8de055;
+
+
 html {
   height: 100%;
   width: 100%;
@@ -210,6 +216,11 @@ header {
 
 .body-content {
   padding-top: 15vh;
+  height: 85vh;
+}
+
+.main-content {
+  height: 60vh;
 }
 
 
@@ -342,7 +353,7 @@ input[type=date] {
 }
 .side-bar {
   height: 60vh;
-  width: 50%;
+  width: 80%;
   background-color: $menuwhite;
   .nav-item {
     .sidebar-color {
@@ -516,4 +527,88 @@ input[type="number"] {
   -webkit-transform: rotate(-135deg);
   transform: rotate(-135deg);
   margin-bottom: 30px;
+}
+
+
+
+/* メッセージ */
+.message-room-content {
+  height: 100%;
+  width: 100%;
+  background-color: #ffffff;
+  .message-partner-info {
+    height: 10%;
+    border-bottom: #eeeeee;
+    display: flex;
+    align-items: center;
+    .message-partner-name {
+      padding-left: 2%;
+    }
+  }
+  .message-box {
+    height: 80%;
+    background-color: #fafafa;
+    overflow: scroll;
+    .message-content {
+      padding-top: 35px;
+      .message {
+        padding: 0 0 40px 40px;
+        .message-header {
+          display: flex;
+          .message-user {
+            color: #333333;
+            font-size: 16px;
+            vertical-align: text-top;
+            font-weight: bold;
+          }
+          .messsage-datetime {
+            color: #999999;
+            font-size: 12px;
+            right: 0;
+            margin-left: 10px;
+          }
+        }
+        .message-body {
+          color: #434A54;
+          font-size: 14px;
+          padding-top: 12px;
+          flex-direction: column;
+          display: flex;
+          &__image {
+            width: 33%;
+            height: auto;
+          }
+        }
+      }
+    }
+  }
+  .message-form {
+    height: 90px;
+    background-color: #d2d2d2;
+    padding: 20px 40px;
+    form {
+      display: flex;
+      .message-input-box {
+        display: flex;
+        position: relative;
+        width: 100%;
+        .message-input-text {
+          height: 50px;
+          width: 100%;
+          color: #434a54;
+          border-style: none;
+          padding: 0 40px 0 10px;
+        }
+      }
+      .btn-message {
+        width: 100px;
+        height: 50px;
+        padding: 0 30px;
+        margin-left: 15px;
+        background-color: #38aef0;
+        color: white;
+        cursor: pointer;
+      }
+    }
+  }
 }

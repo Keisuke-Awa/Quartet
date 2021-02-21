@@ -1,8 +1,8 @@
 <h3>メッセージ一覧</h3>
-<% @rooms.each do |room| %>
-  <% room.users.each do |user| %>
+<% @message_rooms.each do |mr| %>
+  <% mr.users.each do |user| %>
     <div>
-      <%= link_to(user.name, room_path(room.id)) unless user == current_user %>
+      <%= link_to(user.name, room_path(mr.id)) unless user == current_user %>
     </div>
   <% end %>
 <% end %>

@@ -1,22 +1,20 @@
-<h3>DM</h3>
-<%= @user.name %>
-
-<hr>
-<% if @messages.present? %>
-  <% @messages.each do |m| %>
-    <strong><%= m.content %></strong>
-    <small>by <strong><a href="/users/<%= m.user_id %>"><%= m.user.email %>さん</a></strong></small>
-    <hr>
-  <% end %>
-<% else %>
-  <h3 class="text-center">メッセージはまだありません</h3>
-<% end %>
-
-<%= form_with(model: [@message_room, @message], local: true) do |f| %>
-  <%= f.text_field :content, placeholder: "メッセージを入力して下さい" , size: 70 %>
-  <%= f.hidden_field :room_id, value: @message_room.id %>
-  <br>
-  <%= f.submit "投稿する" %>
-<% end %>
-
-<%= link_to "ユーザー一覧に戻る", users_path %>
+<div class="message-room-content">
+  <div class="message-partner-info">
+    <div class="message-partner-name">
+      <%= @message_partner.name %>
+    </div>
+  </div>
+  <div id="messageBox" class="message-box">
+    <%= render @messages %>
+  </div>
+  <div class="message-form">
+    <%= form_with(model: [@message_room, @message_room.messages.build], id: 'messageForm', local: true) do |f| %>
+      <div class="message-input-box">
+        <%= f.hidden_field :message_room_id, value: @message_room.id %>
+        <%= f.text_field :content, id: 'messageText', class: "message-input-text" %>
+      </div>
+      <%= f.submit 'Send', id: 'messageBtn', class: "btn btn-message" %>
+    <% end %>
+  </div>
+</div>
+<%=javascript_bundle_tag 'message_rooms_show' %>
