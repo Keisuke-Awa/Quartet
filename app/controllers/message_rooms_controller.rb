@@ -13,18 +13,15 @@ class MessageRoomsController < ApplicationController
 
   def show
     if MessageRoomUser.where(user_id: current_user.id, message_room_id: @message_room.id).present?
-      @messages = @message_room.messages
-      @message = Message.new
-      @message_room.users.each do |user|
-        @user = user unless user == current_user
-      end
+      @messages = @message_room.messages.includes(:user)
+      @message_partner = @message_room.not_current_user(current_user)
     else
       redirect_back(fallback_location: root_path)
     end
   end
 
   def index
-    @rooms = current_user.message_rooms
+    @message_rooms = current_user.message_rooms
     respond_to do |format|
       format.html
       format.js
