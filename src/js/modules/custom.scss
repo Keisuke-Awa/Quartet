@@ -549,36 +549,29 @@ input[type="number"] {
     height: 80%;
     background-color: #fafafa;
     overflow: scroll;
-    .message-content {
-      padding-top: 35px;
-      .message {
-        padding: 0 0 40px 40px;
-        .message-header {
-          display: flex;
-          .message-user {
-            color: #333333;
-            font-size: 16px;
-            vertical-align: text-top;
-            font-weight: bold;
-          }
-          .messsage-datetime {
-            color: #999999;
-            font-size: 12px;
-            right: 0;
-            margin-left: 10px;
-          }
+    .message {
+      padding: 0 0 40px 40px;
+      .message-header {
+        display: flex;
+        .message-user {
+          color: #333333;
+          font-size: 16px;
+          vertical-align: text-top;
+          font-weight: bold;
         }
-        .message-body {
-          color: #434A54;
-          font-size: 14px;
-          padding-top: 12px;
-          flex-direction: column;
-          display: flex;
-          &__image {
-            width: 33%;
-            height: auto;
-          }
+        .messsage-datetime {
+          color: #999999;
+          font-size: 12px;
+          right: 0;
+          margin-left: 10px;
         }
+      }
+      .message-body {
+        color: #434A54;
+        font-size: 14px;
+        padding-top: 12px;
+        flex-direction: column;
+        display: flex;
       }
     }
   }
@@ -605,8 +598,6 @@ input[type="number"] {
         height: 50px;
         padding: 0 30px;
         margin-left: 15px;
-        background-color: #38aef0;
-        color: white;
         cursor: pointer;
       }
     }

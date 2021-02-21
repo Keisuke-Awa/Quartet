@@ -1,10 +1,10 @@
-<div class="messsage">
+<div class="message">
   <div class="message-header">
     <p class="message-user">
       <%= message.user.name %>
     </p>
     <p class="message-datetime">
-      <%= message.created_at.strftime("%Y年%m月%d日 %H時%M分") %>
+      <%= message.created_at.strftime("%m/%d %H:%M") %>
     </p>
   </div>
   <div class="message-body">
