@@ -1,6 +1,9 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+
+  before_create :default_avatar
+  
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
          #:confirmable, 
@@ -9,16 +12,6 @@ class User < ApplicationRecord
 
 
   has_one_attached :avatar
-
-  # has_many :active_friend_requests, class_name: "FriendRequest",
-  #                   foreign_key: "from_user_id", dependent: :destroy
-  # has_many :passive_friend_requests, class_name: "FriendRequest",
-  #                   foreign_key: "to_user_id", dependent: :destroy
-  # has_many :requesting_users, through: :active_friend_requests, source: :to_user
-  # has_many :requested_users, through: :passive_friend_requests, source: :from_user
-
-  # has_many :friendships #dependent: :destroy
-  # has_many :friends, through: :friendships
   
   has_many :messages, dependent: :destroy
   has_many :message_room_users, dependent: :destroy
@@ -44,6 +37,7 @@ class User < ApplicationRecord
   validates :residence, presence: true
   validates :password, presence: true
   validates :password_confirmation, presence: true
+
 
   # def request_friendship(other_user)
   #   requesting_users << other_user
@@ -74,6 +68,13 @@ class User < ApplicationRecord
   #   friendships.find_by(friend_id: other_user.id).destroy
   #   other_user.friendships.find_by(friend_id: self.id).destroy
   # end
+
+  def default_avatar
+    unless avatar.attached?
+      avatar.attach(io: File.open(Rails.root.join('public', 'assets', 'images', 'default-icon.jpg')), filename: 'default-icon.jpg',
+                        content_type: 'image/jpg')
+    end
+  end
 
   def apply_meeting(meeting)
     applying_meetings << meeting

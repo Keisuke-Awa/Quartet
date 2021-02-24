@@ -1,4 +1,13 @@
 class MessagesController < ApplicationController
+
+  def index
+    @message_room = MessageRoom.find(params[:message_room_id])
+    @messages = @message_room.messages.includes(:user).where('id > ?', params[:last_id])
+    respond_to do |format|
+      format.json
+    end
+  end
+  
   def create
     # if MessageRoomUser.where(user_id: current_user.id, message_room_id: params[:message_room_id]).present?
       if @message = Message.create!(message_params)

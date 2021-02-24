@@ -1,15 +1,25 @@
-<div class="message">
-  <div class="message-header">
-    <p class="message-user">
-      <%= message.user.name %>
-    </p>
-    <p class="message-datetime">
-      <%= message.created_at.strftime("%m/%d %H:%M") %>
-    </p>
+<% if message.user == current_user %>
+<div class="message message-right" data-message-id="<%=message.id%>">
+  <div class="message-body">
+    <br>
+    <div class="message-content">
+      <%= message.content if message.content.present? %>
+    </div>
+  </div>
+  
+</div>
+<% else %>
+<div class="message message-left" data-message-id="<%=message.id%>">
+  <div class="message-image">
+    <%= image_tag message.user.avatar, alt: "icon", class: "rounded-circle" %>
   </div>
   <div class="message-body">
-    <p class="message-content">
+    <%= message.user.name %>
+    <br>
+    <div class="message-content">
       <%= message.content if message.content.present? %>
-    </p>
+    </div>
   </div>
 </div>
+<% end %>
+

@@ -8,51 +8,94 @@ $(function() {
 
   function buildHTML(message) {
     const content = message.content ? `${message.content}` : "";
-    const html = `<div class="message" data-id="${message.id}">
-                  <div class="message-header">
-                    <p class="message-user">
-                      ${message.user_name}
-                    </p>
-                    <p class="message-datetime">
-                      ${message.date}
-                    </p>
+    let html;
+    if (message.is_current_user) {
+      html =  `<div class="message message-right" data-message-id="${message.id}">
+                <div class="message-body">
+                  ${message.user_name}
+                  <br>
+                  <div class="message-content">
+                    ${content}
                   </div>
-                  <div class="message-body">
-                    <p class="message-content">
-                      ${message.content}
-                    </p>
+                </div>
+                <div class="message-image">
+                  <img class= "rounded-circle" src="${message.user_avatar}">
+                </div>
+              </div>`
+    } else {
+      html =  `<div class="message message-left" data-message-id="${message.id}">
+                <div class="message-image">
+                  <img class= "rounded-circle" src="${message.user_avatar}">
+                </div>
+                <div class="message-body">
+                  ${message.user_name}
+                  <br>
+                  <div class="message-content">
+                    ${content}
                   </div>
-                </div>`
+                </div>
+              </div>`
+    }
     return html;
   }
 
   
-  $('#messageForm').submit(function(e){
-    const message_form = document.getElementById('messageForm');
+  $('#messageForm').on('submit', function(e){
     e.preventDefault();
-    const message = new FormData(message_form);
-    const url = $(message_form).attr('action');
+    $('#messageBtn').prop('disabled', false);
 
-    $.ajax({  
-      url: url,
-      type: 'POST',
-      data: message,
-      dataType: 'json',
-      processData: false,
-      contentType: false
-    })
-    .done(function(data) {
-      const html = buildHTML(data);
-      console.log(html);
-      $('#messageBox').append(html);
-      $('#messageText').val("");
-      $('#messageBox').animate({ scrollTop: $('#messageBox')[0].scrollHeight});
-    })
-    .fail(function() {
-      alert('メッセージの送信に失敗しました');
-    })
-    .always(function(data) {
-      $('#messageBtn').prop('disabled', false);
-    })
+    if ($('#messageText').val() === "") {
+      return false;
+    } else {
+      const message_form = document.getElementById('messageForm');
+      const message = new FormData(message_form);
+      const url = $(message_form).attr('action');
+
+      $.ajax({  
+        url: url,
+        type: 'POST',
+        data: message,
+        dataType: 'json',
+        processData: false,
+        contentType: false
+      })
+      .done(function(data) {
+        const html = buildHTML(data);
+        $('#messageBox').append(html);
+        $('#messageText').val("");
+        $('#messageBox').animate({ scrollTop: $('#messageBox')[0].scrollHeight});
+      })
+      .fail(function() {
+        console.log('メッセージの送信に失敗しました');
+      })
+      .always(function() {
+        $('#messageBtn').prop('disabled', false);
+      });
+    };
   })
+
+  const reloadMessages = function() {
+    const last_message_id = $('.message:last').data("message-id");
+    const href = window.location.href + "/messages"
+  
+    $.ajax ({
+      url: href,
+      type: 'get',
+      dataType: 'json',
+      data: {last_id: last_message_id}
+    })
+    .done(function(messages) {
+      let insertHTML = "";
+      messages.forEach(function(message) {
+        insertHTML = buildHTML(message);
+        $('#messageBox').append(insertHTML);
+        $('#messageBox').animate({ scrollTop: $('#messageBox')[0].scrollHeight});
+      })
+    })
+    .fail(function () {
+      console.log('更新に失敗しました');
+    });
+  };
+  
+  setInterval(reloadMessages, 7000);
 });
