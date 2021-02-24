@@ -60,7 +60,7 @@ ActiveRecord::Base.transaction do
     else
       sex = '2'
     end
-    User.create!(name: name, email: email, password: password, birth_date: birth_date, sex: sex, residence_id: 13)
+    User.create!(name: name, email: email, password: password, password_confirmation: password, birth_date: birth_date, sex: sex, residence_id: 13)
   end
 end
 

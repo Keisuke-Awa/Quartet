@@ -11,20 +11,24 @@
     <header><%= render 'layouts/nav' %></header>
     <div class="body-content">
       <% if user_signed_in? %>
-        <p class="notice"><%= notice %></p>
-        <p class="alert"><%= alert %></p>
         <div class="row">
           <div class="sidebar-content col-2">
             <%= render 'users/content/sidebar_content'%>
           </div>
-          <div class="main-content col-9" id='mainContent'>
-            <%= yield %>
+          <div class="content-box col-9" id='contentBox'>
+            <%= render 'layouts/flashes' %>
+            <div class="main-content" id='mainContent'>
+              <%= yield %>
+            </div>
           </div>
         </div>
       <% else %>
-        <p class="notice notice-before-login"><%= notice %></p>
-        <p class="alert alert-before-login"><%= alert %></p>
-        <%= yield %>
+        <div class="content-box" id='contentBox'>
+          <%= render 'layouts/flashes' %>
+          <div class="main-content" id='mainContent'>
+            <%= yield %>
+          </div>
+        </div>
       <% end %>
     </div>
   </body>

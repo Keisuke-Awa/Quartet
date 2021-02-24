@@ -32,7 +32,7 @@ Rails.application.routes.draw do
     end
 
     resources :message_rooms, only: [:index, :show, :create] do
-      resources :messages, only: [:create]
+      resources :messages, only: %i(create index)
     end
 
     resources :appointments, only: [:create, :destroy, :show, :index]

@@ -13,6 +13,7 @@ $navColor: #f8f8ff;
 $titleColor:   #273246;
 $baseColor:    #7494c0;
 $myTextColor:  #8de055;
+$messageContentColor: #8de055;
 
 
 html {
@@ -210,8 +211,16 @@ header {
   z-index: 999;
 }
 
-.notice, .alert {
+.alert-box {
   height: 5vh;
+  margin-bottom: 1rem;
+}
+
+.alert {
+  height: 5vh;
+  padding: 0 1.25rem;
+  line-height: 5vh;
+  margin-bottom: 0;
 }
 
 .body-content {
@@ -219,8 +228,11 @@ header {
   height: 85vh;
 }
 
-.main-content {
-  height: 60vh;
+.content-box {
+  height: 85vh;
+  .main-content {
+    height: calc(80vh - 1rem);
+  }
 }
 
 
@@ -257,12 +269,12 @@ header {
         border-bottom: none;
       }
     }
-    input[type= text], input[type=email], input[type=number], input[type=password], input[type=date], select {
+    input[type= text], input[type=email], input[type=number], input[type=password], 
+                    input[type=date], input[type=file], select {
       font: 16px/26px sans-serif;
       box-sizing: border-box;
       width: 100%;
       letter-spacing: 1px;
-      padding-left: 4em;
       &:focus {
         outline: none;
       }
@@ -331,6 +343,7 @@ input[type=date] {
 .feedback {
   display: inline-block;
 }
+
 
 .navbar-brand {
   letter-spacing: 0.2rem;
@@ -546,44 +559,109 @@ input[type="number"] {
     }
   }
   .message-box {
-    height: 80%;
+    height: 75%;
+    padding-bottom: 1%;
     background-color: #fafafa;
     overflow: scroll;
-    .message-content {
-      padding-top: 35px;
-      .message {
-        padding: 0 0 40px 40px;
-        .message-header {
-          display: flex;
-          .message-user {
-            color: #333333;
-            font-size: 16px;
-            vertical-align: text-top;
-            font-weight: bold;
-          }
-          .messsage-datetime {
-            color: #999999;
-            font-size: 12px;
-            right: 0;
-            margin-left: 10px;
+    .message-left {
+      .message-image {
+        width: 6%;
+        display: inline-block;
+        vertical-align: top;
+        margin-bottom: 10px;
+        box-sizing: border-box;
+        text-align: right;
+        padding-top: 18px;
+        img {
+          width: 100%;
+          max-width: 75px!important;
+        }
+      }
+      .message-body {
+        font-size: small;
+        position: relative;
+        width: 68%;
+        display:inline-block;
+        vertical-align: top;
+        margin-left: 3%;
+        margin-right: 18%;
+        margin-top: 1%;
+        box-sizing: border-box;
+        .message-content {
+          display:inline-block;
+          background-color: $messageContentColor;
+          padding: 1% 1.5%;
+          border-radius: 10px;
+          font-size: medium;
+          &::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 7px 15px 7px 0;
+            border-color: transparent $messageContentColor transparent transparent;
+            top: 30px;
+            left: -15px;
           }
         }
-        .message-body {
-          color: #434A54;
-          font-size: 14px;
-          padding-top: 12px;
-          flex-direction: column;
-          display: flex;
-          &__image {
-            width: 33%;
-            height: auto;
+      }
+    }
+    .message-right {
+      .message-body {
+        font-size: small;
+        position: relative;
+        width: 74%;
+        display: inline-block;
+        vertical-align: top;
+        margin-right: 3%;
+        margin-left: 18%;
+        margin-top: 1%;
+        box-sizing: border-box;
+        text-align: right;
+        .message-content {
+          display: inline-block;
+          text-align:left;
+          background-color: $messageContentColor;
+          padding: 1% 1.5%;
+          border-radius: 10px;
+          font-size: medium;
+          &::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 7px 0 7px 15px;
+            border-color: transparent transparent transparent $messageContentColor;
+            top: 30px;
+            right: -15px;
           }
+        }
+      }
+      .message-image {
+        width: 6%;
+        display: inline-block;
+        vertical-align: top;
+        margin-bottom: 10px;
+        box-sizing: border-box;
+        padding-top: 14px;
+        text-align: left;
+        img {
+          width: 100%;
+          max-width: 75px!important;
+          border-radius: 50%;
+        }
+        p {
+          text-align: left;
+          padding:0px;
+          margin:0px;
         }
       }
     }
   }
   .message-form {
-    height: 90px;
+    height: 15%;
     background-color: #d2d2d2;
     padding: 20px 40px;
     form {
@@ -605,8 +683,6 @@ input[type="number"] {
         height: 50px;
         padding: 0 30px;
         margin-left: 15px;
-        background-color: #38aef0;
-        color: white;
         cursor: pointer;
       }
     }
