@@ -36,7 +36,7 @@
     <div class="field">
       <%= f.collection_select :residence_id, PrefectureMst.all, :id, :prefecture_name,
                 { include_blank: true, required: true }, { class: "select-field text-field" } %>
-      <%= f.label :residence, "居住地"  %>
+      <%= f.label :residence, "居住地" %>
       <span class="focus-line"></span>
     </div>
 
@@ -75,18 +75,5 @@
     if (emailField.value !== "") {
       emailField.readOnly = true;
     }
-  }
-
-  // const birth_date = document.getElementById('birthDateField');
-
-  // birth_date.onblur = function() {
-  //   console.log(birth_date.value.length);
-  //   if (birth_date.value.length === 8) {
-  //     const year = parseInt(birth_date.value.substr(0,4));
-  //     const month = parseInt(birth_date.value.substr(4,2)) -1;
-  //     const day = parseInt(birth_date.value.substr(6,2));
-  //     birth_date.value = `${year}-${month}-${day}`
-
-  //   }
-  // } 
+  } 
 </script>

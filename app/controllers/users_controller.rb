@@ -54,11 +54,6 @@ class UsersController < ApplicationController
       format.js
     end
   end
-
-  def show_mypage
-    @user = current_user
-    render layout: 'mypage'
-  end
   
   private
   

@@ -1,48 +1,54 @@
-<%= form_with(model: @user_profile, url: user_user_profile_path(current_user.id), local: true, class: 'form-horizontal') do |f| %>
-  <div class="form-group">
-    <%= f.label :height, "身長：", class: "control-label col-xs-2" %>
-    <div class="col-xs-5">
-      <%= f.number_field :height, value: @user_profile.height, class: "form-control" %>
+<div class="form">
+  <%= form_with(model: @user_profile, url: user_user_profile_path(current_user.id), local: true) do |f| %>
+    <div class="field">
+      <%= f.number_field :height, class: "text-field" %>
+      <%= f.label :height, "身長" %>
+      <span class="focus-line"></span>
     </div>
-  </div>
-  <div class="form-group">
-    <%= f.label :weight, "体重：", class: "mt-4" %>
-    <%= f.number_field :weight, value: @user_profile.weight, class: "form-control mb-4" %>
-  </div>
-  <div class="form-group">
-    <%= f.label :blood_type, "血液型：", class: "control-label col-xs-2" %>
-    <div class="col-xs-5">
+    <div class="field">
+      <%= f.number_field :weight, class: "text-field" %>
+      <%= f.label :weight, "体重" %>
+      <span class="focus-line"></span>
+    </div>
+    <div class="field">
       <%= f.select :blood_type, {'A型': 'A', 'B型': 'B', 'AB型': 'AB', 'O型': 'O'},
-                  value: @user_profile.blood_type, include_blank: '---', class: "form-control" %>
+                  {include_blank: ''}, {class: "select-field text-field"} %>
+      <%= f.label :blood_type, "血液型" %>
+      <span class="focus-line"></span>
     </div>
-  </div>
-  <div class="form-group">
-    <%= f.label :birthplace_id, "出身地：", class: "mt-4"%>
-    <%= f.collection_select	:birthplace_id, @form_option[:birthplaces], :id, :prefecture_name,
-                  value: @user_profile.birthplace_id, include_blank: '---', class: "form-control mb-4" %>
-  </div>
-  <div class="form-group">
-    <%= f.label :occupation_id, "職種：", class: "mt-4"%>
-    <%= f.collection_select	:occupation_id, @form_option[:occupations], :id, :occupation_name,
-                  value: @user_profile.occupation_id, include_blank: '---', class: "form-control mb-4" %>
-  </div>
-  <div class="form-group">
-    <%= f.label :educational_bg_id, "学歴：", class: "mt-4"%>
-    <%= f.collection_select	:educational_bg_id, @form_option[:educational_bgs], :id, :ebg_name,
-                  value: @user_profile.educational_bg_id, include_blank: '---', class: "form-control mb-4" %>
-  </div>
-  <div class="form-group">
-    <%= f.label :annual_income_id, "年収：", class: "mt-4"%>
-    <%= f.collection_select	:annual_income_id, @form_option[:annual_incomes], :id, :income_range, 
-                  value: @user_profile.annual_income_id, include_blank: '---', class: "form-control mb-4" %>
-  </div>
-  <div class="form-group">
-    <%= f.label :smoking_status_id, "喫煙有無：", class: "mt-4"%>
-    <%= f.collection_select	:smoking_status_id, @form_option[:smoking_statuses], :id, :smoking_status, 
-                  value: @user_profile.smoking_status_id, include_blank: '---', class: "form-control mb-4" %>
-  </div>
-  <div class="form-group">
-    <%= f.submit "保存", class: "btn btn-yellow" %>
-    <%= link_to("スキップ", home_user_path(current_user.id), class: "btn btn-yellow") %>
-  </div>
-<% end %>
+    <div class="field">
+      <%= f.collection_select	:birthplace_id, @form_option[:birthplaces], :id, :prefecture_name,
+                    {include_blank: ''}, {class: "select-field text-field"} %>
+      <%= f.label :birthplace_id, "出身地" %>
+      <span class="focus-line"></span>
+    </div>
+    <div class="field">
+      <%= f.collection_select	:occupation_id, @form_option[:occupations], :id, :occupation_name,
+                    {include_blank: ''}, {class: "select-field text-field"} %>
+      <%= f.label :occupation_id, "職種" %>
+      <span class="focus-line"></span>
+    </div>
+    <div class="field">
+      <%= f.collection_select	:educational_bg_id, @form_option[:educational_bgs], :id, :ebg_name,
+                    {include_blank: ''}, {class: "select-field text-field"} %>
+      <%= f.label :educational_bg_id, "学歴"%>
+      <span class="focus-line"></span>
+    </div>
+    <div class="field">
+      <%= f.collection_select	:annual_income_id, @form_option[:annual_incomes], :id, :income_range, 
+                    {include_blank: ''}, {class: "select-field text-field"} %>
+      <%= f.label :annual_income_id, "年収"%>
+      <span class="focus-line"></span>
+    </div>
+    <div class="field">
+      <%= f.collection_select	:smoking_status_id, @form_option[:smoking_statuses], :id, :smoking_status, 
+                    {include_blank: ''}, {class: "select-field text-field"} %>
+      <%= f.label :smoking_status_id, "喫煙有無"%>
+      <span class="focus-line"></span>
+    </div>
+    <div>
+      <%= f.submit "保存", class: "btn btn-yellow" %>
+      <%= link_to("スキップ", home_user_path(current_user.id), class: "btn btn-yellow") if @user_profile.blank? %>
+    </div>
+  <% end %>
+</div>

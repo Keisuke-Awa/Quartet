@@ -12,13 +12,8 @@
     <div class="container-fluid">
       <%= render 'layouts/flashes' %>
       <div class="row">
-        <div class="sidebar-content col-2">
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item">
-              <%= link_to('プロフィール編集', edit_user_registration_path, class: 'list-action') %>
-            </li>
         </div>
-        <div class="main-content col-9">
+        <div class="main-content">
           <%= yield %>
         </div>
       </div>

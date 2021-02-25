@@ -1,9 +1,16 @@
 class UserProfilesController < ApplicationController
-  before_action :initialize_form_option, only: :new
+  before_action :initialize_form_option, only: %i(new edit)
 
   def new
     @user_profile = current_user.user_profile
   end
+
+  def edit
+    @user = User.find(params[:user_id])
+    @user_profile = @user.user_profile
+    render layout: 'without_sidebar'
+  end
+  
 
   def update
     current_user.user_profile.update!(user_profile_params)
@@ -11,7 +18,7 @@ class UserProfilesController < ApplicationController
   end
 
   def show
-
+    
   end
 
   private
