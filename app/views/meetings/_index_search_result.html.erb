@@ -2,3 +2,14 @@
   <%= render meeting %>
 <% end %>
 <%= paginate @meetings, remote: true %>
+<script>
+completeLoad();
+
+$("a").click(function() {
+  beforeLoad();
+});
+
+$("form").submit(function() {
+  beforeLoad();
+})
+</script>

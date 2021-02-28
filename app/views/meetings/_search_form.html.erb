@@ -1,31 +1,30 @@
-<div class="meeting-search-form">
+<div class="meeting-search-form mx-auto">
 <%= search_form_for @q, url: search_meetings_path, remote: true do |f| %>
   <label>日時</label>
-  <div class="date-search-form" id="dateSearchFirst">
-    <div class="date-search">
-      <% @first_week.each do |date| %>
-        <div>
-          <%= f.radio_button :meet_at_equals_date, date %>
-          <%= f.label :meet_at_equals_date, date.strftime("%m/%d") %>
+  <div id="carouselDateControls" class="carousel slide mx-auto" data-interval="false">
+    <a class="btn-carousel-next pt-3" href="#carouselDateControls" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <div class="carousel-inner pl-2 pr-2">
+      <% @week.each do |week| %>
+      <div class="date-search-form carousel-item <%="active" if @week.first == week%>">
+        <div class="date-search .d-inline w-100">
+          <% week.each do |date| %>
+            <div>
+              <%= f.radio_button :meet_at_equals_date, date %>
+              <%= f.label :meet_at_equals_date, date.strftime("%m/%d") %>
+            </div>
+          <% end %>
         </div>
+      </div>
       <% end %>
     </div>
-    <div id="nextWeekButton" class="week-button"></div>
+    <a class="btn-carousel-next pt-3" href="#carouselDateControls" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
   </div>
-
-  <div class="date-search-form" id="dateSearchSecond">
-    <div id="beforeWeekButton" class="week-button"></div>
-    <div class="date-search">
-      <% @second_week.each do |date| %>
-        <div>
-          <%= f.radio_button :meet_at_equals_date, date %>
-          <%= f.label :meet_at_equals_date, date.strftime("%m/%d" ) %>
-        </div>
-      <% end %>
-    </div>
-  </div>
-
-  <div >
 
   <div>
     <%= f.label :place_id_eq, "場所" %>
@@ -40,4 +39,5 @@
   <%= f.submit "検索", class: "btn search-button", role: "button" %>
 <% end %>
 </div>
+
 

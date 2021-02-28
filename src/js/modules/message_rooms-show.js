@@ -1,5 +1,7 @@
 "use strict";
 
+
+
 $(function() {
 
   const message_box = document.getElementById('messageBox')
@@ -12,14 +14,10 @@ $(function() {
     if (message.is_current_user) {
       html =  `<div class="message message-right" data-message-id="${message.id}">
                 <div class="message-body">
-                  ${message.user_name}
                   <br>
                   <div class="message-content">
                     ${content}
                   </div>
-                </div>
-                <div class="message-image">
-                  <img class= "rounded-circle" src="${message.user_avatar}">
                 </div>
               </div>`
     } else {
@@ -57,7 +55,8 @@ $(function() {
         data: message,
         dataType: 'json',
         processData: false,
-        contentType: false
+        contentType: false,
+        timeout: 10000
       })
       .done(function(data) {
         const html = buildHTML(data);
@@ -82,7 +81,8 @@ $(function() {
       url: href,
       type: 'get',
       dataType: 'json',
-      data: {last_id: last_message_id}
+      data: {last_id: last_message_id},
+      timeout: 10000
     })
     .done(function(messages) {
       let insertHTML = "";

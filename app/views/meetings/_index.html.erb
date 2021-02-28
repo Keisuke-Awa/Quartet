@@ -4,3 +4,14 @@
   <%= render "index_search_result" %>
 </div>
 <%= javascript_bundle_tag "meetings_index" %>
+<script>
+completeLoad();
+
+$("a").click(function() {
+  beforeLoad();
+});
+
+$("form").submit(function() {
+  beforeLoad();
+})
+</script>
