@@ -3,13 +3,23 @@
 <% end %>
 <%= paginate @meetings, remote: true %>
 <script>
+function beforeLoad() {
+  document.getElementById('loading').classList.remove('loaded');
+}
+
+function completeLoad() {
+  document.getElementById('loading').classList.add('loaded');
+};
+
 completeLoad();
 
-$("a").click(function() {
+$(".loading-link").click(function() {
   beforeLoad();
 });
 
 $("form").submit(function() {
   beforeLoad();
 })
+
+window.onload = completeLoad;
 </script>

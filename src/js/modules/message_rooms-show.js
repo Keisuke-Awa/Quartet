@@ -1,7 +1,5 @@
 "use strict";
 
-
-
 $(function() {
 
   const message_box = document.getElementById('messageBox')

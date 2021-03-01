@@ -3,5 +3,7 @@
 $fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
 @import "~@fortawesome/fontawesome-free/scss/solid.scss";
 @import "~@fortawesome/fontawesome-free/scss/fontawesome.scss";
+@import '~lightbox2/dist/css/lightbox.css';
 @import 'custom';
 @import 'loading';
+@import 'card';

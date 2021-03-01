@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_15_143752) do
+ActiveRecord::Schema.define(version: 2021_03_01_013112) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -76,7 +76,7 @@ ActiveRecord::Schema.define(version: 2021_02_15_143752) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "place_id", null: false
-    t.string "detail"
+    t.text "detail"
     t.bigint "planning_user_id", null: false
     t.bigint "appointment_id"
     t.text "online_url"
@@ -202,6 +202,7 @@ ActiveRecord::Schema.define(version: 2021_02_15_143752) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_id", null: false
+    t.text "introduction"
     t.index ["annual_income_id"], name: "index_user_profiles_on_annual_income_id"
     t.index ["birthplace_id"], name: "index_user_profiles_on_birthplace_id"
     t.index ["educational_bg_id"], name: "index_user_profiles_on_educational_bg_id"

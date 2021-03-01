@@ -52,11 +52,11 @@ function completeLoad() {
 };
 
 
-$("a").click(function() {
+$(".loading-link").click(function() {
   beforeLoad();
 });
 
-$("input[type=submit]").submit(function() {
+$("form").submit(function() {
   beforeLoad();
 })
 

@@ -1,0 +1,19 @@
+.card {
+  width: 60%;
+  margin: 0 auto;
+}
+
+.list-group {
+  .list-group-item {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+/* プロフィールカード */
+.profile-avatar-content {
+  margin: auto;
+  .profile-avatar {
+    text-align: center;
+  }
+}
