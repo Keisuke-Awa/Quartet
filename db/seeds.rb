@@ -57,10 +57,26 @@ ActiveRecord::Base.transaction do
     birth_date = Faker::Date.birthday(min_age: 20, max_age: 40)
     if n < 150
       sex = '1'
+      height = Faker::Number.within(range: 150..190)
+      weight = Faker::Number.within(range: 45..80)
+      blood_type = "A"
+      birthplace_id = Faker::Number.within(range: 1..47)
+      occupation_id = Faker::Number.within(range: 1..5)
+      educational_bg_id = Faker::Number.within(range: 1..5)
+      annual_income_id = Faker::Number.within(range: 1..9)
+      smoking_status_id = Faker::Number.within(range: 1..5)
+      introduction = Faker::Lorem.sentence
+      user = User.create!(name: name, email: email, password: password, password_confirmation: password, birth_date: birth_date,
+        sex: sex, residence_id: 13)
+      user.create_user_profile!(height: height, weight: weight, blood_type: blood_type, birthplace_id: birthplace_id,
+        occupation_id: occupation_id, educational_bg_id: educational_bg_id, annual_income_id: annual_income_id,
+        smoking_status_id: smoking_status_id, introduction: introduction)
     else
       sex = '2'
+      user = User.create!(name: name, email: email, password: password, password_confirmation: password, birth_date: birth_date,
+        sex: sex, residence_id: 13)
+      user.create_user_profile!
     end
-    User.create!(name: name, email: email, password: password, password_confirmation: password, birth_date: birth_date, sex: sex, residence_id: 13)
   end
 end
 

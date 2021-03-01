@@ -1,8 +1,22 @@
+$color1-1: #D5B942;
+$color1-2: #D9D375;
+$color1-3: #E3DE8F;
+$color1-4: #EDFBC1;
+$color1-5: #BFCBC2;
+
+$color2-1: #3891A6;
+$color2-2: #4C5B5C;
+$color2-3: #FDE74C;
+$color2-4: #DB5461;
+$color2-5: #E3655B;
+
+
+
 $red: #FF2020;
 $yellow: #FFB500;
 $green: #79f100;
 $orange: #fda520;
-$gray: #4D4D4C;
+$gray: #BFCBC2;
 $menuwhite: #f5f5f5;
 $ghostwhite : #f8f8ff;
 $iconColor: #FFB500;
@@ -10,10 +24,53 @@ $errorColor: red;
 $navColor: #f8f8ff;
 
 /* メッセージ機能 */
-$titleColor:   #273246;
-$baseColor:    #7494c0;
+$titleColor:   #D9D375;
+$baseColor:    #EDFBC1;
 $myTextColor:  #8de055;
 $messageContentColor: #8de055;
+
+
+/* スライドインアニメーション */
+@keyframes SlideRightIn {
+  0% {
+    opacity: 0;
+    transform: translateX(64px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes SlideLeftIn {
+  0% {
+    opacity: 0;
+    transform: translateX(-64px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes SlideTopIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-64px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.header-logo {
+  animation: SlideRightIn 1.8s;
+}
+.nav-link {
+  animation: SlideLeftIn 1.8s;
+}
+
 
 
 html {
@@ -36,7 +93,7 @@ html {
 body {
   height: 100%;
   width: 100%;
-  background: $ghostwhite;
+  background: #FFFFFF;
 }
 
 /* ボタン */
@@ -204,7 +261,6 @@ body {
 header {
   height: 15vh;
   width: 100%;
-  background-color: $navColor;
   position: fixed;
   top: 0;
   left: 0;
@@ -230,6 +286,7 @@ header {
 
 .content-box {
   height: 85vh;
+  width: 100%;
   .main-content {
     height: calc(80vh - 1rem);
   }
@@ -265,6 +322,7 @@ header {
       border: 0;
       border-bottom: 1px solid #1b2538;
       background-color: transparent;
+      text-align: center;
       &:focus {
         border-bottom: none;
       }
@@ -360,31 +418,31 @@ input[type=date] {
 /* サイドバー */
 
 .sidebar-content {
+  top: 0;
   height: 60vh;
-  position: sticky;
-  top: calc(25vh + 2rem);
-}
-.side-bar {
-  height: 60vh;
-  width: 80%;
-  background-color: $menuwhite;
-  .nav-item {
-    .sidebar-color {
-      color: black;
-      text-decoration: none;
-      &:link, &:visited {
+  .side-bar {
+    height: 60vh;
+    width: 80%;
+    margin-top: 10vh;
+    background-color: $menuwhite;
+    .nav-item {
+      .sidebar-color {
+        color: black;
         text-decoration: none;
+        &:link, &:visited {
+          text-decoration: none;
+        }
+        &:hover {
+          color: white;
+          background-color: $yellow;
+        }
       }
-      &:hover {
+      .click-sidebar-color {
+        background-color: $red;
         color: white;
-        background-color: $yellow;
-      }
-    }
-    .click-sidebar-color {
-      background-color: $red;
-      color: white;
-      &:link, &:visited {
-        text-decoration: none;
+        &:link, &:visited {
+          text-decoration: none;
+        }
       }
     }
   }
@@ -449,7 +507,6 @@ input[type="number"] {
   width:80%;
 
   .date-search-form {
-    display: flex;
     /* 日付 */
     .date-search {
       display: flex;
@@ -459,10 +516,9 @@ input[type="number"] {
       width: 45%;
       margin-bottom: 10px;
       div {
-
         position: relative;
         flex: 1;
-
+        cursor: pointer;
         input {
           width: 100%;
           height: 45px;
@@ -496,25 +552,25 @@ input[type="number"] {
 
     }
 
-    .week-button {
-      position: relative;
-      display: flex;
-      // padding-left: 40px;
-      // margin-bottom: 20px;
-      cursor: pointer;
+    // .week-button {
+    //   position: relative;
+    //   display: flex;
+    //   // padding-left: 40px;
+    //   // margin-bottom: 20px;
+    //   cursor: pointer;
     
-      &:before {
-        content: '';
-        width: 18px;
-        height: 18px;
-        border: 0px;
-        border-top: solid 2px $gray;
-        border-right: solid 2px $gray;
-        top: 50%;
-        left: 0;
-        margin-top: -4px;
-      }
-    }
+    //   &:before {
+    //     content: '';
+    //     width: 18px;
+    //     height: 18px;
+    //     border: 0px;
+    //     border-top: solid 2px $gray;
+    //     border-right: solid 2px $gray;
+    //     top: 50%;
+    //     left: 0;
+    //     margin-top: -4px;
+    //   }
+    // }
   }
   .search-button {
     background-color: $yellow;
@@ -528,18 +584,9 @@ input[type="number"] {
 
 }
 
-#nextWeekButton {
-  -ms-transform: rotate(45deg);
-  -webkit-transform: rotate(45deg);
-  transform: rotate(45deg);
-  margin-top: 18px;
-}
-
-#beforeWeekButton {
-  -ms-transform: rotate(-135deg);
-  -webkit-transform: rotate(-135deg);
-  transform: rotate(-135deg);
-  margin-bottom: 30px;
+.carousel {
+  display: flex;
+  width: 60% !important;
 }
 
 

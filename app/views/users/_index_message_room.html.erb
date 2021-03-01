@@ -1,3 +1,25 @@
 <% @message_rooms.each do |mr| %>
   <%= link_to(mr.not_current_user(current_user).name, message_room_path(mr)) %>
 <% end %>
+<script>
+
+function beforeLoad() {
+  document.getElementById('loading').classList.remove('loaded');
+}
+
+function completeLoad() {
+  document.getElementById('loading').classList.add('loaded');
+};
+
+completeLoad();
+
+$(".loading-link").click(function() {
+  beforeLoad();
+});
+
+$("form").submit(function() {
+  beforeLoad();
+})
+
+window.onload = completeLoad;
+</script>

@@ -8,11 +8,16 @@
     <%= stylesheet_bundle_tag "application" %>
   </head>
   <body class="container-fluid">
+    <div id='loading'>
+        <div class='loader'>
+          Loading...
+        </div>
+    </div>
     <header><%= render 'layouts/nav' %></header>
     <div class="body-content">
       <% if user_signed_in? %>
-        <div class="row">
-          <div class="sidebar-content col-2">
+        <div class="row wrapper">
+          <div class="col-2 sidebar" id='sidebar'>
             <%= render 'users/content/sidebar_content'%>
           </div>
           <div class="content-box col-9" id='contentBox'>
@@ -33,3 +38,27 @@
     </div>
   </body>
 </html>
+<script>
+
+const loading = document.getElementById('loading');
+const navbar_dropdown = document.getElementById('navbarDropdown');
+
+function beforeLoad() {
+  document.getElementById('loading').classList.remove('loaded');
+}
+
+function completeLoad() {
+  document.getElementById('loading').classList.add('loaded');
+};
+
+
+$(".loading-link").click(function() {
+  beforeLoad();
+});
+
+$("form").submit(function() {
+  beforeLoad();
+})
+
+window.onload = completeLoad;
+</script>

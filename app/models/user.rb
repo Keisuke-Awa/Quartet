@@ -39,36 +39,6 @@ class User < ApplicationRecord
   validates :password_confirmation, presence: true
 
 
-  # def request_friendship(other_user)
-  #   requesting_users << other_user
-  # end
-
-  # def unrequest_friendship(other_user)
-  #   active_friend_requests.find_by(to_user_id: other_user.id).destroy
-  # end
-
-  # def requesting?(other_user)
-  #   requesting_users.include?(other_user)
-  # end
-
-  # def destroy_friendship_request_for_admin(other_user)
-  #   passive_friend_requests.find_by(from_user_id: other_user.id).destroy
-  # end
-
-  # def admin_friendship(other_user)
-  #   friends << other_user
-  #   other_user.friends << self
-  # end
-
-  # def is_friend?(other_user)
-  #   friends.include?(other_user)
-  # end
-
-  # def destroy_friendship(other_user)
-  #   friendships.find_by(friend_id: other_user.id).destroy
-  #   other_user.friendships.find_by(friend_id: self.id).destroy
-  # end
-
   def default_avatar
     unless avatar.attached?
       avatar.attach(io: File.open(Rails.root.join('public', 'assets', 'images', 'default-icon.jpg')), filename: 'default-icon.jpg',
@@ -144,20 +114,39 @@ class User < ApplicationRecord
     return { user: user, sns_credential: sns_credential }
   end
 
-  # def self.find_for_oauth(auth)
-  #   user = SnsCredential.where(uid: auth.uid, provider: auth.provider).first
+  def register_introduction?
+    user_profile.introduction.present?
+  end
 
-  #   unless user
-  #     info = SnsCredential.create(
-  #       uid:      auth.uid,
-  #       provider: auth.provider,
-  #     #   email:    auth.info.email,
-  #     #   name:  auth.info.name,
-  #     #   password: Devise.friendly_token[0, 20],
-  #     #   image:  auth.info.image
-  #      )
-  #   end
+  def register_height?
+    user_profile.height.present?
+  end
+  
+  def register_weight?
+    user_profile.weight.present?
+  end
 
-  #   user
-  # end
+  def register_blood_type?
+    user_profile.blood_type.present?
+  end
+
+  def register_birthplace?
+    user_profile.birthplace.present?
+  end
+
+  def register_occupation?
+    user_profile.occupation.present?
+  end
+
+  def register_educational_bg?
+    user_profile.educational_bg.present?
+  end
+
+  def register_annual_income?
+    user_profile.annual_income.present?
+  end
+
+  def register_smoking?
+    user_profile.smoking.present?
+  end
 end

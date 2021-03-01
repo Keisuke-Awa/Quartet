@@ -1,9 +1,139 @@
-<div>
-  <%= @meeting.planning_user.name %>
-  <%= @meeting.place.name %>
-</div>
-<% unless current_user?(@meeting.planning_user) %>
-  <div id="meeting_application_form">
-    <%= render "meeting_application_form" %>
+
+
+
+<div class="card mb-3">
+  <div class="card-header">
+    <ul class="nav nav-tabs card-header-tabs">
+      <li class="nav-item">
+        <a href="#detailCard" class="nav-link active" data-toggle="tab">プラン詳細</a>
+      </li>
+      <li class="nav-item">
+        <a href="#profileCard" class="nav-link" data-toggle="tab">プロフィール</a>
+      </li>
+    </ul>
   </div>
-<% end %>
+    <div class="tab-content">
+      <div id="detailCard" class="tab-pane active card-body">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">
+            <div>日時</div>
+            <div><%=@meeting.meet_at.strftime("%-m月%-d日")%>(<%=calculate_day_of_week(@meeting.meet_at)%>)
+                  <%=@meeting.meet_at.strftime("%-H:%-M")%>~<div>
+          </li>
+          <li class="list-group-item">
+            <div>場所</div>
+            <div><%=@meeting.place.name%><div>
+          </li>
+          <li class="list-group-item">
+            <div>希望人数</div>
+            <div><%=@meeting.people%>人</div>
+          </li>
+          <li class="list-group-item d-block">
+            <p>詳細</p>
+            <div><%=@meeting.detail%><div>
+          </li>
+          <% unless current_user?(@user) %>
+          <li class="list-group-item">
+            <div id="meeting_application_form" class="mx-auto">
+              <%= render "meeting_application_form" %>
+            </div>
+          </li>
+          <% end %>
+        </ul>
+      </div>
+      <div id="profileCard" class="tab-pane card-body">
+        <div class="row no-gutters">
+          <div class="col-md-6 profile-avatar-content">
+            <div class="profile-avatar">
+              <%= link_to image_tag(@meeting.planning_user.avatar,
+                  alt: "avatar", width: "60%", class: "rounded-circle bd-placeholder-img"), 
+                  url_for(@meeting.planning_user.avatar), data: {lightbox: "avatar", title: @meeting.planning_user.name} %>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="card-body">
+              <p><%= @user.name %></p>
+              <p><%= calculate_age(@user) %>歳</p>
+              <p><%= @user.residence.prefecture_name %></p>
+            </div>
+          </div>
+        </div>
+        <ul class="list-group list-group-flush pt-3">
+            <li class="list-group-item d-block">
+              <p>自己紹介</p>
+              <div><%= @user.user_profile.introduction if @user.register_introduction? %><div>
+            </li>
+            <% if @user.register_height? %>
+            <li class="list-group-item">
+              <div>身長</div>
+              <div><%=@user.user_profile.height%>cm</div>
+            </li>
+            <% end %>
+            <% if @user.register_weight? %>
+            <li class="list-group-item">
+              <div>体重</div>
+              <div><%=@user.user_profile.weight%>kg</div>
+            </li>
+            <% end %>
+            <% if @user.register_blood_type? %>
+            <li class="list-group-item">
+              <div>血液型</div>
+              <div><%= @user.user_profile.blood_type%>型</div>
+            </li>
+            <% end %>
+            <% if @user.register_birthplace? %>
+            <li class="list-group-item">
+              <div>出身地</div>
+              <div><%= @user.user_profile.birthplace.prefecture_name%></div>
+            </li>
+            <% end %>
+            <% if @user.register_occupation? %>
+            <li class="list-group-item">
+              <div>職業</div>
+              <div><%=@user.user_profile.occupation.occupation_name%></div>
+            </li>
+            <% end %>
+            <% if @user.register_educational_bg? %>
+            <li class="list-group-item">
+              <div>学歴</div>
+              <div><%=@user.user_profile.educational_bg.ebg_name%></div>
+            </li>
+            <% end %>
+            <% if @user.register_annual_income? %>
+            <li class="list-group-item">
+              <div>年収</div>
+              <div><%=@user.user_profile.annual_income.income_range%></div>
+            </li>
+            <% end %>
+            <% if @user.register_smoking? %>
+            <li class="list-group-item">
+              <div>喫煙</div>
+              <div><%=@user.user_profile.smoking.smoking_status%></div>
+            </li>
+            <% end %>
+          </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+
+function beforeLoad() {
+  document.getElementById('loading').classList.remove('loaded');
+}
+
+function completeLoad() {
+  document.getElementById('loading').classList.add('loaded');
+};
+
+completeLoad();
+$(".loading-link").click(function() {
+  beforeLoad();
+});
+$("form").submit(function() {
+  beforeLoad();
+})
+window.onload = completeLoad;
+
+</script>

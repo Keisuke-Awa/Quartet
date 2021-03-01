@@ -1,44 +1,44 @@
-<nav class="navbar navbar-expand-md">
-  <% if user_signed_in? %>
-    <%= link_to image_tag('/assets/images/logo-nav.jpeg', width: "280", alt: "icon", class: "img-fluid"), home_user_path(current_user.id), class: "navbar-brand" %>
-  <% else %>
-    <%= link_to image_tag('/assets/images/logo-nav.jpeg', width: "280", alt: "icon", class: "img-fluid"), root_path, class: "navbar-brand" %>
-  <% end %>
+<header>
+  <nav class="navbar navbar-expand-md">
+    <% if user_signed_in? %>
+      <%= link_to image_tag('/assets/images/logo-nav.jpeg', width: "280", alt: "icon", class: "img-fluid header-logo"),
+              home_user_path(current_user.id), class: "navbar-brand loading-link" %>
+    <% else %>
+      <%= link_to image_tag('/assets/images/logo-nav.jpeg', width: "280", alt: "icon", class: "img-fluid header-logo"),
+              root_path, class: "navbar-brand loading-link" %>
+    <% end %>
 
-  <!-- ナビゲーション -->
-  
-  <div class="collapse navbar-collapse" id="navbar-content">
-    <ul class="navbar-nav ml-auto">
-      <% if user_signed_in? %>
-        <li class="nav-item">
-          <%= image_tag current_user.avatar.variant(combine_options:{resize:"50x50"}).processed, alt: "icon", class: "rounded-circle" %>
-        </li>
-      <% else %>
-        <li class="nav-item">
-          <%= link_to( 'ログイン', new_user_session_path, class: "nav-link btn btn-dark") %>
-        </li>
-        <%# <li class="nav-item ml-3">
-          <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#signupAuthModal">新規登録</button>
-        </li> %>
-      <% end %>
-      <li>
-        <% if I18n.locale.to_s == "en" %>
-          <%= link_to('日本語', root_path(locale: 'ja'), class: "nav-link btn btn-dark" ) %>
+    <!-- ナビゲーション -->
+    
+    <div class="collapse navbar-collapse" id="navbar-content">
+      <ul class="navbar-nav ml-auto">
+        <% if user_signed_in? %>
+          <li class="nav-item dropdown">
+            <div class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <%= image_tag current_user.avatar.variant(combine_options:{resize:"50x50"}).processed, alt: "icon", class: "rounded-circle" %>
+            </div>
+            <div class="dropdown-menu dropdown-menu-right" id='dropdownMenu' aria-labelledby="navbarDropdown">
+              <%= link_to 'プロフィール編集', edit_user_user_profile_path(current_user), class: "dropdown-item loading-link" %>
+              <%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: "dropdown-item loading-link" %>
+              <div class="dropdown-divider"></div>
+              <%= link_to '退会', user_path(current_user.id), data: { confirm: "本当に退会してよろしいですか?" }, method: :delete, 
+                                        class: "dropdown-item loading-link" %>
+            </div>
+          </li>
         <% else %>
-          <%= link_to('English', root_path(locale: 'en'), class: "nav-link btn btn-dark" ) %>
+          <li class="nav-item">
+            <%= link_to( 'ログイン', new_user_session_path, class: "nav-link btn btn-dark") %>
+          </li>
         <% end %>
-      </li>
-    </ul>
-  </div>
-  <!-- /ナビゲーション -->
-</nav>
-
-<style>
-.navbar {
-  background-color: black;
-}
-
-/* .img-fluid {
-   border-radius: 50%;
-} */
-</style>
+        <!--<li>
+          <% if I18n.locale.to_s == "en" %>
+            <%= link_to('日本語', root_path(locale: 'ja'), class: "nav-link btn btn-dark" ) %>
+          <% else %>
+            <%= link_to('English', root_path(locale: 'en'), class: "nav-link btn btn-dark" ) %>
+          <% end %>-->
+        </li>
+      </ul>
+    </div>
+    <!-- /ナビゲーション -->
+  </nav>
+</header>

@@ -5,7 +5,8 @@
 import "./modules/application.scss";
 import 'jquery';
 import "bootstrap";
-import 'bootstrap4-tagsinput/tagsinput.js'
+import 'bootstrap4-tagsinput/tagsinput.js';
+import 'lightbox2';
 import Rails from 'rails-ujs'
 
 Rails.start();
@@ -26,8 +27,18 @@ window.$ = $;
 
 //   check_flash();
 // });
-
 $(function() {
   setTimeout("$('.alert').fadeOut('slow')", 2000);
+
+  $(window).scroll(function() {
+    if ($(this).scrollTop() > 0) {
+      $('header').css('background-color', '#FFFFFF');
+    } else {
+      $('header').css('background', 'none');
+    }
+  });
 })
+
+
+
 
