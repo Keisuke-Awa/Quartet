@@ -16,6 +16,10 @@ class MeetingsController < ApplicationController
   def show
     @meeting = Meeting.find(params[:id])
     @user = @meeting.planning_user
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def create

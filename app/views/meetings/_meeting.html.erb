@@ -2,7 +2,7 @@
       <div class="row no-gutters">
           <div class="col-md-5 my-auto">
             <% if meeting.planning_user.avatar.attached? %>
-              <%= image_tag meeting.planning_user.avatar.variant(combine_options:{gravity: :center, resize:"80x80"}).processed, alt: "icon", class: "img-fluid" %>
+              <%= image_tag meeting.planning_user.avatar.variant(combine_options:{gravity: :center, resize:"80x80"}).processed, alt: "icon", class: "rounded-circle img-fluid" %>
             <% else %>
               <%= image_tag '/assets/images/default-icon.jpeg', width: "150", alt: "icon", class: "img-fluid" %>
             <% end %>
@@ -15,7 +15,7 @@
                     <%= meeting.meet_at.strftime("%m月%d日%H:%M") %><br/>
                     <%= meeting.people %>人
                   </p>
-                  <%= link_to('詳細', meeting_path(meeting), class: "btn btn-yellow loading-link" ) %>
+                  <%= link_to('詳細', meeting_path(meeting), class: "btn btn-yellow loading-link", remote: true ) %>
               </div>
           </div>
       </div>

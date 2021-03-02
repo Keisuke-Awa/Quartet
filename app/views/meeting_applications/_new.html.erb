@@ -1,22 +1,22 @@
   <div class="modal fade" id="meetingApplicationModal" tabindex="-1" role="dialog" aria-labelledby="meetingApplicationModal">
-    <div class="modal-dialog" role="document">
-    <%= form_with(model: [@meeting, current_user.meeting_applications.build], remote: true) do |f| %>
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
       <div class="modal-content">
+        <%= form_with(model: [@meeting, current_user.meeting_applications.build], remote: true) do |f| %>
         <div class="modal-header">
-          <h5 class="modal-title" id="meetingApplicationModal">申請フォーム</h5>
+          <h5 class="modal-title" id="meetingApplicationModal">申請内容</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="閉じる">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-            <div><%= f.text_area :detail %>
+          <%= f.text_area :detail, class: "form-control", id: "message-text", placeholder: "参加メンバーの年齢や職業\n意気込みなど" %>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
-          <%= f.submit "送信", class: "btn btn-yellow", id: "meetingApplicationSubmit" %>
+          <%= f.submit '送信', class: "btn btn-yellow", id: "meetingApplicationSubmit" %>
         </div>
+        <% end %>
       </div>
-      <% end %>
     </div>
   </div>
 
