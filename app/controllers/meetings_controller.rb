@@ -1,6 +1,7 @@
 class MeetingsController < ApplicationController
-  require "date"
 
+  require "date"
+  
   before_action :initialize_search_form, only: %i[index search]
 
   def new
@@ -32,9 +33,15 @@ class MeetingsController < ApplicationController
 
   def index  
     search_result
-    respond_to do |format|
-      format.html
-      format.js
+    if user_signed_in?
+      respond_to do |format|
+        format.html
+        format.js
+      end
+    else
+      respond_to do |format|
+        format.js { render ajax_redirect_to(new_user_session_path) }
+      end
     end
   end
 
@@ -72,4 +79,5 @@ class MeetingsController < ApplicationController
     @week = [(0..6).to_a.map {|i| Date.today + i.days }, (7..13).to_a.map {|i| Date.today + i.days },
                   (14..20).to_a.map {|i| Date.today + i.days }, (21..27).to_a.map {|i| Date.today + i.days }]
   end
+
 end

@@ -1,5 +1,6 @@
 class HomesController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:top]
+  
+  skip_before_action :authenticate_user, only: [:top]
 
   def top
     if user_signed_in?

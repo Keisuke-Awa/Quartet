@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  
   before_action :correct_user, only: [:destroy]
   before_action :set_user, only: [:home, :show, :destroy]
   
