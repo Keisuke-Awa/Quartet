@@ -1,4 +1,5 @@
 class AppointmentsController < ApplicationController
+
   def create
     applicant = User.find(params[:applicant_id])
     @meeting = Meeting.find(params[:appointment][:meeting_id])

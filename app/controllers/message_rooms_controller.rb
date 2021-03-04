@@ -1,4 +1,5 @@
 class MessageRoomsController < ApplicationController
+
   before_action :set_room, only: :show
   
   def create

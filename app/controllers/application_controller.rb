@@ -1,8 +1,11 @@
 class ApplicationController < ActionController::Base
+
+  include AjaxHelper
+
   protect_from_forgery with: :exception
   add_flash_types :success, :info, :warning, :danger
 
-  before_action :authenticate_user!
+  before_action :authenticate_user_with_ajax!, unless: :devise_controller?
   before_action :configure_permitted_parameters, if: :devise_controller?  
   before_action :set_locale
 
@@ -38,5 +41,13 @@ class ApplicationController < ActionController::Base
   def default_url_options(options={})
     options.merge(locale: locale)
   end
-  
+ 
+  def authenticate_user_with_ajax!
+    return if user_signed_in?
+    respond_to do |format|
+      format.html { redirect_to new_user_session_path, alert: "アカウント登録もしくはログインしてください。" }
+      format.js { render ajax_redirect_to(new_user_session_path), flash[:alert] = "アカウント登録もしくはログインしてください。" }
+    end
+  end
+
 end

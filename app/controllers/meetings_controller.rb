@@ -1,7 +1,11 @@
 class MeetingsController < ApplicationController
+
   require "date"
 
+  before_action :set_meeting, only: :show
+  before_action :restrict_by_sex, only: :show
   before_action :initialize_search_form, only: %i[index search]
+  before_action :set_ransack, only: %i[index search]
 
   def new
     @meeting = Meeting.new
@@ -14,8 +18,11 @@ class MeetingsController < ApplicationController
   end
 
   def show
-    @meeting = Meeting.find(params[:id])
     @user = @meeting.planning_user
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def create
@@ -26,16 +33,22 @@ class MeetingsController < ApplicationController
   def destroy
   end
 
-  def index  
-    search_result
-    respond_to do |format|
-      format.html
-      format.js
+  def index
+    @meetings = Meeting.display_list(current_user, params[:page])
+    if user_signed_in?
+      respond_to do |format|
+        format.html
+        format.js
+      end
+    else
+      respond_to do |format|
+        format.js { render ajax_redirect_to(new_user_session_path) }
+      end
     end
   end
 
   def search
-    search_result
+    @meetings = @q.display_list(current_user, params[:page])
     respond_to do |format|
       format.html
       format.js
@@ -57,15 +70,34 @@ class MeetingsController < ApplicationController
     params.require(:q).permit(:meet_at_equals_date, :place_id_eq, :people_eq)
   end
 
-  def search_result
+  # def self.search_result
+  #   @q = self.ransack(params[:q])
+  #   @meetings = @q.result(distinct: true).where(meet_at: DateTime.now..Float::INFINITY).where(appointment_id: nil)
+  #   .eager_load(planning_user: {avatar_attachment: :blob}).where.not(planning_user_id: current_user.id)
+  #   .where.not(users: {sex: current_user.sex}).eager_load(:place).page(params[:page]).per(30)
+  # end
+
+  def set_ransack
     @q = Meeting.ransack(params[:q])
-    @meetings = @q.result(distinct: true).where.not(planning_user_id: current_user.id).where(meet_at: DateTime.now..Float::INFINITY)
-            .where(appointment_id: nil).eager_load(:place).includes(planning_user: {avatar_attachment: :blob}).page(params[:page]).per(10)
   end
+  
 
   def initialize_search_form
     @places = Place.all
-    @week = [(0..6).to_a.map {|i| Date.today + i.days }, (7..13).to_a.map {|i| Date.today + i.days },
-                  (14..20).to_a.map {|i| Date.today + i.days }, (21..27).to_a.map {|i| Date.today + i.days }]
+    four_weeks = [0..6, 7..13, 14..20, 21..27]
+    @week = four_weeks.map { |week| week.to_a.map {|i| Date.today + i.days } }
   end
+
+  def set_meeting
+    @meeting = Meeting.find(params[:id])
+  end
+
+  def restrict_by_sex
+    return unless @meeting.planning_user.sex == current_user.sex
+    respond_to do |format|
+      format.html { redirect_to home_user_path(current_user), flash: {error: "該当ページにはアクセスできません。"} }
+      format.js { render ajax_redirect_to(home_user_path(current_user)), flash[:error] = "該当ページにはアクセスできません。" }
+    end
+  end
+
 end
