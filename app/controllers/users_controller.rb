@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
   
   before_action :correct_user, only: [:destroy]
-  before_action :set_user, only: [:home, :show, :destroy]
+  before_action :set_user, only: [:home, :destroy, :show]
+  before_action :restrict_by_sex, only: :show
   
   def home
   end
@@ -66,6 +67,14 @@ class UsersController < ApplicationController
     user = User.find(params[:id])
     if current_user != user
       redirect_to root_path
+    end
+  end
+
+  def restrict_by_sex
+    return unless @user.sex == current_user.sex
+    respond_to do |format|
+      format.html { redirect_to home_user_path(current_user), flash: {error: "該当ページにはアクセスできません。"} }
+      format.js { render ajax_redirect_to(home_user_path(current_user)), flash[:error] = "該当ページにはアクセスできません。" }
     end
   end
   

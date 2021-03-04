@@ -33,4 +33,5 @@ class MeetingApplicationsController < ApplicationController
   def meeting_application_params
     params.require(:meeting_application).permit(:detail).merge(meeting_id: params[:meeting_id], applicant_id: current_user.id)
   end
+
 end

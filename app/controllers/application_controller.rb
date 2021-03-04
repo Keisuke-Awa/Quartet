@@ -46,7 +46,7 @@ class ApplicationController < ActionController::Base
     return if user_signed_in?
     respond_to do |format|
       format.html { redirect_to new_user_session_path, alert: "アカウント登録もしくはログインしてください。" }
-      format.js { render ajax_redirect_to(new_user_session_path), alert: "アカウント登録もしくはログインしてください。" }
+      format.js { render ajax_redirect_to(new_user_session_path), flash[:alert] = "アカウント登録もしくはログインしてください。" }
     end
   end
 
