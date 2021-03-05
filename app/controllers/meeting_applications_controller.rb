@@ -20,12 +20,21 @@ class MeetingApplicationsController < ApplicationController
 
   def index
     @meeting = Meeting.find(params[:meeting_id])
-    @meeting_applications = @meeting.meeting_applications.includes([:applicant])
+    @meeting_applications = @meeting.meeting_applications.eager_load([:applicant])
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def show
     @meeting = Meeting.find(params[:meeting_id])
     @meeting_application = MeetingApplication.find(params[:id])
+    Array(current_user.message_rooms).each do |cmr|
+      Array(@appointment.not_current_user(current_user).message_rooms).each do |ncmr|
+        @message_room ||= ncmr if cmr == ncmr
+      end
+    end
   end
 
   private

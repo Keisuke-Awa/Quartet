@@ -16,6 +16,10 @@ class MessageRoomsController < ApplicationController
     if MessageRoomUser.where(user_id: current_user.id, message_room_id: @message_room.id).present?
       @messages = @message_room.messages.includes(:user)
       @message_partner = @message_room.not_current_user(current_user)
+      respond_to do |format|
+        format.html
+        format.js
+      end
     else
       redirect_back(fallback_location: root_path)
     end

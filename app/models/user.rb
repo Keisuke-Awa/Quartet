@@ -38,6 +38,8 @@ class User < ApplicationRecord
   validates :password, presence: true
   validates :password_confirmation, presence: true
 
+  scope :select_partner, -> (user) { where.not(id: user.id).first }
+
 
   def default_avatar
     unless avatar.attached?
@@ -149,4 +151,5 @@ class User < ApplicationRecord
   def register_smoking?
     user_profile.smoking.present?
   end
+
 end

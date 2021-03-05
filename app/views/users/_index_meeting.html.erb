@@ -6,7 +6,8 @@
       <% @meetings.each do |meeting| %>
         <% unless meeting.meet_at.nil? %>
           <li id='meeting-<%= meeting.id %>'>
-            <%= link_to(meeting.meet_at.strftime("%Y/%m/%d(%a) %H:%M"), meeting_meeting_applications_path(meeting), class: 'list-action') %>
+            <%= link_to(meeting.meet_at.strftime("%Y/%m/%d(%a) %H:%M"), meeting_meeting_applications_path(meeting),
+                                  class: 'list-action', remote: true) %>
           </li>
         <% end %>
       <% end %>
@@ -16,3 +17,25 @@
     <div>募集中のプランはありません</div>  
   <% end %>
 </div>
+<script>
+
+function beforeLoad() {
+  document.getElementById('loading').classList.remove('loaded');
+}
+
+function completeLoad() {
+  document.getElementById('loading').classList.add('loaded');
+};
+
+completeLoad();
+
+$(".loading-link").click(function() {
+  beforeLoad();
+});
+
+$("form").submit(function() {
+  beforeLoad();
+})
+
+window.onload = completeLoad;
+</script>
