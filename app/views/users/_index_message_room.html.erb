@@ -1,5 +1,5 @@
 <% @message_rooms.each do |mr| %>
-  <%= link_to(mr.not_current_user(current_user).name, message_room_path(mr), class: "loading-link", remote: true) %>
+  <%= link_to(mr.users.select_partner(current_user).name, message_room_path(mr), class: "loading-link", remote: true) %>
 <% end %>
 <script>
 

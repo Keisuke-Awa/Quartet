@@ -98,5 +98,10 @@ $(function() {
     });
   };
   
-  setInterval(reloadMessages, 7000);
+  const interval_reload = setInterval(() =>{
+    reloadMessages();
+    $('a').click(function() {
+      clearInterval(interval_reload);
+    });
+  }, 7000);
 });

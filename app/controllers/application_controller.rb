@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
 
   include AjaxHelper
 
-  rescue_from StandardError, with: :redirect_to_login
+  # rescue_from StandardError, with: :redirect_to_root
 
   protect_from_forgery with: :exception
   add_flash_types :success, :info, :warning, :danger
@@ -54,8 +54,8 @@ class ApplicationController < ActionController::Base
 
   def redirect_to_root
     respond_to do |format|
-      format.html { redirect_to root_path, alert: "エラーが発生しました。" }
-      format.js { render ajax_redirect_to(root_path), flash[:alert] = "エラーが発生しました。" }
+      format.html { redirect_to root_path, flash: {error: "エラーが発生しました。"} }
+      format.js { render ajax_redirect_to(root_path), flash[:error] = "エラーが発生しました。" }
     end
   end
 

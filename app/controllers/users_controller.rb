@@ -50,7 +50,15 @@ class UsersController < ApplicationController
   end
 
   def index_message_room
-    @message_rooms = current_user.message_rooms
+    @message_rooms = current_user.message_rooms.select { |mr| mr.messages.where(user_id: current_user.id) }
+    respond_to do |format|
+      format.html
+      format.js
+    end
+  end
+
+  def index_meeting_application
+    @meeting_applications = current_user.meeting_applications.includes(meeting: :planning_user)
     respond_to do |format|
       format.html
       format.js
