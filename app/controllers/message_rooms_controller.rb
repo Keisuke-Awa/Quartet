@@ -9,7 +9,10 @@ class MessageRoomsController < ApplicationController
       MessageRoomUser.create!(message_room_id: @message_room.id, user_id: current_user.id)
       @room_user = MessageRoomUser.create!(message_room_id: @message_room.id, user_id: user.id)
     end
-    redirect_to message_room_path(@message_room.id)
+    respond_to do |format|
+      format.html { redirect_to message_room_path(@message_room.id) }
+      format.js { render ajax_redirect_to(message_room_path(@message_room.id)) }
+    end
   end
 
   def show

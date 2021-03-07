@@ -54,8 +54,8 @@ class ApplicationController < ActionController::Base
 
   def redirect_to_root
     respond_to do |format|
-      format.html { redirect_to root_path, flash: {error: "エラーが発生しました。"} }
-      format.js { render ajax_redirect_to(root_path), flash[:error] = "エラーが発生しました。" }
+      format.html { redirect_to root_path, flash: {error: "予期せぬエラーが発生しました。"} }
+      format.js { render ajax_redirect_to(root_path), flash[:error] = "予期せぬエラーが発生しました。" }
     end
   end
 

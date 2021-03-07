@@ -18,13 +18,6 @@
     <li class="nav-item">
       <%= link_to('メッセージ', index_message_room_user_path(current_user), class: 'nav-link sidebar-color loading-link', remote: true) %>
     </li>
-    <li class="nav-item">
-      <%= link_to('ログアウト', destroy_user_session_path, method: :delete, class: 'nav-link sidebar-color loading-link') %>
-    </li>
-    <li class="nav-item">
-      <%= link_to('退会', user_path(current_user.id), data: { confirm: "本当に退会してよろしいですか?" }, method: :delete,
-                    class: 'nav-link sidebar-color loading-link') %>
-    </li>
   </ul>
 </div>
 <script>

@@ -1,1 +1,26 @@
-aaa
+<h3>成立したプラン</h3>
+<% @appointments.each do |appointment| %>
+  <%= link_to appointment.meeting.meet_at, appointment_path(appointment), remote: true %>
+<% end %>
+<script>
+
+function beforeLoad() {
+  document.getElementById('loading').classList.remove('loaded');
+}
+
+function completeLoad() {
+  document.getElementById('loading').classList.add('loaded');
+};
+
+completeLoad();
+
+$(".loading-link").click(function() {
+  beforeLoad();
+});
+
+$("form").submit(function() {
+  beforeLoad();
+})
+
+window.onload = completeLoad;
+</script>
