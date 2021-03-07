@@ -6,8 +6,29 @@
     <% end %>
   <% else %>
     <button type="button" class="btn btn-yellow mb-12" data-toggle="modal" data-target="#meetingApplicationModal">申請する</button>
-    
   <% end %>
 </div>
 
 <%= render "meeting_applications/new" %>
+
+<script>
+function beforeLoad() {
+  document.getElementById('loading').classList.remove('loaded');
+}
+
+function completeLoad() {
+  document.getElementById('loading').classList.add('loaded');
+};
+
+completeLoad();
+
+$(".loading-link").click(function() {
+  beforeLoad();
+});
+
+$("form").submit(function() {
+  beforeLoad();
+})
+
+window.onload = completeLoad;
+</script>

@@ -54,7 +54,10 @@ $(function() {
         dataType: 'json',
         processData: false,
         contentType: false,
-        timeout: 10000
+        timeout: 10000,
+        beforeSend: function(){
+          document.getElementById('loading').classList.add('loaded');
+        }
       })
       .done(function(data) {
         const html = buildHTML(data);
@@ -73,11 +76,11 @@ $(function() {
 
   const reloadMessages = function() {
     const last_message_id = $('.message:last').data("message-id");
-    const href = window.location.href + "/messages"
+    const url = $('#messageForm').attr('action');
   
     $.ajax ({
-      url: href,
-      type: 'get',
+      url: url,
+      type: 'GET',
       dataType: 'json',
       data: {last_id: last_message_id},
       timeout: 10000
@@ -95,5 +98,10 @@ $(function() {
     });
   };
   
-  setInterval(reloadMessages, 7000);
+  const interval_reload = setInterval(() =>{
+    reloadMessages();
+    $('a').click(function() {
+      clearInterval(interval_reload);
+    });
+  }, 7000);
 });

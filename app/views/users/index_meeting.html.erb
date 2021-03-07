@@ -4,9 +4,12 @@
     <div><%= current_user.meetings.count %>件のプランがあります</div>
     <ul>
       <% @meetings.each do |meeting| %>
-      <li id='meeting-<%= meeting.id %>'>
-        <%= link_to(meeting.meet_at.strftime("%Y/%m/%d(%a) %H:%M"), meeting_meeting_applications_path(meeting), class: 'list-action') %>
-      </li>
+        <% unless meeting.meet_at.nil? %>
+          <li id='meeting-<%= meeting.id %>'>
+            <%= link_to(meeting.meet_at.strftime("%Y/%m/%d(%a) %H:%M"), meeting_meeting_applications_path(meeting),
+                                  class: 'list-action', remote: true) %>
+          </li>
+        <% end %>
       <% end %>
     </ul>
     <%= paginate @meetings, remote: true %>
@@ -14,3 +17,25 @@
     <div>募集中のプランはありません</div>  
   <% end %>
 </div>
+<script>
+
+function beforeLoad() {
+  document.getElementById('loading').classList.remove('loaded');
+}
+
+function completeLoad() {
+  document.getElementById('loading').classList.add('loaded');
+};
+
+completeLoad();
+
+$(".loading-link").click(function() {
+  beforeLoad();
+});
+
+$("form").submit(function() {
+  beforeLoad();
+})
+
+window.onload = completeLoad;
+</script>

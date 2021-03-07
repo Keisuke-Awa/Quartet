@@ -9,13 +9,20 @@ class MessageRoomsController < ApplicationController
       MessageRoomUser.create!(message_room_id: @message_room.id, user_id: current_user.id)
       @room_user = MessageRoomUser.create!(message_room_id: @message_room.id, user_id: user.id)
     end
-    redirect_to message_room_path(@message_room.id)
+    respond_to do |format|
+      format.html { redirect_to message_room_path(@message_room.id) }
+      format.js { render ajax_redirect_to(message_room_path(@message_room.id)) }
+    end
   end
 
   def show
     if MessageRoomUser.where(user_id: current_user.id, message_room_id: @message_room.id).present?
       @messages = @message_room.messages.includes(:user)
-      @message_partner = @message_room.not_current_user(current_user)
+      @message_partner = @message_room.users.select_partner(current_user)
+      respond_to do |format|
+        format.html
+        format.js
+      end
     else
       redirect_back(fallback_location: root_path)
     end

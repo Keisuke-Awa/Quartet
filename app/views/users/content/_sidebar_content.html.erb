@@ -7,23 +7,16 @@
       <%= link_to('企画する', new_meeting_path, class: 'nav-link sidebar-color loading-link', remote: true) %>
     </li>
     <li class="nav-item">
-      <%= link_to('申請一覧', index_meeting_user_path(current_user), class: 'nav-link sidebar-color loading-link', remote: true) %>
+      <%= link_to('作成プラン', index_meeting_user_path(current_user), class: 'nav-link sidebar-color loading-link', remote: true) %>
     </li>
     <li class="nav-item">
-      <%= link_to('マッチング一覧', index_appointment_user_path(current_user), class: 'nav-link sidebar-color loading-link', remote: true) %>
-    </li>
-    <!--<li class="nav-item">
-      <%= link_to('マイページ', show_mypage_user_path(current_user), class: 'nav-link sidebar-color') %>
-    </li> %>-->
-    <li class="nav-item">
-      <%= link_to('メッセージ一覧', index_message_room_user_path(current_user), class: 'nav-link sidebar-color loading-link', remote: true) %>
+      <%= link_to('申請先プラン', index_meeting_application_user_path(current_user), class: 'nav-link sidebar-color loading-link', remote: true) %>
     </li>
     <li class="nav-item">
-      <%= link_to('ログアウト', destroy_user_session_path, method: :delete, class: 'nav-link sidebar-color loading-link') %>
+      <%= link_to('マッチング', index_appointment_user_path(current_user), class: 'nav-link sidebar-color loading-link', remote: true) %>
     </li>
     <li class="nav-item">
-      <%= link_to('退会', user_path(current_user.id), data: { confirm: "本当に退会してよろしいですか?" }, method: :delete,
-                    class: 'nav-link sidebar-color loading-link') %>
+      <%= link_to('メッセージ', index_message_room_user_path(current_user), class: 'nav-link sidebar-color loading-link', remote: true) %>
     </li>
   </ul>
 </div>

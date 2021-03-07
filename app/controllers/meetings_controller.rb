@@ -48,7 +48,7 @@ class MeetingsController < ApplicationController
   end
 
   def search
-    @meetings = @q.display_list(current_user, params[:page])
+    @meetings = @q.result(distinct: true).display_list(current_user, params[:page])
     respond_to do |format|
       format.html
       format.js

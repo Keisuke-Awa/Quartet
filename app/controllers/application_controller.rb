@@ -2,6 +2,8 @@ class ApplicationController < ActionController::Base
 
   include AjaxHelper
 
+  # rescue_from StandardError, with: :redirect_to_root
+
   protect_from_forgery with: :exception
   add_flash_types :success, :info, :warning, :danger
 
@@ -47,6 +49,13 @@ class ApplicationController < ActionController::Base
     respond_to do |format|
       format.html { redirect_to new_user_session_path, alert: "アカウント登録もしくはログインしてください。" }
       format.js { render ajax_redirect_to(new_user_session_path), flash[:alert] = "アカウント登録もしくはログインしてください。" }
+    end
+  end
+
+  def redirect_to_root
+    respond_to do |format|
+      format.html { redirect_to root_path, flash: {error: "予期せぬエラーが発生しました。"} }
+      format.js { render ajax_redirect_to(root_path), flash[:error] = "予期せぬエラーが発生しました。" }
     end
   end
 

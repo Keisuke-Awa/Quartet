@@ -1,6 +1,5 @@
-<h3>成立したプラン</h3>
-<% @appointments.each do |appointment| %>
-  <%= link_to appointment.meeting.meet_at, appointment_path(appointment), remote: true %>
+<% @meeting_applications.each do |ma| %>
+<%= link_to ma.meeting.planning_user.name, meeting_path(ma.meeting) %>
 <% end %>
 <script>
 
