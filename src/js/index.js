@@ -32,9 +32,9 @@ $(function() {
 
   $(window).scroll(function() {
     if ($(this).scrollTop() > 0) {
-      $('header').css('background-color', '#FFFFFF');
+      $('header').css('box-shadow', '2px 2px 10px gray');
     } else {
-      $('header').css('background', 'none');
+      $('header').css('box-shadow', 'none');
     }
   });
 })
