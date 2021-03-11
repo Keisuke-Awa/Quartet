@@ -9,6 +9,7 @@ $color2-2: #4C5B5C;
 $color2-3: #FDE74C;
 $color2-4: #DB5461;
 $color2-5: #E3655B;
+$color2-6: #eb2d2d;
 
 
 
@@ -65,6 +66,7 @@ $messageContentColor: #8de055;
 }
 
 .header-logo {
+  margin-top: 10px;
   animation: SlideRightIn 1.8s;
 }
 .nav-link {
@@ -82,9 +84,47 @@ html {
   padding: 0;
 }
 
-// * {
-//   font-family: "Lato", sans-serif;
-// }
+/* ブラウザ縁 */
+html:before,html:after,body:before,body:after{
+  content:"";
+  position:fixed;
+  display:block;
+  z-index:999;
+}
+
+html:before{
+  height:10px;
+  left:0;
+  right:0;
+  top:0;
+  background: $color2-6;
+}
+html:after{
+  width:10px;
+  top:0;
+  right:0;
+  bottom:0;
+  background: -moz-linear-gradient(top, $color2-6, $color2-3);
+  background: -webkit-linear-gradient(top, $color2-6, $color2-3);
+  background: linear-gradient(to bottom, $color2-6, $color2-3);
+}
+body:before{
+  height:10px;
+  right:0;
+  bottom:0;
+  left:0;
+  background: $color2-3;
+}
+body:after{
+  width:10px;
+  top:0;
+  bottom:0;
+  left:0;
+  background: -moz-linear-gradient(top, $color2-6, $color2-3);
+  background: -webkit-linear-gradient(top, $color2-6, $color2-3);
+  background: linear-gradient(to bottom, $color2-6, $color2-3);
+}
+
 
 *, *::before, *::after {
   box-sizing: border-box;
@@ -264,7 +304,8 @@ header {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 999;
+  background: #fff;
+  z-index: 998;
 }
 
 .alert-box {
