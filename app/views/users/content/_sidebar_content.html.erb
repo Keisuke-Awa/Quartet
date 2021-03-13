@@ -13,7 +13,9 @@
       <%= link_to('申請先プラン', index_meeting_application_user_path(current_user), class: 'nav-link sidebar-color loading-link', remote: true) %>
     </li>
     <li class="nav-item">
-      <%= link_to('マッチング', index_appointment_user_path(current_user), class: 'nav-link sidebar-color loading-link', remote: true) %>
+      <%= link_to(index_appointment_user_path(current_user), class: 'nav-link sidebar-color loading-link', remote: true) do %>
+        マッチング<span class="badge badge-light float-right mt-1 rounded-circle">4</span>
+      <% end %>
     </li>
     <li class="nav-item">
       <%= link_to('メッセージ', index_message_room_user_path(current_user), class: 'nav-link sidebar-color loading-link', remote: true) %>

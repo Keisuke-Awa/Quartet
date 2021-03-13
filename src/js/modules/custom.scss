@@ -489,6 +489,30 @@ input[type=date] {
   }
 }
 
+@keyframes badge-updown {
+  0% { transform:translateY(0) }
+  5% { transform:translateY(0) }
+  10% { transform:translateY(-8px) }
+  15% { transform:translateY(0) }
+  20% { transform:translateY(-6px) }
+  25% { transform:translateY(0) }
+  30% { transform:translateY(-4px) }
+  35% { transform:translateY(0) }
+  50% { transform:translateY(0) }
+  100% { transform:translateY(0) }
+}
+
+.badge-light {
+  background-color: $color2-6;
+  color: white;
+  animation: badge-updown 4s ease infinite;
+  &:link, &:visited, &:hover {
+    background-color: $color2-6;
+    color: white;
+    text-decoration: none;
+  }
+}
+
 /* メインコンテンツ */
 
 /* number_fieldカスタマイズ */
