@@ -4,7 +4,11 @@ class MeetingApplicationsController < ApplicationController
   before_action :ban_appying_to_same_sex, only: :create
 
   def create
-    @meeting_application = MeetingApplication.create!(meeting_application_params)
+    @user = @meeting.planning_user
+    ActiveRecord::Base.transaction do
+      @meeting_application = MeetingApplication.create!(meeting_application_params)
+      NewArrival.create!(user: @user, model: "MeetingApplication", record_id: @meeting_application.id)
+    end
     @user = @meeting.planning_user
     respond_to do |format|
       format.html { redirect_back(fallback_location: @meeting, notice: "申請が完了しました。") }

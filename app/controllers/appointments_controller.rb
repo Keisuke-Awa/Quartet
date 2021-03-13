@@ -8,6 +8,7 @@ class AppointmentsController < ApplicationController
     ActiveRecord::Base.transaction do
       @appointment = Appointment.create!(meeting_id: @meeting.id)
       current_user.make_appointment(@appointment, matching_partner)
+      NewArrival.create!(user: matching_partner, model: "Appintment", record_id: @appointment.id)
       @meeting.update!( appointment_id: @appointment.id )
       @meeting.meeting_applications.delete_all
       applicants.each do |applicant|

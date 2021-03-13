@@ -10,7 +10,13 @@ class MessagesController < ApplicationController
   
   def create
     # if MessageRoomUser.where(user_id: current_user.id, message_room_id: params[:message_room_id]).present?
-      if @message = Message.create!(message_params)
+    message_room = MessageRoom.find(params[:message_room_id])
+    receiver = message_room.users.where.not(id: current_user.id)
+    ActiveRecord::Base.transaction do
+      @message = Message.create!(message_params)
+      NewArrival.create!(user: receiver, model: "Message", record_id: @message.id)
+    end
+      if @message
         respond_to do |format|
           format.html { redirect_to message_room_path(@message.message_room_id) }
           format.json

@@ -7,18 +7,37 @@
       <%= link_to('企画する', new_meeting_path, class: 'nav-link sidebar-color loading-link', remote: true) %>
     </li>
     <li class="nav-item">
-      <%= link_to('作成プラン', index_meeting_user_path(current_user), class: 'nav-link sidebar-color loading-link', remote: true) %>
+      <%= link_to(index_meeting_user_path(current_user), class: 'nav-link sidebar-color loading-link', remote: true) do %>
+        作成プラン
+        <% if current_user.new_arrivals.where(model: "MeetingApplication").present? %>
+          <span id="meetingApplicationNewArrivals" class="badge badge-light float-right mt-1 rounded-circle">
+            <%= current_user.new_arrivals.count_by("MeetingApplication") %>
+          </span>
+        <% end %>
+      <% end %>
     </li>
     <li class="nav-item">
       <%= link_to('申請先プラン', index_meeting_application_user_path(current_user), class: 'nav-link sidebar-color loading-link', remote: true) %>
     </li>
     <li class="nav-item">
       <%= link_to(index_appointment_user_path(current_user), class: 'nav-link sidebar-color loading-link', remote: true) do %>
-        マッチング<span class="badge badge-light float-right mt-1 rounded-circle">4</span>
+        マッチング
+        <% if current_user.new_arrivals.where(model: "Appointment").present? %>
+          <span id="appointmentNewArrivals", class="badge badge-light float-right mt-1 rounded-circle">
+            <%= current_user.new_arrivals.count_by("Appointment") %>
+          </span>
+        <% end %>
       <% end %>
     </li>
     <li class="nav-item">
-      <%= link_to('メッセージ', index_message_room_user_path(current_user), class: 'nav-link sidebar-color loading-link', remote: true) %>
+      <%= link_to(index_message_room_user_path(current_user), class: 'nav-link sidebar-color loading-link', remote: true) do %>
+        メッセージ
+        <% if current_user.new_arrivals.where(model: "Message").present? %>
+          <span id="MessageNewArrivals" class="badge badge-light float-right mt-1 rounded-circle">
+            <%= current_user.new_arrivals.count_by("Message") %>
+          </span>
+        <% end %>
+      <% end %>
     </li>
   </ul>
 </div>

@@ -13,7 +13,7 @@
           <% week.each do |date| %>
             <div>
               <%= f.radio_button :meet_at_equals_date, date %>
-              <%= f.label :meet_at_equals_date, date.strftime("%m/%d") %>
+              <%= f.label :meet_at_equals_date, date.strftime("%-m/%-d") %>
             </div>
           <% end %>
         </div>
