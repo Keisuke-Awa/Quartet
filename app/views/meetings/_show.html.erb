@@ -18,7 +18,7 @@
           <li class="list-group-item">
             <div>日時</div>
             <div><%=@meeting.meet_at.strftime("%-m月%-d日")%>(<%=calculate_day_of_week(@meeting.meet_at)%>)
-                  <%=@meeting.meet_at.strftime("%-H:%-M")%>~<div>
+                  <%=@meeting.meet_at.strftime("%-H時%-M分")%>〜<div>
           </li>
           <li class="list-group-item">
             <div>場所</div>
@@ -45,8 +45,8 @@
         <div class="row no-gutters">
           <div class="col-md-6 profile-avatar-content">
             <div class="profile-avatar">
-              <%= link_to image_tag(@meeting.planning_user.avatar,
-                  alt: "avatar", width: "60%", class: "rounded-circle bd-placeholder-img img-fluid"), 
+              <%=link_to image_tag(@meeting.planning_user.avatar,
+                  alt: "avatar", width: "100vw", class: "rounded-circle bd-placeholder-img img-fluid"), 
                   url_for(@meeting.planning_user.avatar), data: {lightbox: "avatar", title: @meeting.planning_user.name} %>
             </div>
           </div>

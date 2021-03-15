@@ -1,5 +1,27 @@
-<% @meeting_applications.each do |ma| %>
-<%= link_to ma.meeting.planning_user.name, meeting_path(ma.meeting) %>
+<%= paginate @meetings, remote: true %>
+<div id="applyingMeetingPaginate" class="pb-3">
+<% @meetings.each do |m| %>
+<div class="card w-100" >
+  <div class="row no-gutters">  
+    <div class="col-md-2 m-auto text-center">
+      <div class="profile-avatar">
+        <%=link_to image_tag(m.planning_user.avatar,
+            alt: "avatar", width: "70vw", class: "rounded-circle bd-placeholder-img img-fluid"), 
+            url_for(m.planning_user.avatar), data: {lightbox: "avatar", title: m.planning_user.name} %>
+      </div>
+    </div>  
+    <div class="col-md-8">
+      <div class="card-body">
+        <p><%=m.meet_at.strftime("%-m月%-d日")%>(<%=calculate_day_of_week(m.meet_at)%>) 
+          <%=m.meet_at.strftime("%-H時%-M分")%>〜  <%=m.place.name%></p>
+        <p class="card-text"><%=m.detail%></p>
+      </div>
+    </div>
+    <div class="col-md-2 my-auto">
+      <%= link_to('詳細', meeting_path(m), class: "btn btn-yellow loading-link", remote: true ) %>
+    </div>
+  </div>
+</div>
 <% end %>
 <script>
 

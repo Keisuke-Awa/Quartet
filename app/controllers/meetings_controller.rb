@@ -55,11 +55,6 @@ class MeetingsController < ApplicationController
     end
   end
 
-  # def index_meeting_application
-  #   @meeting = Meeting.find(params[:id])
-  #   @meeting_applications = @meeting.meeting_applications
-  # end
-
   private
 
   def meeting_params

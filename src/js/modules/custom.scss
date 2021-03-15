@@ -93,14 +93,14 @@ html:before,html:after,body:before,body:after{
 }
 
 html:before{
-  height:10px;
+  height: 0.5rem;
   left:0;
   right:0;
   top:0;
   background: $color2-6;
 }
 html:after{
-  width:10px;
+  width: 0.5rem;
   top:0;
   right:0;
   bottom:0;
@@ -109,14 +109,14 @@ html:after{
   background: linear-gradient(to bottom, $color2-6, $color2-3);
 }
 body:before{
-  height:10px;
+  height: 0.5rem;
   right:0;
   bottom:0;
   left:0;
   background: $color2-3;
 }
 body:after{
-  width:10px;
+  width: 0.5rem;
   top:0;
   bottom:0;
   left:0;
@@ -330,6 +330,7 @@ header {
   width: 100%;
   .main-content {
     height: calc(80vh - 1rem);
+    padding-bottom: 0.5rem;
   }
 }
 

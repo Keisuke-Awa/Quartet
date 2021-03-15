@@ -61,7 +61,8 @@ class UsersController < ApplicationController
   end
 
   def index_meeting_application
-    @meeting_applications = current_user.meeting_applications.includes(meeting: :planning_user)
+    meetings = current_user.meeting_applications.with_meeting_all.map(&:meeting)
+    @meetings = Kaminari.paginate_array(meetings).page(params[:page]).per(10)
     respond_to do |format|
       format.html
       format.js
