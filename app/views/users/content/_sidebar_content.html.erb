@@ -1,36 +1,41 @@
 <div class="sidebar-content sidebar__inner">
-  <ul class="nav flex-column side-bar">
+  <ul class="nav flex-column side-bar" id='accordionMenu'>
     <li class="nav-item">
-      <%= link_to(t('.search_meeting'), meetings_path, class: 'nav-link sidebar-color loading-link', remote: true) %>
+      <%= link_to(t('.search_meeting'), meetings_path, class: 'nav-link nav-element sidebar-color loading-link', remote: true) %>
     </li>
     <li class="nav-item">
-      <%= link_to('企画する', new_meeting_path, class: 'nav-link sidebar-color loading-link', remote: true) %>
+      <%= link_to('企画する', new_meeting_path, class: 'nav-link nav-element sidebar-color loading-link', remote: true) %>
     </li>
     <li class="nav-item">
-      <%= link_to(index_meeting_user_path(current_user), class: 'nav-link sidebar-color loading-link', remote: true) do %>
-        作成プラン
-        <% if current_user.new_arrivals.where(model: "MeetingApplication").present? %>
-          <span id="meetingApplicationNewArrivals" class="badge badge-light float-right mt-1 rounded-circle">
-            <%= current_user.new_arrivals.count_by("MeetingApplication") %>
-          </span>
+      <a data-toggle="collapse" href="#menu01" aria-controls="#menu01" aria-expanded="false" class="nav-link sibebar-color-accordion">作成プラン</a>
+    </li>
+    <ul id="menu01" class="collapse" data-parent="#accordionMenu">
+      <li class="nav-item">
+        <%= link_to(index_meeting_user_path(current_user), class: 'nav-link nav-element sidebar-color loading-link', remote: true) do %>
+          <span class="ml-2">募集中プラン</span>
+          <% if current_user.new_arrivals.where(model: "MeetingApplication").present? %>
+            <span id="meetingApplicationNewArrivals" class="badge badge-light float-right mt-1 rounded-circle">
+              <%= current_user.new_arrivals.count_by("MeetingApplication") %>
+            </span>
+          <% end %>
         <% end %>
-      <% end %>
-    </li>
-    <li class="nav-item">
-      <%= link_to('申請先プラン', index_meeting_application_user_path(current_user), class: 'nav-link sidebar-color loading-link', remote: true) %>
-    </li>
-    <li class="nav-item">
-      <%= link_to(index_appointment_user_path(current_user), class: 'nav-link sidebar-color loading-link', remote: true) do %>
-        マッチング
-        <% if current_user.new_arrivals.where(model: "Appointment").present? %>
-          <span id="appointmentNewArrivals", class="badge badge-light float-right mt-1 rounded-circle">
-            <%= current_user.new_arrivals.count_by("Appointment") %>
-          </span>
+      </li>
+      <li class="nav-item">
+        <%= link_to(index_appointment_user_path(current_user), class: 'nav-link nav-element sidebar-color loading-link', remote: true) do %>
+          <span class="ml-2">マッチング</span>
+          <% if current_user.new_arrivals.where(model: "Appointment").present? %>
+            <span id="appointmentNewArrivals", class="badge badge-light float-right mt-1 rounded-circle">
+              <%= current_user.new_arrivals.count_by("Appointment") %>
+            </span>
+          <% end %>
         <% end %>
-      <% end %>
+      </li>
+    </ul>
+    <li class="nav-item">
+      <%= link_to('申請先プラン', index_meeting_application_user_path(current_user), class: 'nav-link nav-element sidebar-color loading-link', remote: true) %>
     </li>
     <li class="nav-item">
-      <%= link_to(index_message_room_user_path(current_user), class: 'nav-link sidebar-color loading-link', remote: true) do %>
+      <%= link_to(index_message_room_user_path(current_user), class: 'nav-link nav-element sidebar-color loading-link', remote: true) do %>
         メッセージ
         <% if current_user.new_arrivals.where(model: "Message").present? %>
           <span id="MessageNewArrivals" class="badge badge-light float-right mt-1 rounded-circle">
@@ -41,8 +46,11 @@
     </li>
   </ul>
 </div>
+
+
+
 <script>
-const sidebar_link = document.getElementsByClassName('nav-link');
+const sidebar_link = document.getElementsByClassName('nav-element');
 
 for (let i = 0; i < sidebar_link.length; i++) {
   clickSidebarLinkAction(sidebar_link[i], i);
@@ -63,4 +71,9 @@ function clickSidebarLinkAction(sidebar_link_element, num) {
     }
   })
 }
+
 </script>
+<style>
+
+
+</style>

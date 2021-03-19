@@ -136,6 +136,15 @@ body {
   background: #FFFFFF;
 }
 
+/* フォーカス時の青い枠線を消す */
+*:focus {
+  outline: none !important;
+}
+a {
+  -webkit-tap-highlight-color:rgba(0,0,0,0);
+  cursor:pointer;
+}
+
 /* ボタン */
 .actions {
   text-align: center;
@@ -466,8 +475,8 @@ input[type=date] {
     height: 60vh;
     width: 80%;
     margin-top: 10vh;
-    background-color: $menuwhite;
     .nav-item {
+      background-color: $menuwhite;
       .sidebar-color {
         color: black;
         text-decoration: none;
@@ -484,6 +493,21 @@ input[type=date] {
         color: white;
         &:link, &:visited {
           text-decoration: none;
+        }
+      }
+      .sibebar-color-accordion {
+        color: black;
+        text-decoration: none;
+        &:link, &:visited {
+          text-decoration: none;
+        }
+        &:hover {
+          color: white;
+          border-color: white !important;
+          background-color: $yellow;
+          &::after {
+            border-color: white !important;
+          }
         }
       }
     }

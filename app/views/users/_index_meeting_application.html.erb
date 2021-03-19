@@ -6,7 +6,7 @@
     <div class="col-md-2 m-auto text-center">
       <div class="profile-avatar">
         <%=link_to image_tag(m.planning_user.avatar,
-            alt: "avatar", width: "70vw", class: "rounded-circle bd-placeholder-img img-fluid"), 
+            alt: "avatar", width: "60vw", class: "rounded-circle bd-placeholder-img img-fluid"), 
             url_for(m.planning_user.avatar), data: {lightbox: "avatar", title: m.planning_user.name} %>
       </div>
     </div>  
@@ -14,7 +14,6 @@
       <div class="card-body">
         <p><%=m.meet_at.strftime("%-m月%-d日")%>(<%=calculate_day_of_week(m.meet_at)%>) 
           <%=m.meet_at.strftime("%-H時%-M分")%>〜  <%=m.place.name%></p>
-        <p class="card-text"><%=m.detail%></p>
       </div>
     </div>
     <div class="col-md-2 my-auto">
