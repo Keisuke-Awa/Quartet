@@ -1,4 +1,9 @@
-function initialize() {
+import "./application.scss";
+import 'jquery';
+import "bootstrap";
+import 'bootstrap4-tagsinput/tagsinput.js';
+
+$(function() {
   
   const firstForm = document.getElementById('firstMeetingForm');
   const secondForm = document.getElementById('secondMeetingForm');
@@ -24,6 +29,4 @@ function initialize() {
   //   tagBtn[2].style.display = "none";
     // console.log(tagBtn[2].value);
   // }
-}
-
-initialize();
+});

@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  get 'tags/index'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
   scope "(:locale)", locale: /#{I18n.available_locales.map(&:to_s).join('|')}/ do
@@ -27,7 +28,6 @@ Rails.application.routes.draw do
 
     resources :meetings, only: %i[index new create show destroy] do
       get :search, on: :collection
-      #get :index_meeting_application, on: :member
       resources :meeting_applications, only: [:create, :destroy, :index, :show]
     end
 
@@ -36,6 +36,8 @@ Rails.application.routes.draw do
     end
 
     resources :appointments, only: [:create, :destroy, :show, :index]
+
+    resource :tags, only: [:index]
     
     post 'sms_identifications/send_code'
     post 'sms_identifications/check_code'

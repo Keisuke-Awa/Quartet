@@ -10,6 +10,7 @@ class MeetingsController < ApplicationController
   def new
     @meeting = Meeting.new
     @places = Place.all
+    @people = [2, 3, 4, 5]
     @tag_category = TagCategory.all.includes([:tags])
     respond_to do |format|
       format.html

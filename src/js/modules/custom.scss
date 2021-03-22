@@ -475,6 +475,9 @@ input[type=date] {
     height: 60vh;
     width: 80%;
     margin-top: 10vh;
+    > li {
+      border-bottom: #ccc 1px solid;
+    }
     .nav-item {
       background-color: $menuwhite;
       .sidebar-color {
