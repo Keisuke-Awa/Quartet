@@ -30,6 +30,8 @@ class User < ApplicationRecord
 
   has_one :user_profile, dependent: :destroy
 
+  has_many :new_arrivals, dependent: :destroy
+
   validates :name, presence: true, length: { maximum: 30 }
   validates :email, presence: true
   validates :birth_date, presence: true

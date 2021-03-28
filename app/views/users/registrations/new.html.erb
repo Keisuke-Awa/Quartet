@@ -35,7 +35,7 @@
 
     <div class="field">
       <%= f.collection_select :residence_id, PrefectureMst.all, :id, :prefecture_name,
-                { include_blank: true, required: true }, { class: "select-field text-field" } %>
+                { include_blank: true }, class: "select-field text-field", required: true %>
       <%= f.label :residence, "居住地" %>
       <span class="focus-line"></span>
     </div>

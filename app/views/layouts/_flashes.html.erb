@@ -2,7 +2,7 @@
   <% flash.each do |flash_type, message| %>
     <div class="alert-box">
       <div class="alert alert-<%= bootstrap_alert(flash_type) %>">
-        <strong><%= message %></strong>
+        <strong class="alert-message"><%= message %></strong>
       </div>
     </div>
   <% end %>

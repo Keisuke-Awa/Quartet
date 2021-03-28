@@ -1,52 +1,43 @@
-<%= form_with(model: @meeting, local: true) do |f| %>
-  <!-- <div class="form-group">
-    <%= f.hidden_field :user_id, value: current_user.id, class: "form-control" %>
-  </div> -->
+<%= form_with(model: @meeting, url: meetings_path, local: true, class: "form meeting-form") do |f| %>
   <div id="firstMeetingForm">
-    <div class="form-group">
-      <%= f.label :place, "開催場所:", class: "mt-4" %>
-      <%= f.collection_select :place_id, @places, :id, :name, class: "form-control mb-4" %>
+    <div class="field">
+      <%= f.collection_select :place_id, @places, :id, :name,
+                { include_blank: true }, class: "select-field text-field", required: true %>
+      <%= f.label :place_id, "開催場所" %>
+      <span class="focus-line"></span>
     </div>
-    <div class="form-group">
-      <%= f.label :people, "参加人数:", class: "mt-4" %>
-      <%= f.number_field :people, min: 2, max: 10, class: "mb-4" %>
+    <div class="field">
+      <%= f.select :people, @people, { include_blank: true },
+                class: "select-field text-field", required: true %>
+      <%= f.label :people, "人数" %>
+      <span class="focus-line"></span>
     </div>
-    <div class="form-group">
-      <%= f.label :meet_at, "開催日時:", class: "mt-4"%>
-      <%= f.datetime_field	:meet_at, class: "mb-4" %>
+    <div class="field d-flex mx-auto" style="width: 25vw;">
+      <%= f.select	:meet_at_date, @date_and_time[:date], { include_blank: true },
+              class: "select-field text-field", required: true %>
+      <%= f.select	:meet_at_hour, @date_and_time[:hour], { include_blank: true },
+              class: "w-50 select-field text-field", required: true %>
+      <%= f.select	:meet_at_minute, @date_and_time[:minute], { include_blank: true },
+              class: "w-50 select-field text-field", required: true %>
+      <label>開催日時</label>
+      <span class="focus-line"></span>
     </div>
-    <div class="btn btn-yellow" id="nextButton">次へ</div>
-  </div>
-  <div id="secondMeetingForm">
-    <div class="form-group">
-      <%= f.label :tag_list %>
-      <%= f.text_field :tag_list, value: @meeting.tag_list.join(','), data: {role: "tagsinput"}, class: "form-control", id: "tagForm" %>
+    <div class="field form-search-tag">
+      <input type="search" class="text-field" id="tagInput" placeholder="辛いものetc..">
+      <label>タグ</label>
+      <span class="focus-line"></span>
+      <ul class="list-group form-index-tag" id="tagList">
+      </ul>
     </div>
-    <div class="tag-content">
-      <% @tag_category.each_with_index do |tag_category, tci| %>
-        <label for=<%= "tagCategory-#{tci}" %>><%= tag_category.category_name %></label>
-        <input type="checkbox" id=<%="tagCategory-#{tci}"%> class="tag-category">
-        <div class="tag-list">
-          <% Array(tag_category.tags).each_with_index do |parent_tag, pti| %>
-            <span onclick="clickTag(this)">
-              <input type="text" class="tag-btn" onclick="clickTag(this)" data-role="tagsinput" value=<%= parent_tag.name %> >
-            </span onclick="clickTag(this)">
-            <% Array(parent_tag.children).each_with_index do |child_tag, cti| %>
-              <span>
-                <input type="text" class="tag-btn" onclick="clickTag(this)" data-role="tagsinput" value=<%= child_tag.name %> >
-              </span>
-              <% Array(child_tag.children).each_with_index do |indirect_tag, iti| %>
-                <span onclick="clickTag(this)">
-                  <input type="text" class="tag-btn" onclick="clickTag(this)" data-role="tagsinput" value=<%= indirect_tag.name %> >
-                </span>
-              <% end %>
-            <% end %>
-          <% end %>
-        </div>
-      <% end %>
+    <%= f.hidden_field :tag_list, value: @meeting.tag_list.join(','), id: "tagForm", style: "display:none;" %>
+    <div class="bootstrap-tagsinput text-center">
     </div>
-    <div class="form-group">
-      <div class="btn btn-yellow" id="beforeButton">戻る</div>
+    <div class="field text-area">
+      <%= f.text_area :detail, autofocus: true, autocomplete: "detail", required: true, 
+                    class: "text-field text-area-field", placeholder: "" %>
+      <%= f.label :name, "詳細" %>
+    </div>
+    <div class="field form-create-meeting">
       <%= f.submit "プラン作成", class: "btn btn-yellow" %>
     </div>
   </div>
@@ -73,4 +64,136 @@ $("form").submit(function() {
 })
 
 window.onload = completeLoad;
+
+$(function() {
+  $("#tagInput").on("keyup", function() {
+    let tag_input = $("#tagInput").val();
+
+    $.ajax({
+    type: "GET",
+    url: "/tags/index",
+    data: { 
+            input: tag_input,
+          },
+    dataType: "json"
+    })
+    .done(function(tags) {
+      $('#tagList').empty();
+      if (tags.length !== 0) {
+        tags.forEach(function(tag) {
+          addTag(tag);
+        });
+      } else if (tag_input.length == 0) {
+        return false;
+      } else {
+        addNoTag();
+      }
+    })
+    .fail(function() {
+      addTagAlert();
+    })
+  })
+
+  // $("#tagInput").blur(function() {
+  //   $("#tagList").empty();
+  // })
+});
+
+function addTag(tag) {
+  let html = `<a class="list-group-item tag-item" data-tag-id="${tag.id}" onclick="addTagToTagForm(this)">${tag.name}</a>`
+  $("#tagList").append(html);
+}
+
+function addNoTag() {
+  let html = `<li class="list-group-item">検索結果はありません</li>`
+  $("#tagList").append(html);
+}
+
+function addTagAlert() {
+  let html = `
+      <div class="alert-box">
+        <div class="alert alert-danger">
+          <strong>通信エラーが発生しました。</strong>
+        </div>
+      </div>`
+  $(".alert-box").replaceWith(html);
+  setTimeout("$('.alert').fadeOut('slow')", 2000);
+}
+
+function addTagToTagForm(tag_name) {
+  let html = `<span class="badge badge badge-info">
+                ${tag_name.textContent}
+                <span data-role="remove" onclick="tagRemove(this)" class="aaa">
+                </span>
+              </span>`
+  if ($("#tagForm").val() === "") {
+    $("#tagForm").val(tag_name.textContent);
+  } else {
+    let tags = $("#tagForm").val().split(',')
+    for (i = 0; i < tags.length; i++) {
+      if ( tags[i] === tag_name.textContent) {
+        return false;
+      }
+    }
+    $("#tagForm").val($("#tagForm").val() + "," + tag_name.textContent);
+  };
+  $("#tagInput").val("");
+  $("#tagList").empty();
+  $(".bootstrap-tagsinput").append(html);
+}
+
+function tagRemove(element_for_remove) {
+  $(element_for_remove).parent().remove();
+  let tags = $("#tagForm").val().split(',');
+  tags = tags.filter(function(tag) {
+    console.log(tag);
+    return tag !== $(element_for_remove).parent().text().trim()
+  })
+  $("#tagForm").val(tags.join(','));
+}
+
+/* エンターキーによるsubmit無効化 */
+
+$(function(){
+    $("input"). keydown(function(e) {
+        if ((e.which && e.which === 13) || (e.keyCode && e.keyCode === 13)) {
+            return false;
+        } else {
+            return true;
+        }
+    });
+});
+
 </script>
+<style>
+.tag-item {
+  padding: .5rem 1rem !important;
+}
+.form-index-tag {
+  position: absolute;
+  width: 100%;
+  z-index: 1;
+}
+.form-create-meeting {
+  padding-bottom: 2.5rem;
+}
+
+
+/* .meeting-form {
+  margin: 0 25% auto !important;
+} */
+
+.vw-30 {
+  width: 30vw !important;
+}
+
+.text-area-field {
+  border: 1px solid #1b2538 !important;
+  width: 40vw;
+  height: 40vh;
+}
+.text-area-field:focus {
+  border: 2px solid #FFB500 !important;
+  transition: 0.4s;
+}
+</style>

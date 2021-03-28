@@ -1,7 +1,7 @@
 <div id='pagenate'>
   <div>作成したプラン一覧</div>
   <% if @meetings.any? %>
-    <div><%= current_user.meetings.count %>件のプランがあります</div>
+    <div><%= @meetings.count %>件のプランがあります</div>
     <ul>
       <% @meetings.each do |meeting| %>
         <% unless meeting.meet_at.nil? %>

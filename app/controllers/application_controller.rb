@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
 
   include AjaxHelper
+  include DatetimeHelper
 
   # rescue_from StandardError, with: :redirect_to_root
 

@@ -17,7 +17,7 @@
 
     <% if devise_mapping.rememberable? %>
       <div class="field">
-        <%= f.check_box :remember_me %>
+        <%= f.check_box :remember_me, class: "check-login-info" %>
         <%= f.label :remember_me %>
       </div>
     <% end %>
@@ -27,6 +27,8 @@
     </div>
 
   <% end %>
-  <%= link_to("Facebook認証", user_facebook_omniauth_authorize_path, class: 'btn btn-facebook') %>
-  <%= render "users/shared/links" %>
+  <div class="login-option">
+    <%= link_to("Facebook認証", user_facebook_omniauth_authorize_path, class: 'btn btn-facebook') %>
+    <%= render "users/shared/links" %>
+  </div>
 </div>

@@ -34,6 +34,7 @@ class UsersController < ApplicationController
   end
 
   def index_meeting
+    delete_new_arrivals("MeetingApplication")
     @meetings = current_user.meetings.where(appointment_id: nil).page(params[:page])
     respond_to do |format|
       format.html
@@ -42,6 +43,7 @@ class UsersController < ApplicationController
   end
 
   def index_appointment
+    delete_new_arrivals("Appointment")
     @appointments = current_user.appointments.includes(:meeting)
     respond_to do |format|
       format.html
@@ -50,6 +52,7 @@ class UsersController < ApplicationController
   end
 
   def index_message_room
+    delete_new_arrivals("Message")
     @message_rooms = current_user.message_rooms.select { |mr| mr.messages.where(user_id: current_user.id) }
     respond_to do |format|
       format.html
@@ -58,7 +61,8 @@ class UsersController < ApplicationController
   end
 
   def index_meeting_application
-    @meeting_applications = current_user.meeting_applications.includes(meeting: :planning_user)
+    meetings = current_user.meeting_applications.with_meeting_all.map(&:meeting)
+    @meetings = Kaminari.paginate_array(meetings).page(params[:page]).per(10)
     respond_to do |format|
       format.html
       format.js
@@ -84,6 +88,10 @@ class UsersController < ApplicationController
       format.html { redirect_to home_user_path(current_user), flash: {error: "該当ページにはアクセスできません。"} }
       format.js { render ajax_redirect_to(home_user_path(current_user)), flash[:error] = "該当ページにはアクセスできません。" }
     end
+  end
+
+  def delete_new_arrivals(content)
+    current_user.new_arrivals.select_model(content).delete_all
   end
   
 end

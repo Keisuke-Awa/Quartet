@@ -8,8 +8,10 @@ class MeetingsController < ApplicationController
   before_action :set_ransack, only: %i[index search]
 
   def new
-    @meeting = Meeting.new
+    @meeting = Form::Meeting.new
+    @people = { "2 on 2": 2, "3 on 3": 3, "4 on 4": 4 }
     @places = Place.all
+    @date_and_time = initialize_datetime
     @tag_category = TagCategory.all.includes([:tags])
     respond_to do |format|
       format.html
@@ -26,7 +28,7 @@ class MeetingsController < ApplicationController
   end
 
   def create
-    @meeting = Meeting.create(meeting_params)
+    @meeting = Form::Meeting.create(meeting_params)
     redirect_to home_user_path(current_user.id)
   end
 
@@ -55,15 +57,10 @@ class MeetingsController < ApplicationController
     end
   end
 
-  # def index_meeting_application
-  #   @meeting = Meeting.find(params[:id])
-  #   @meeting_applications = @meeting.meeting_applications
-  # end
-
   private
 
   def meeting_params
-    params.require(:meeting).permit(:place_id, :people, :meet_at, :tag_list).merge(planning_user_id: current_user.id)
+    params.require(:form_meeting).permit(Form::Meeting::REGISTRABLE_ATTRIBUTES).merge(planning_user_id: current_user.id)
   end
 
   def search_params
@@ -84,8 +81,8 @@ class MeetingsController < ApplicationController
 
   def initialize_search_form
     @places = Place.all
-    four_weeks = [0..6, 7..13, 14..20, 21..27]
-    @week = four_weeks.map { |week| week.to_a.map {|i| Date.today + i.days } }
+    @people = { "2 on 2": 2, "3 on 3": 3, "4 on 4": 4 }
+    @week = initialize_four_weeks
   end
 
   def set_meeting

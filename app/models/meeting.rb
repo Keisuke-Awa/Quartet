@@ -14,7 +14,7 @@ class Meeting < ApplicationRecord
   scope :exclude_current_user, -> (user) { where.not(planning_user_id: user.id) }
   scope :exclude_same_sex, -> (user) { where.not(users: {sex: user.sex}) }
   scope :with_place, -> { eager_load(:place) }
-  scope :paginate, -> (page) { page(page).per(30) }
+  scope :paginate, -> (page) { page(page).per(100) }
   scope :display_list, -> (user, page) { as_of_now.exclude_appointed.with_user_avatar.exclude_current_user(user)
                                               .exclude_same_sex(user).with_place.paginate(page) }
 end

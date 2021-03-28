@@ -1,19 +1,21 @@
-<div class="meeting-search-form mx-auto">
+<div class="meeting-search-form form">
 <%= search_form_for @q, url: search_meetings_path, remote: true do |f| %>
-  <label>日時</label>
-  <div id="carouselDateControls" class="carousel slide mx-auto" data-interval="false">
+<div class="row">
+<div class="col-8">
+  <label class="search-date-label">日時</label>
+  <div id="carouselDateControls" class="carousel slide" data-interval="false">
     <a class="btn-carousel-next pt-3" href="#carouselDateControls" role="button" data-slide="prev">
       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
       <span class="sr-only">Previous</span>
     </a>
-    <div class="carousel-inner pl-2 pr-2">
+    <div class="carousel-inner pl-2 pr-2 ">
       <% @week.each do |week| %>
       <div class="date-search-form carousel-item <%="active" if @week.first == week%>">
-        <div class="date-search .d-inline w-100">
+        <div class="date-search w-100">
           <% week.each do |date| %>
             <div>
-              <%= f.radio_button :meet_at_equals_date, date %>
-              <%= f.label :meet_at_equals_date, date.strftime("%m/%d") %>
+              <%= f.radio_button :meet_at_equals_date, date, class: "search-date" %>
+              <%= f.label :meet_at_equals_date, date.strftime("%-m/%-d") %>
             </div>
           <% end %>
         </div>
@@ -26,18 +28,47 @@
     </a>
   </div>
 
-  <div>
-    <%= f.label :place_id_eq, "場所" %>
-    <%= f.collection_select :place_id_eq, @places, :id, :name, include_blank: '全て' %>
-  </div>
+  <div class="field search-field d-inline-block">
+      <%= f.collection_select :place_id, @places, :id, :name,
+                { include_blank: true }, class: "select-field text-field search-place" %>
+      <%= f.label :place_id, "場所", class: "search-place-label" %>
+      <span class="focus-line"></span>
+    </div>
 
-  <div>
-    <%= f.label :people_eq, "人数" %>
-    <%= f.number_field :people_eq %>
+  <div class="field d-inline-block">
+    <%= f.select :people, @people, { include_blank: true },
+              class: "select-field text-field search-people" %>
+    <%= f.label :people, "人数", class: "search-people-label" %>
+    <span class="focus-line"></span>
   </div>
-
-  <%= f.submit "検索", class: "btn search-button", role: "button" %>
+</div>
+<div class="col-4 aaa search-button-content">
+  <div>
+    <%= f.submit "検索", class: "btn btn-yellow-red search-button", role: "button" %>
+  </div>
+</div>
+</div>
 <% end %>
 </div>
 
+<script>
+function changeColorWithoutFocus() {
+  $('.search-date-label').css({
+    'color': '#aaaaaa',
+    'transition' : '0.2s'
+  });
+}
+$('.search-date').change(function() {
+  $('.search-date-label').css({
+    'color': '#FFB500',
+    'transition' : '0.2s'
+  });
+});
+$('.search-place, .search-people').focus(function() {
+  changeColorWithoutFocus();
+})
+$('.search-button').click(function() {
+  changeColorWithoutFocus();
+})
 
+</script>
