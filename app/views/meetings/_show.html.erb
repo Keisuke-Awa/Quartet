@@ -17,8 +17,8 @@
         <ul class="list-group list-group-flush">
           <li class="list-group-item">
             <div>日時</div>
-            <div><%=@meeting.meet_at.strftime("%-m月%-d日")%>(<%=calculate_day_of_week(@meeting.meet_at)%>)
-                  <%=@meeting.meet_at.strftime("%-H時%-M分")%>〜<div>
+            <div><%=@meeting.meet_at.strftime("%-m月%-d日") + calculate_day_of_week(@meeting.meet_at)%>
+                  <%=@meeting.meet_at.strftime("%-H時%-M分〜")%><div>
           </li>
           <li class="list-group-item">
             <div>場所</div>
@@ -26,7 +26,7 @@
           </li>
           <li class="list-group-item">
             <div>希望人数</div>
-            <div><%=@meeting.people%>人</div>
+            <div><%="#{@meeting.people}人"%></div>
           </li>
           <li class="list-group-item d-block">
             <p>詳細</p>

@@ -1,69 +1,72 @@
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), class: "form") do |f| %>
-  <%= render "users/shared/error_messages", resource: resource %>
+<div class="form">
 
-  <div class="field">
-    <%= f.text_field :name, autofocus: true, autocomplete: "name", required: true, 
-                  class: "text-field", placeholder: "" %>
-    <%= f.label :name, "名前" %>
-    <span class="focus-line"></span>
-  </div>
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+    <%= render "users/shared/error_messages", resource: resource %>
 
-  <div class="field">
-    <%= f.email_field :email, autofocus: true, autocomplete: "email", id: 'emailField', required: true,
-              class: "text-field", placeholder: "" %>
-    <%= f.label :email, "Email" %>
-    <span class="focus-line"></span>
-  </div>
+    <div class="field">
+      <%= f.text_field :name, autofocus: true, autocomplete: "name", required: true, 
+                    class: "text-field", placeholder: "" %>
+      <%= f.label :name, "名前" %>
+      <span class="focus-line"></span>
+    </div>
 
-  <div class="field">
-    <%= f.date_field :birth_date, autofocus: true, autocomplete: "birth_date", required: true,
-            class: "text-field", id: "birthDateField", min: "1950-01-01", max: "#{Date.today - 20.years}" %>
-    <%= f.label :birth_date, "誕生日" %>
-    <span class="focus-line"></span>
-  </div>
+    <div class="field">
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", id: 'emailField', required: true,
+                class: "text-field", placeholder: "" %>
+      <%= f.label :email, "Email" %>
+      <span class="focus-line"></span>
+    </div>
 
-  <div class="field">
-    <span class="radio-span-first"><span>
-    <%= f.radio_button :sex, "1", required: true, class: "text-field" %>
-    <span class="radio-span">男性</span>
-    <%= f.radio_button :sex, "2", class: "text-field" %>
-    <span class="radio-span">女性</span>
-    <%= f.label :gender, "性別", class: "radio-label" %>
-  </div>
+    <div class="field">
+      <%= f.date_field :birth_date, autofocus: true, autocomplete: "birth_date", required: true,
+              class: "text-field", id: "birthDateField", min: "1950-01-01", max: "#{Date.today - 20.years}" %>
+      <%= f.label :birth_date, "誕生日" %>
+      <span class="focus-line"></span>
+    </div>
 
-  <div class="field">
-    <%= f.collection_select :residence_id, PrefectureMst.all, :id, :prefecture_name,
-              { include_blank: true, required: true }, { class: "select-field text-field" } %>
-    <%= f.label :residence, "居住地" %>
-    <span class="focus-line"></span>
-  </div>
+    <div class="field">
+      <span class="radio-span-first"><span>
+      <%= f.radio_button :sex, "1", required: true, class: "text-field" %>
+      <span class="radio-span">男性</span>
+      <%= f.radio_button :sex, "2", class: "text-field" %>
+      <span class="radio-span">女性</span>
+      <%= f.label :gender, "性別", class: "radio-label" %>
+    </div>
 
-  <div class="field">
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %>
-    <%= f.password_field :password, autocomplete: "new-password", required: true, class: "text-field" %>
-    <%= f.label :password %>
-    <span class="focus-line"></span>
-  </div>
+    <div class="field">
+      <%= f.collection_select :residence_id, PrefectureMst.all, :id, :prefecture_name,
+                { include_blank: true }, class: "select-field text-field", required: true %>
+      <%= f.label :residence, "居住地" %>
+      <span class="focus-line"></span>
+    </div>
 
-  <div class="field">
-    <%= f.password_field :password_confirmation, autocomplete: "new-password", required: true, class: "text-field" %>
-    <%= f.label :password_confirmation %>
-    <span class="focus-line"></span>
-  </div>
+    <div class="field">
+      <% if @minimum_password_length %>
+      <em>(<%= @minimum_password_length %> characters minimum)</em>
+      <% end %>
+      <%= f.password_field :password, autocomplete: "new-password", required: true, class: "text-field" %>
+      <%= f.label :password %>
+      <span class="focus-line"></span>
+    </div>
 
-  <div class="field">
-    <%= f.file_field :avatar, class: "text-field" %>
-    <%= f.label :avatar, "プロフィール画像" %>
-  </div>
+    <div class="field">
+      <%= f.password_field :password_confirmation, autocomplete: "new-password", required: true, class: "text-field" %>
+      <%= f.label :password_confirmation %>
+      <span class="focus-line"></span>
+    </div>
 
-  <div class="actions">
-    <%= f.submit "Sign up", class: "btn btn-yellow-red" %>
-  </div>
-<% end %>
+    <div class="field">
+      <%= f.file_field :avatar, class: "text-field" %>
+      <%= f.label :avatar, "プロフィール画像" %>
+    </div>
 
-<%= render "users/shared/links" %>
+    <div class="actions">
+      <%= f.submit "Sign up", class: "btn btn-yellow-red" %>
+    </div>
+  <% end %>
+
+  <%= render "users/shared/links" %>
+</div>
 
 <script>
   window.onload = function() {

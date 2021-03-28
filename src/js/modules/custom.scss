@@ -152,6 +152,9 @@ a {
 
 .btn {
   border-radius: 1.5em;
+  &:link, &:visited, &:hover {
+    text-decoration: none;
+  }
 }
 
 .btn.focus, .btn:focus {
@@ -165,18 +168,23 @@ a {
   color: white;
   &:link, &:visited, &:hover {
     background-color: $yellow;
-    color: white;
-    text-decoration: none;
   }
 }
 
 .btn-yellow-red {
   background-color: $yellow;
   color: white;
-  &:link, &:visited, &:hover {
-    background-color: $red;
+  &:hover {
     color: white;
-    text-decoration: none;
+    background-color: $red;
+  }
+}
+.btn-red-pink {
+  background-color: $color2-6;
+  color: white;
+  &:hover {
+    color: white;
+    background-color: $color2-4;
   }
 }
 
@@ -343,7 +351,11 @@ header {
   }
 }
 
-
+/* ログイン画面 */
+.login-option {
+  width: 30%;
+  margin: 0 auto;
+}
 
 /* サインアップモーダル */
 .signup-modal-body {
@@ -358,35 +370,57 @@ header {
 }
 
 /* フォーム */
+#firstMeetingForm {
+  margin: auto 30% auto 5% !important;
+}
 
 .form {
   margin: 0 auto;
-  width: 30%;
+  width: 100%;
   .field {
-    display: inline-block;
+    // display: inline-block;
     position: relative;
-    width: 80%;
-    margin: 40px 3% 20px 8%;
+    width: 30%;
+    // margin: 0 auto;
+    margin: 60px auto 20px auto;
     
     .text-field {
-      padding: 4px 0;
+      padding: 6px 0 2px 0;
       border: 0;
       border-bottom: 1px solid #1b2538;
       background-color: transparent;
-      text-align: center;
       &:focus {
         border-bottom: none;
       }
     }
-    input[type= text], input[type=email], input[type=number], input[type=password], 
-                    input[type=date], input[type=file], select {
+    .select-field {
+      padding: 10px 0 2px 0 !important;
+    }
+    input, select {
       font: 16px/26px sans-serif;
       box-sizing: border-box;
       width: 100%;
       letter-spacing: 1px;
+      text-align: center;
       &:focus {
         outline: none;
       }
+    }
+    .check-login-info {
+      width: 5%;
+    }
+  }
+  .date-label {
+    color: #aaaaaa;
+  }
+  .search-field {
+    width: 20% !important;
+    margin: 0 40px 0 0 !important;
+  }
+  .text-area {
+    margin: 0 auto 0 15% !important;
+    label {
+      top: -30px !important;
     }
   }
 }
@@ -530,6 +564,9 @@ input[type=date] {
   100% { transform:translateY(0) }
 }
 
+.badge {
+  margin-right: 4px !important;
+}
 .badge-light {
   background-color: $color2-6;
   color: white;
@@ -586,6 +623,10 @@ input[type="number"] {
 
 .bootstrap-tagsinput {
   cursor: pointer;
+  border: none !important;
+  box-shadow: none !important;
+  height: 8vh;
+  margin-bottom: 25px;
 }
 
 /* プラン企画 */
@@ -594,11 +635,18 @@ input[type="number"] {
 }
 
 /* プラン検索 */
+.btn-carousel-next {
+  background: $gray;
+  margin-bottom: 10px;
+  &:hover {
+    background: gray;
+  }
+}
+
 .meeting-search-form {
 
-  background-color: #f5f5f5;
+  // background-color: #f5f5f5;
   width:80%;
-
   .date-search-form {
     /* 日付 */
     .date-search {
@@ -666,21 +714,27 @@ input[type="number"] {
     //   }
     // }
   }
-  .search-button {
-    background-color: $yellow;
-    color: white;
-    &:link, &:visited, &:hover {
-      background-color: $yellow;
-      color: white;
-      text-decoration: none;
+  .search-button-content {
+    margin: auto 0 auto auto;
+    div {
+      .search-button {
+        padding: 0.4rem 0.8rem;
+        font-size: 1.2rem;
+        background-color: $yellow;
+        color: white;
+        &:link, &:visited, &:hover {
+          background-color: $yellow;
+          color: white;
+          text-decoration: none;
+        }
+      }
     }
   }
-
 }
 
 .carousel {
   display: flex;
-  width: 60% !important;
+  width: 80% !important;
 }
 
 
