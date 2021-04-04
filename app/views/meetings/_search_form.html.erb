@@ -28,14 +28,14 @@
     </a>
   </div>
 
-  <div class="field search-field d-inline-block">
+  <div class="field search-field d-inline-block" style="margin-top: 30px;">
       <%= f.collection_select :place_id, @places, :id, :name,
                 { include_blank: true }, class: "select-field text-field search-place" %>
       <%= f.label :place_id, "場所", class: "search-place-label" %>
       <span class="focus-line"></span>
     </div>
 
-  <div class="field d-inline-block">
+  <div class="field d-inline-block" style="margin-top: 30px;">
     <%= f.select :people, @people, { include_blank: true },
               class: "select-field text-field search-people" %>
     <%= f.label :people, "人数", class: "search-people-label" %>

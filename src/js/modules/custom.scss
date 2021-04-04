@@ -166,8 +166,9 @@ a {
 .btn-yellow {
   background-color: $yellow;
   color: white;
-  &:link, &:visited, &:hover {
+  &:hover {
     background-color: $yellow;
+    color: white
   }
 }
 
@@ -351,6 +352,12 @@ header {
   }
 }
 
+
+/* コンテンツヘッダー */
+.content-header {
+  width: 80%;
+  margin: auto;
+}
 /* ログイン画面 */
 .login-option {
   width: 30%;
@@ -371,7 +378,11 @@ header {
 
 /* フォーム */
 #firstMeetingForm {
-  margin: auto 30% auto 5% !important;
+  margin: auto!important;
+  width: 80%;
+  .field {
+    margin-left: 0 !important;
+  }
 }
 
 .form {

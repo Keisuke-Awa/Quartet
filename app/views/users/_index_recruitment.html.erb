@@ -1,0 +1,33 @@
+<div id="recruitmentPaginate" class="pb-3">
+  <%= paginate @recruitments, remote: true %>
+  <% if @recruitments.any? %>
+    <div><%= @recruitments.total_count %>件のプランがあります</div>
+    <% @recruitments.each do |recruitment| %>
+      <%= render 'meetings/recruitment', m: recruitment %>
+    <% end %>
+  <% else %>
+    <div>募集中のプランはありません</div>  
+  <% end %>
+</div>
+<script>
+
+function beforeLoad() {
+  document.getElementById('loading').classList.remove('loaded');
+}
+
+function completeLoad() {
+  document.getElementById('loading').classList.add('loaded');
+};
+
+completeLoad();
+
+$(".loading-link").click(function() {
+  beforeLoad();
+});
+
+$("form").submit(function() {
+  beforeLoad();
+})
+
+window.onload = completeLoad;
+</script>

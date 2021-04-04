@@ -1,6 +1,4 @@
-<% @meetings.each do |meeting| %>
-  <%= render meeting %>
-<% end %>
+<%= render @meetings %>
 <%= paginate @meetings, remote: true %>
 <script>
 function beforeLoad() {

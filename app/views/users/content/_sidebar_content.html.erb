@@ -7,37 +7,34 @@
       <%= link_to('企画する', new_meeting_path, class: 'nav-link nav-element sidebar-color loading-link', remote: true) %>
     </li>
     <li class="nav-item">
-      <a data-toggle="collapse" href="#meetingAccordion" aria-controls="#meetingAccordion" aria-expanded="false" class="nav-link sibebar-color-accordion">作成プラン</a>
+      <a data-toggle="collapse" href="#meetingAccordion" aria-controls="#meetingAccordion" aria-expanded="false" class="nav-link sibebar-color-accordion">プラン一覧</a>
     </li>
     <ul id="meetingAccordion" class="collapse" data-parent="#accordionMenu">
       <li class="nav-item">
-        <%= link_to(index_meeting_user_path(current_user), class: 'nav-link nav-element sidebar-color loading-link', remote: true) do %>
-          <span class="ml-2">募集中プラン</span>
-          <% if current_user.new_arrivals.where(model: "MeetingApplication").present? %>
-            <span id="meetingApplicationNewArrivals" class="badge badge-light float-right mt-1 rounded-circle">
-              <%= current_user.new_arrivals.count_by("MeetingApplication") %>
-            </span>
-          <% end %>
-        <% end %>
-      </li>
-      <li class="nav-item">
         <%= link_to(index_appointment_user_path(current_user), class: 'nav-link nav-element sidebar-color loading-link', remote: true) do %>
           <span class="ml-2">マッチング</span>
-          <% if current_user.new_arrivals.where(model: "Appointment").present? %>
+          <% if current_user.new_arrivals.where(model: "Appointment").any? %>
             <span id="appointmentNewArrivals", class="badge badge-light float-right mt-1 rounded-circle">
               <%= current_user.new_arrivals.count_by("Appointment") %>
             </span>
           <% end %>
         <% end %>
       </li>
+      <li class="nav-item">
+        <%= link_to(index_meeting_user_path(current_user), class: 'nav-link nav-element sidebar-color loading-link', remote: true) do %>
+          <span class="ml-2">プラン申請</span>
+          <% if current_user.new_arrivals.where(model: "MeetingApplication").any? %>
+            <span id="meetingApplicationNewArrivals" class="badge badge-light float-right mt-1 rounded-circle">
+              <%= current_user.new_arrivals.count_by("MeetingApplication") %>
+            </span>
+          <% end %>
+        <% end %>
+      </li>
     </ul>
-    <li class="nav-item">
-      <%= link_to('申請先プラン', index_meeting_application_user_path(current_user), class: 'nav-link nav-element sidebar-color loading-link', remote: true) %>
-    </li>
     <li class="nav-item">
       <%= link_to(index_message_room_user_path(current_user), class: 'nav-link nav-element sidebar-color loading-link', remote: true) do %>
         メッセージ
-        <% if current_user.new_arrivals.where(model: "Message").present? %>
+        <% if current_user.new_arrivals.where(model: "Message").any? %>
           <span id="MessageNewArrivals" class="badge badge-light float-right mt-1 rounded-circle">
             <%= current_user.new_arrivals.count_by("Message") %>
           </span>
