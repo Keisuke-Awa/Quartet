@@ -1,6 +1,9 @@
+<div class="content-header">
+  <h3>プラン作成</h3>
+</div>
 <%= form_with(model: @meeting, url: meetings_path, local: true, class: "form meeting-form") do |f| %>
   <div id="firstMeetingForm">
-    <div class="field">
+    <div class="field" style="margin-left: 0;">
       <%= f.collection_select :place_id, @places, :id, :name,
                 { include_blank: true }, class: "select-field text-field", required: true %>
       <%= f.label :place_id, "開催場所" %>
@@ -30,7 +33,7 @@
       </ul>
     </div>
     <%= f.hidden_field :tag_list, value: @meeting.tag_list.join(','), id: "tagForm", style: "display:none;" %>
-    <div class="bootstrap-tagsinput text-center">
+    <div class="bootstrap-tagsinput">
     </div>
     <div class="field text-area">
       <%= f.text_area :detail, autofocus: true, autocomplete: "detail", required: true, 
@@ -38,7 +41,7 @@
       <%= f.label :name, "詳細" %>
     </div>
     <div class="field form-create-meeting">
-      <%= f.submit "プラン作成", class: "btn btn-yellow" %>
+      <%= f.submit "作成", class: "btn btn-yellow" %>
     </div>
   </div>
 <% end %>

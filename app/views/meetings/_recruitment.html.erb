@@ -1,0 +1,21 @@
+<div class="card w-100">
+  <div class="row no-gutters">  
+    <div class="col-md-10 m-auto text-center">
+      <p><%="#{m.meet_at.strftime("%-m月%-d日") + calculate_day_of_week(m.meet_at)} 
+                    #{m.meet_at.strftime("%-H時%-M分")}〜 / #{m.place.name} / #{m.people}on#{m.people}"%></p>
+      <p>
+        <% if m.detail.present? %>
+          <%=truncate(m.detail, length: 40)%>
+        <% else %>
+          詳細情報がありません。
+        <% end %>
+      </p>
+    </div>
+    <div class="col-md-2 my-auto">
+      <div>
+        <%= link_to('申請一覧', meeting_meeting_applications_path(m), class: 'btn btn-yellow loading-link',
+                            remote: true) if m.meeting_applications.any? %>
+      </div>
+    </div>
+  </div>
+</div>

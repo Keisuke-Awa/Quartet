@@ -1,7 +1,3 @@
-<h4><%= @meeting_application.applicant.name %></h4>
-<%= render 'messages/message_link' %>
-<%= render 'approval_button'%>
-
 <div class="card mb-3">
   <div class="card-header">
     <ul class="nav nav-tabs card-header-tabs">
@@ -17,7 +13,10 @@
       <div id="detailCard" class="tab-pane active card-body">
         <ul class="list-group list-group-flush">
           <li class="list-group-item">
-            <%=@meeting_application.detail%>
+            <p class="detail-text"><%=safe_join(@meeting_application.detail.split("\n"),tag(:br))%></p>
+          </li>
+          <li class="list-group-item m-auto">
+            <div><%= render 'approval_button'%></div>
           </li>
         </ul>
       </div>
@@ -25,72 +24,75 @@
         <div class="row no-gutters">
           <div class="col-md-6 profile-avatar-content">
             <div class="profile-avatar">
-              <%=link_to image_tag(@applicant.avatar,
-                  alt: "avatar", width: "100vw", class: "rounded-circle bd-placeholder-img img-fluid"), 
-                  url_for(@applicant.avatar), data: {lightbox: "avatar", title: @applicant.name} %>
+              <%=link_to image_tag(@partner.avatar,
+                  alt: "avatar", width: "120vw", class: "rounded-circle bd-placeholder-img img-fluid"), 
+                  url_for(@partner.avatar), data: {lightbox: "avatar", title: @partner.name} %>
             </div>
           </div>
           <div class="col-md-6">
             <div class="card-body">
-              <p><%= @applicant.name %></p>
-              <p><%= calculate_age(@applicant) %>歳</p>
-              <p><%= @applicant.residence.prefecture_name %></p>
+              <p><%= @partner.name %></p>
+              <p><%= calculate_age(@partner) %>歳</p>
+              <p><%= @partner.residence.prefecture_name %></p>
             </div>
           </div>
         </div>
         <ul class="list-group list-group-flush pt-4">
             <li class="list-group-item d-block">
               <p>自己紹介</p>
-              <div><%= @applicant.user_profile.introduction if @applicant.register_introduction? %><div>
+              <div><%= @partner.user_profile.introduction if @partner.register_introduction? %><div>
             </li>
-            <% if @applicant.register_height? %>
+            <% if @partner.register_height? %>
             <li class="list-group-item">
               <div>身長</div>
-              <div><%=@applicant.user_profile.height%>cm</div>
+              <div><%=@partner.user_profile.height%>cm</div>
             </li>
             <% end %>
-            <% if @applicant.register_weight? %>
+            <% if @partner.register_weight? %>
             <li class="list-group-item">
               <div>体重</div>
-              <div><%=@applicant.user_profile.weight%>kg</div>
+              <div><%=@partner.user_profile.weight%>kg</div>
             </li>
             <% end %>
-            <% if @applicant.register_blood_type? %>
+            <% if @partner.register_blood_type? %>
             <li class="list-group-item">
               <div>血液型</div>
-              <div><%= @applicant.user_profile.blood_type%>型</div>
+              <div><%= @partner.user_profile.blood_type%>型</div>
             </li>
             <% end %>
-            <% if @applicant.register_birthplace? %>
+            <% if @partner.register_birthplace? %>
             <li class="list-group-item">
               <div>出身地</div>
-              <div><%= @applicant.user_profile.birthplace.prefecture_name%></div>
+              <div><%= @partner.user_profile.birthplace.prefecture_name%></div>
             </li>
             <% end %>
-            <% if @applicant.register_occupation? %>
+            <% if @partner.register_occupation? %>
             <li class="list-group-item">
               <div>職業</div>
-              <div><%=@applicant.user_profile.occupation.occupation_name%></div>
+              <div><%=@partner.user_profile.occupation.occupation_name%></div>
             </li>
             <% end %>
-            <% if @applicant.register_educational_bg? %>
+            <% if @partner.register_educational_bg? %>
             <li class="list-group-item">
               <div>学歴</div>
-              <div><%=@applicant.user_profile.educational_bg.ebg_name%></div>
+              <div><%=@partner.user_profile.educational_bg.ebg_name%></div>
             </li>
             <% end %>
-            <% if @applicant.register_annual_income? %>
+            <% if @partner.register_annual_income? %>
             <li class="list-group-item">
               <div>年収</div>
-              <div><%=@applicant.user_profile.annual_income.income_range%></div>
+              <div><%=@partner.user_profile.annual_income.income_range%></div>
             </li>
             <% end %>
-            <% if @applicant.register_smoking? %>
+            <% if @partner.register_smoking? %>
             <li class="list-group-item">
               <div>喫煙</div>
-              <div><%=@applicant.user_profile.smoking.smoking_status%></div>
+              <div><%=@partner.user_profile.smoking.smoking_status%></div>
             </li>
             <% end %>
+            <li class="list-group-item m-auto">
+              <div><%= render 'messages/message_link' %></div>
+            </li>
           </ul>
       </div>
     </div>

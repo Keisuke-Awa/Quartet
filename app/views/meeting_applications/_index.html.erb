@@ -1,10 +1,17 @@
-<h4><%= @meeting.meet_at.strftime("%Y/%m/%d(%a) %H:%M") + @meeting.place.name %>の申請一覧</h4>
+<h4><%="#{@meeting.meet_at.strftime("%-m月%-d日") + calculate_day_of_week(@meeting.meet_at)}
+      #{@meeting.meet_at.strftime("%-H時%-M分")}〜の申請一覧"%></h4>
 
 <% if @meeting_applications.any? %>
-  <% @meeting_applications.each do |ma| %>
-    <%= link_to( ma.applicant.name, meeting_meeting_application_path(@meeting, ma) ) %>
-  <% end %>
+  <%= paginate @meeting_applications, remote: true %>
+  <div id="meetingApplicationPaginate" class="pb-3">
+    <% @meeting_applications.each do |ma| %>
+      <%= render 'meeting_application', ma: ma %>
+    <% end %>
+  </div>
+<% else %>
+  <div>現在、プラン申請はありません。</div>
 <% end %>
+
 <script>
 
 function beforeLoad() {

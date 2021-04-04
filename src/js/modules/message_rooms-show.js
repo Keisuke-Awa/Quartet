@@ -55,9 +55,6 @@ $(function() {
         processData: false,
         contentType: false,
         timeout: 10000,
-        beforeSend: function(){
-          document.getElementById('loading').classList.add('loaded');
-        }
       })
       .done(function(data) {
         const html = buildHTML(data);
@@ -70,6 +67,7 @@ $(function() {
       })
       .always(function() {
         $('#messageBtn').prop('disabled', false);
+        document.getElementById('loading').classList.add('loaded');
       });
     };
   })

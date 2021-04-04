@@ -27,7 +27,7 @@ class MeetingApplicationsController < ApplicationController
   end
 
   def index
-    @meeting_applications = @meeting.meeting_applications.eager_load([:applicant])
+    @meeting_applications = @meeting.meeting_applications.eager_load([:applicant]).page(params[:page]).per(10)
     respond_to do |format|
       format.html
       format.js
@@ -41,6 +41,10 @@ class MeetingApplicationsController < ApplicationController
       Array(@partner.message_rooms).each do |ncmr|
         @message_room ||= ncmr if cmr == ncmr
       end
+    end
+    respond_to do |format|
+      format.html
+      format.js
     end
   end
 

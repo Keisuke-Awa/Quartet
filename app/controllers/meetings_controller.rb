@@ -3,7 +3,6 @@ class MeetingsController < ApplicationController
   require "date"
 
   before_action :set_meeting, only: :show
-  before_action :restrict_by_sex, only: :show
   before_action :initialize_search_form, only: %i[index search]
   before_action :set_ransack, only: %i[index search]
 
@@ -20,7 +19,19 @@ class MeetingsController < ApplicationController
   end
 
   def show
-    @user = @meeting.planning_user
+    return unless @meeting.planning_user == current_user || restrict_by_sex
+    @has_appointment = false
+    if @meeting.appointment && @meeting.appointment.users.find_by(id: current_user.id)
+      @user = @meeting.appointment .users.select_partner(current_user)
+      Array(current_user.message_rooms).each do |cmr|
+        Array(@puser.message_rooms).each do |ncmr|
+          @message_room ||= ncmr if cmr == ncmr
+        end
+      end
+      @has_appointment = true
+    else
+      @user = @meeting.planning_user
+    end
     respond_to do |format|
       format.html
       format.js
@@ -90,7 +101,7 @@ class MeetingsController < ApplicationController
   end
 
   def restrict_by_sex
-    return unless @meeting.planning_user.sex == current_user.sex
+    return true unless @meeting.planning_user.sex == current_user.sex
     respond_to do |format|
       format.html { redirect_to home_user_path(current_user), flash: {error: "該当ページにはアクセスできません。"} }
       format.js { render ajax_redirect_to(home_user_path(current_user)), flash[:error] = "該当ページにはアクセスできません。" }

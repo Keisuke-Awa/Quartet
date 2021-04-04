@@ -18,7 +18,6 @@ Rails.application.routes.draw do
         get :index_meeting
         get :index_appointment
         get :index_message_room
-        get :index_meeting_application
       end
 
       resource :user_profile, only: %i(new edit update show create)

@@ -34,8 +34,10 @@ class UsersController < ApplicationController
   end
 
   def index_meeting
-    delete_new_arrivals("MeetingApplication")
-    @meetings = current_user.meetings.where(appointment_id: nil).page(params[:page])
+    # delete_new_arrivals("MeetingApplication")
+    @applyings = current_user.meetings.where(appointment_id: nil).with_place.with_planning_user.page(params[:page]).per(4)
+    @recruitments = current_user.meetings.as_of_now.with_place.exclude_appointed
+                      .eager_load(:meeting_applications).page(params[:page]).per(4)
     respond_to do |format|
       format.html
       format.js
@@ -44,7 +46,11 @@ class UsersController < ApplicationController
 
   def index_appointment
     delete_new_arrivals("Appointment")
-    @appointments = current_user.appointments.includes(:meeting)
+    meetings_with_appointment = Meeting.search_with_appointment(current_user.appointments)
+    Array(@appointments = meetings_with_appointment).map do |m|
+      partner = m.appointment.users.select_partner(current_user)
+      appointment = { meeting: m, partner: partner } 
+    end
     respond_to do |format|
       format.html
       format.js
@@ -53,21 +59,27 @@ class UsersController < ApplicationController
 
   def index_message_room
     delete_new_arrivals("Message")
-    @message_rooms = current_user.message_rooms.select { |mr| mr.messages.where(user_id: current_user.id) }
+    message_rooms = current_user.message_rooms.eager_load(users: {avatar_attachment: :blob})
+    @message_room_infos = Array(message_rooms).map do |mr|
+      last_message = mr.messages.last
+      partner = mr.users.select_partner(current_user)
+      { message_room: mr, last_message: last_message, partner: partner }
+    end
+    # @message_rooms = current_user.message_rooms.select { |mr| mr.messages.where(user_id: current_user.id) }
     respond_to do |format|
       format.html
       format.js
     end
   end
 
-  def index_meeting_application
-    meetings = current_user.meeting_applications.with_meeting_all.map(&:meeting)
-    @meetings = Kaminari.paginate_array(meetings).page(params[:page]).per(10)
-    respond_to do |format|
-      format.html
-      format.js
-    end
-  end
+  # def index_meeting_application
+  #   meetings = current_user.meeting_applications.with_meeting_all.map(&:meeting)
+  #   @meetings = Kaminari.paginate_array(meetings).page(params[:page]).per(10)
+  #   respond_to do |format|
+  #     format.html
+  #     format.js
+  #   end
+  # end
   
   private
   
