@@ -19,6 +19,6 @@ class Meeting < ApplicationRecord
   scope :paginate, -> (page) { page(page).per(30) }
   scope :display_list, -> (user, page) { as_of_now.exclude_appointed.with_user_avatar.exclude_current_user(user)
                                               .exclude_same_sex(user).with_place.paginate(page) }
-  scope :search_with_appointment, -> (appointments) { where(appointment_id: appointments).with_user_avatar#.as_of_now
+  scope :search_with_appointment, -> (appointments) { where(appointment_id: appointments).with_user_avatar.as_of_now
                                         .with_place.with_appointment }
 end

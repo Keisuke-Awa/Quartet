@@ -112,6 +112,17 @@ ActiveRecord::Base.transaction do
   end
 end
 
+ActiveRecord::Base.transaction do
+  300.times do |n|
+    meeting = User.find(n + 1).meetings.last
+    meeting_application = meeting.meeting_applications.first
+    appointment = Appointment.create!(meeting_id: meeting.id)
+    meeting.planning_user.make_appointment(appointment, meeting_application.applicant)
+    meeting.update!( appointment_id: appointment.id )
+    meeting.meeting_applications.delete_all
+  end
+end
+
 cmeal = TagCategory.create!(category_name: "料理")
 catmosphere = TagCategory.create!(category_name: "雰囲気")
 cother = TagCategory.create!(category_name: "その他")
