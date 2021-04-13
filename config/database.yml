@@ -2,13 +2,13 @@ default: &default
   adapter: mysql2
   encoding: utf8mb4
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: <%= ENV.fetch("MYSQL_USERNAME", "root") %>
-  password: password #<%= ENV.fetch("MYSQL_PASSWORD", "password") %>
-  host: db #<%= ENV.fetch("MYSQL_HOST", "db") %>
 
 development:
   <<: *default
   database: Quartet_development
+  username: <%= ENV.fetch("MYSQL_USERNAME", "root") %>
+  password: password #<%= ENV.fetch("MYSQL_PASSWORD", "password") %>
+  host: db #<%= ENV.fetch("MYSQL_HOST", "db") %>
 
 test:
   <<: *default
@@ -17,5 +17,5 @@ test:
 production:
   <<: *default
   database: Quartet_production
-  username: root
+  username: <%= ENV['QUARTET_DATABASE_PASSWORD'] %>
   password: <%= ENV['QUARTET_DATABASE_PASSWORD'] %>
