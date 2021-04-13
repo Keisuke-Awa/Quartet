@@ -25,7 +25,7 @@ gem 'jbuilder', '~> 2.7'
 
 # Use Active Storage variant
 gem 'image_processing', '~> 1.2'
-gem 'mini_magick'
+#gem 'mini_magick'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
@@ -34,27 +34,27 @@ gem 'kaminari'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'bootstrap', '~> 4.1.1'
-gem 'devise'
+gem "devise"
 gem 'devise-i18n'
 gem 'devise-i18n-views'
 gem 'rails-i18n'
-gem 'omniauth'
+gem 'omniauth', '1.9.1'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-facebook'
 gem 'omniauth-twitter'
 gem 'dotenv-rails'
 gem 'letter_opener_web'
 gem 'faker', '2.1.2'
-gem 'mini_magick'
+# gem 'mini_magick'
 gem 'ransack'
 gem 'twilio-ruby'
 gem 'phony_rails'
-gem 'dotenv-rails'
 gem 'koala'
 gem 'acts-as-taggable-on'
 gem 'ancestry'
 gem 'rack-proxy'
 gem "discard"
+gem 'unicorn'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
