@@ -9,7 +9,6 @@ class UserProfilesController < ApplicationController
   def edit
     @user = User.find(params[:user_id])
     @user_profile = @user.user_profile
-    render layout: 'without_sidebar'
   end
   
 

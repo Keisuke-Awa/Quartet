@@ -72,4 +72,5 @@ Rails.application.configure do
 
   config.web_console.whitelisted_ips = '172.23.0.1'
   # config.middleware.use AssetsPathProxy, ssl_verify_none: true
+  config.logger = Logger.new(STDOUT)
 end

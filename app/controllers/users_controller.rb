@@ -47,9 +47,11 @@ class UsersController < ApplicationController
   def index_appointment
     delete_new_arrivals("Appointment")
     meetings_with_appointment = Meeting.search_with_appointment(current_user.appointments)
-    Array(@appointments = meetings_with_appointment).map do |m|
-      partner = m.appointment.users.select_partner(current_user)
-      appointment = { meeting: m, partner: partner } 
+    if meetings_with_appointment.exists?
+      @appointments = meetings_with_appointment.map do |m|
+        partner = m.appointment.users.select_partner(current_user)
+        appointment = { meeting: m, partner: partner } 
+      end
     end
     respond_to do |format|
       format.html
