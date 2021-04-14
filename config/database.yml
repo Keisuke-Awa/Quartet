@@ -17,5 +17,5 @@ test:
 production:
   <<: *default
   database: Quartet_production
-  username: <%= ENV['QUARTET_DATABASE_PASSWORD'] %>
+  username: <%= ENV['QUARTET_DATABASE_USERNAME'] %>
   password: <%= ENV['QUARTET_DATABASE_PASSWORD'] %>
