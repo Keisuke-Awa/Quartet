@@ -1,19 +1,19 @@
 version: '3'
 services:
 #本番環境ではRDS使用
-  db:
-    image: mysql:8.0
-    command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci
-    cap_add:
-      - SYS_NICE
-    environment:
-      MYSQL_DATABASE: db
-      MYSQL_ROOT_PASSWORD: password
-    ports:
-      - '3306:3306'
-    command: --default-authentication-plugin=mysql_native_password
-    volumes:
-      - mysql-data:/var/lib/mysql
+  # db:
+  #   image: mysql:8.0
+  #   command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci
+  #   cap_add:
+  #     - SYS_NICE
+  #   environment:
+  #     MYSQL_DATABASE: db
+  #     MYSQL_ROOT_PASSWORD: password
+  #   ports:
+  #     - '3306:3306'
+  #   command: --default-authentication-plugin=mysql_native_password
+  #   volumes:
+  #     - mysql-data:/var/lib/mysql
   web:
     build: 
       context: .
@@ -30,7 +30,6 @@ services:
       - "3000:3000"
     volumes:
       - .:/Quartet
-      #- ./public:/Quartet/public
       - public-data:/Quartet/public
       - tmp-data:/Quartet/tmp/sockets
   nginx:
@@ -38,7 +37,6 @@ services:
       context: ./nginx
       dockerfile: Dockerfile
     volumes:
-      #- ./public:/Quartet/public
       - public-data:/Quartet/public
       - tmp-data:/Quartet/tmp/sockets
     ports:
@@ -46,6 +44,5 @@ services:
     restart: always
 volumes:
   mysql-data:
-  #./public:
   public-data:
   tmp-data:
