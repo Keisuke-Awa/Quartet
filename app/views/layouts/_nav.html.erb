@@ -1,10 +1,10 @@
 <header>
   <nav class="navbar navbar-expand-md">
     <% if user_signed_in? %>
-      <%= link_to image_tag('/assets/images/logo-nav.jpeg', width: "280", alt: "icon", class: "img-fluid header-logo"),
+      <%= link_to image_tag('/images/logo-nav.jpeg', width: "280", alt: "icon", class: "img-fluid header-logo"),
               home_user_path(current_user.id), class: "navbar-brand loading-link" %>
     <% else %>
-      <%= link_to image_tag('/assets/images/logo-nav.jpeg', width: "280", alt: "icon", class: "img-fluid header-logo"),
+      <%= link_to image_tag('/images/logo-nav.jpeg', width: "280", alt: "icon", class: "img-fluid header-logo"),
               root_path, class: "navbar-brand loading-link" %>
     <% end %>
 
