@@ -22,7 +22,10 @@
 /storage/*
 !/storage/.keep
 
-/public/assets
+/public/assets/js
+/public/assets/stylesheets
+/public/assets/webfonts
+/public/assets/manifest.json
 .byebug_history
 
 # Ignore master key for decrypting credentials and more.
