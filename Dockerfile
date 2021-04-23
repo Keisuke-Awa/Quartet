@@ -22,6 +22,7 @@ COPY Gemfile /Quartet/Gemfile
 COPY Gemfile.lock /Quartet/Gemfile.lock
 RUN gem install bundler
 RUN bundle install
+RUN yarn install
 COPY . /Quartet
 
 COPY entrypoint.sh /usr/bin/
