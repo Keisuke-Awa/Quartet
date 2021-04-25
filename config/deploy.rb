@@ -18,7 +18,9 @@ set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', '
 set :keep_releases, 5
 
 # rubyのバージョン
+set :rbenv_type, :user
 set :rbenv_ruby, '2.6.6'
+# set :rbenv_custom_path, '/root/.rbenv'
 
 set :ssh_options, auth_methods: ['publickey'], keys: ['~/.ssh/Key_Q1.pem']
 

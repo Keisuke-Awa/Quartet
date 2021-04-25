@@ -40,7 +40,6 @@
   },
   "scripts": {
     "watch": "yarn run webpack-dev-server --mode development",
-    "dev-build": "webpack --mode development",
-    "production-build": "webpack --mode production"
+    "build:production": "webpack --mode=production"
   }
 }
