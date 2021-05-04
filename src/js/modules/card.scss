@@ -1,6 +1,6 @@
 .card {
   width: 80%;
-  margin: 0 auto;
+  // margin: 0 auto;
 }
 
 .list-group {
@@ -15,5 +15,22 @@
   margin: auto;
   .profile-avatar {
     text-align: center;
+  }
+}
+
+.card-meeting {
+  text-decoration: none;
+  color: black;
+}
+.card-meeting:hover {
+  text-decoration: none;
+  color: black;
+}
+
+.recruitment-card-tab, .application-card-tab {
+  text-decoration: none;
+  color: black;
+  &:hover {
+    color: #FFB500;
   }
 }

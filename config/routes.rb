@@ -47,6 +47,11 @@ Rails.application.routes.draw do
   devise_for :users, only: :omniauth_callbacks, controllers: {
     omniauth_callbacks: 'users/omniauth_callbacks'
   }
+
+  devise_scope :user do
+    post 'users/guest_sign_in', to: 'users/sessions#guest_sign_in'
+  end
+
   get '/:locale' => 'homes#top'
 
   if Rails.env.development?  

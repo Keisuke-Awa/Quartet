@@ -5,7 +5,7 @@ $color1-4: #EDFBC1;
 $color1-5: #BFCBC2;
 
 $color2-1: #3891A6;
-$color2-2: #4C5B5C;
+$color2-2: #808486;
 $color2-3: #FDE74C;
 $color2-4: #DB5461;
 $color2-5: #E3655B;
@@ -134,6 +134,41 @@ body {
   height: 100%;
   width: 100%;
   background: #FFFFFF;
+  font-family: "游ゴシック体", "YuGothic", "游ゴシック", "Yu Gothic", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ", "Meiryo", sans-serif;
+}
+
+/* フォントサイズ */
+
+h1,h2,h4,h6 {
+  font-size: 100%;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-size: 1.5em;
+}
+
+.btn {
+  font-size: 1.4rem;
+}
+
+h3 {
+  font-size: 2.4rem;
+}
+
+h5 {
+  font-size: 1.8rem;
+}
+
+.sidebar-content, .dropdown-menu {
+  font-size: 1.6rem;
+}
+
+.search-button {
+  font-size: 1.8rem;
 }
 
 /* フォーカス時の青い枠線を消す */
@@ -148,10 +183,12 @@ a {
 /* ボタン */
 .actions {
   text-align: center;
+  padding-top: 10px;
+  padding-bottom: 30px;
 }
 
 .btn {
-  border-radius: 1.5em;
+  border-radius: 0.6em;
   &:link, &:visited, &:hover {
     text-decoration: none;
   }
@@ -189,6 +226,15 @@ a {
   }
 }
 
+.btn-gray {
+  background-color: $color2-2;
+  color: white;
+  &:hover {
+    background-color: $color2-2;
+    color: white
+  }
+}
+
 .btn-login {
   margin-bottom: 20px;
 }
@@ -200,18 +246,18 @@ a {
   background: white;
   border-color: #1877F2;
   color: #1877F2;
-  height: 40px;
+  // height: 40px;
   text-align: center;
   width: 150px;
   text-decoration: none;
   font-weight: bold;
-  font-size:14px;
+  // font-size:14px;
   &:before {
     content: "";
     display: inline-block;
     width: 20px;
     height: 20px;
-    margin: -3px 5px 0 0;
+    margin: 0 5px 0 0;
     background: url("./images/f_logo_RGB-Blue_58.png") no-repeat;
     background-size: contain;
     vertical-align: middle;
@@ -230,12 +276,12 @@ a {
   background: white;
   border-color: $green;
   color: $green;
-  height: 40px;
+  // height: 40px;
   text-align: center;
   width: 150px;
   text-decoration: none;
   font-weight: bold;
-  font-size:14px;
+  // font-size:14px;
   }
   .btn-sms::before {
     content: "\f095";
@@ -244,7 +290,7 @@ a {
     display: inline-block;
     width: 20px;
     height: 20px;
-    margin: -3px 5px 0 0;
+    margin: 0 5px 0 0;
     background-size: contain;
     vertical-align: middle;
   }
@@ -317,7 +363,7 @@ a {
 
 /* body */
 header {
-  height: 15vh;
+  height: 100px;
   width: 100%;
   position: fixed;
   top: 0;
@@ -339,7 +385,7 @@ header {
 }
 
 .body-content {
-  padding-top: 15vh;
+  padding-top: 100px;
   height: 85vh;
 }
 
@@ -354,7 +400,11 @@ header {
 
 
 /* コンテンツヘッダー */
-.content-header {
+.content-header, .text-without-data {
+  width: 80%;
+  margin: auto;
+}
+.content-body {
   width: 80%;
   margin: auto;
 }
@@ -376,9 +426,15 @@ header {
   width: 100%;
 }
 
+/* サブコンテンツ */
+.sub-content {
+  border-radius: 1rem;
+  background: $menuwhite;
+}
+
 /* フォーム */
-#firstMeetingForm, #profileEditForm {
-  margin: auto!important;
+#firstMeetingForm, #profileEditForm, #userEditForm {
+  // margin: auto!important;
   width: 80%;
   .field {
     margin-left: 0 !important;
@@ -406,6 +462,9 @@ header {
     }
     .select-field {
       padding: 10px 0 2px 0 !important;
+    }
+    input[type=radio] {
+      width: auto !important;
     }
     input, select {
       font: 16px/26px sans-serif;
@@ -436,6 +495,19 @@ header {
   }
 }
 
+/* プロフィール編集フォーム */
+.userProfileEditForm {
+  .field {
+    display: flex;
+    justify-content: space-between;
+    padding: 16px 0 4px 0;
+    border-bottom: solid 1px #aaaaaa;
+    .text-field {
+      border: 0;
+    }
+  }
+}
+
 
 /* テキストフィールド */
 .text-field ~ .focus-line {
@@ -462,7 +534,7 @@ header {
 	width: 100%;
 	transition: 0.3s;
   letter-spacing: 0.5px;
-  font-size: 16px;
+  // font-size: 16px;
 	color: #aaaaaa;
 }
 
@@ -678,7 +750,7 @@ input[type="number"] {
         }
       
         label {
-          font-size: 0.9em;
+          // font-size: 0.9em;
           position: absolute;
           top: 0; left: 0;
           color: #b6b6b6;
@@ -730,7 +802,7 @@ input[type="number"] {
     div {
       .search-button {
         padding: 0.4rem 0.8rem;
-        font-size: 1.2rem;
+        // font-size: 1.2rem;
         background-color: $yellow;
         color: white;
         &:link, &:visited, &:hover {

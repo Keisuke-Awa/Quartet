@@ -7,6 +7,7 @@ class MeetingsController < ApplicationController
   before_action :set_ransack, only: %i[index search]
 
   def new
+    @recommend_meetings = Meeting.order("RAND()").limit(4)
     @meeting = Form::Meeting.new
     @people = { "2 on 2": 2, "3 on 3": 3, "4 on 4": 4 }
     @places = Place.all

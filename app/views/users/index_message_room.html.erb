@@ -1,3 +1,6 @@
-<% @message_rooms.each do |mr| %>
-  <%= link_to(mr.not_current_user(current_user).name, message_room_path(mr)) %>
-<% end %>
+<div class="row wrapper">
+  <div class="col-9">
+    <% @message_rooms.each do |mr| %>
+      <%= link_to(mr.not_current_user(current_user).name, message_room_path(mr)) %>
+    <% end %>
+  </div>

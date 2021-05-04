@@ -5,6 +5,7 @@ class UsersController < ApplicationController
   before_action :restrict_by_sex, only: :show
   
   def home
+    @recommend_meetings = Meeting.recommend_list(current_user).page(params[:page]).per(30)
   end
   
   def show
@@ -27,11 +28,11 @@ class UsersController < ApplicationController
     end
   end
   
-  def destroy
-    @user.destroy
-    flash[:success] = 'ユーザーを削除しました。'
-    redirect_to root_url
-  end
+  # def destroy
+  #   @user.destroy
+  #   flash[:success] = 'ユーザーを削除しました。'
+  #   redirect_to root_url
+  # end
 
   def index_meeting
     # delete_new_arrivals("MeetingApplication")
@@ -61,6 +62,7 @@ class UsersController < ApplicationController
 
   def index_message_room
     delete_new_arrivals("Message")
+    @recommend_meetings = Meeting.order("RAND()").limit(4)
     message_rooms = current_user.message_rooms.eager_load(users: {avatar_attachment: :blob})
     @message_room_infos = Array(message_rooms).map do |mr|
       last_message = mr.messages.last

@@ -17,8 +17,7 @@ class ApplicationController < ActionController::Base
   def configure_permitted_parameters
     #deviseのpermitted_parameterを追加する
     devise_parameter_sanitizer.permit(:sign_up, keys: %i(name avatar sex birth_date residence_id phone_number))
-    devise_parameter_sanitizer.permit(:account_update, keys: [:name])
-    devise_parameter_sanitizer.permit(:account_update, keys: [:avatar] )
+    devise_parameter_sanitizer.permit(:account_update, keys: %i(name avatar))
   end
 
   def after_sign_in_path_for(resource)
@@ -60,4 +59,13 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def initialize_form_option
+    birthplaces = PrefectureMst.all
+    occupations = OccupationMst.all
+    educational_bgs = EducationalBgMst.all
+    annual_incomes = AnnualIncomeMst.all
+    smoking_statuses = SmokingMst.all
+    @form_option = {birthplaces: birthplaces, occupations: occupations, educational_bgs: educational_bgs, 
+      annual_incomes: annual_incomes, smoking_statuses: smoking_statuses}
+  end
 end

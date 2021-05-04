@@ -22,13 +22,14 @@ class User < ApplicationRecord
   has_many :applying_meetings, through: :meeting_applications, source: :meeting
 
   has_many :user_appointments, dependent: :destroy
-  has_many :appointments, through: :user_appointments
+  has_many :appointments, through: :user_appointments, dependent: :destroy
 
   belongs_to :residence, class_name: 'PrefectureMst'
 
   has_one :sns_credential, dependent: :destroy
 
   has_one :user_profile, dependent: :destroy
+  # accepts_nested_attributes_for :user_profile
 
   has_many :new_arrivals, dependent: :destroy
 
@@ -41,6 +42,7 @@ class User < ApplicationRecord
   validates :password_confirmation, presence: true
 
   scope :select_partner, -> (user) { where.not(id: user.id).first }
+  scope :select_same_generation, -> (user) { where(birth_date: user.birth_date - 3.years..user.birth_date + 3.years) }
 
 
   def default_avatar
@@ -152,6 +154,24 @@ class User < ApplicationRecord
 
   def register_smoking?
     user_profile.smoking.present?
+  end
+
+  # ゲストユーザー作成
+  def self.guest
+    find_or_create_by!(email: 'guest@sample.com') do |user|
+      user.password = SecureRandom.urlsafe_base64
+      user.password_confirmation = user.password
+      user.name = "ゲストユーザー"
+      user.sex = "1"
+      user.residence_id = 13
+      user.birth_date = Faker::Date.birthday(min_age: 20, max_age: 40)
+    end
+  end
+
+  def age
+    today_i = Date.today.strftime("%Y%m%d").to_i
+    birthdate_i = birth_date.strftime("%Y%m%d").to_i
+    return (today_i - birthdate_i) / 10000
   end
 
 end

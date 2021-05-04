@@ -1,0 +1,29 @@
+<% if recommend_meetings.any? %>
+<div class="sub-content">
+  <h5 class="pt-3 pb-3">おすすめプラン</h5>
+  <% recommend_meetings.each do |meeting| %>
+    <%= link_to meeting_path(meeting), class: "card-meeting" do %>
+      <div class="card mb-3 d-inline-block" style="max-width: 250px;">
+        <div class="row no-gutters">
+          <div class="col-md-4 m-auto text-center">
+            <div class="profile-avatar">
+              <%=image_tag(meeting.planning_user.avatar,　alt: "avatar", width: "50vw", class: "rounded-circle bd-placeholder-img img-fluid") %>
+            </div>
+          </div>
+          <div class="col-md-8">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">
+                <%=meeting.meet_at.strftime("%-m月%-d日") + calculate_day_of_week(meeting.meet_at)%>
+              </li>
+              <li class="list-group-item">
+                <%=meeting.meet_at.strftime("%-H時%-M分〜")%>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+  <%=link_to 'もっと見る', home_user_path(current_user), class: "btn btn-red-pink mb-3"%>
+</div>
+<% end %>

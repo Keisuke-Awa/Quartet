@@ -54,7 +54,6 @@ gem 'acts-as-taggable-on'
 gem 'ancestry'
 gem 'rack-proxy'
 gem "discard"
-gem 'unicorn'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -80,6 +79,7 @@ end
 
 group :production do
   gem 'aws-sdk-s3'
+  gem 'unicorn'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
