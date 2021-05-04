@@ -1,6 +1,6 @@
 class UserProfilesController < ApplicationController
 
-  before_action :initialize_form_option, only: %i(new edit)  
+  before_action :initialize_form_option, only: %i(new edit)
 
   def new
     @user_profile = current_user.user_profile
@@ -13,8 +13,11 @@ class UserProfilesController < ApplicationController
   
 
   def update
-    current_user.user_profile.update!(user_profile_params)
-    redirect_to home_user_path(current_user.id)
+    if current_user.user_profile.update!(user_profile_params)
+      redirect_to root_path, notice: 'プロフィールを更新しました。'
+    else
+      redirect_to edit_user_registration_path, error: 'プロフィール更新に失敗しました。'
+    end
   end
 
   def show
@@ -28,13 +31,4 @@ class UserProfilesController < ApplicationController
       :educational_bg_id, :annual_income_id, :smoking_status_id)
   end
   
-  def initialize_form_option
-    birthplaces = PrefectureMst.all
-    occupations = OccupationMst.all
-    educational_bgs = EducationalBgMst.all
-    annual_incomes = AnnualIncomeMst.all
-    smoking_statuses = SmokingMst.all
-    @form_option = {birthplaces: birthplaces, occupations: occupations, educational_bgs: educational_bgs, 
-      annual_incomes: annual_incomes, smoking_statuses: smoking_statuses}
-  end
 end

@@ -1,43 +1,181 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<div class="content-header">
+  <h3>プロフィール編集</h3>
+</div>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= render "users/shared/error_messages", resource: resource %>
+<div class="form" id="userEditForm">
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+    <%= render "users/shared/error_messages", resource: resource %>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+    <div class="field">
+      <%= f.file_field :avatar, class: "text-field" %>
+      <%= f.label :avatar, "プロフィール画像" %>
+    </div>
 
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-  <% end %>
+    <div class="field">
+      <%= f.text_field :name, autofocus: true, autocomplete: "name", required: true, class: "text-field" %>
+      <%= f.label :name, "名前" %>
+      <span class="focus-line"></span>
+    </div>
 
-  <div class="field">
-    <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-    <% if @minimum_password_length %>
-      <br />
-      <em><%= @minimum_password_length %> characters minimum</em>
+    <div class="field">
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", id: 'emailField', required: true, class: "text-field" %>
+      <%= f.label :email, "Email" %>
+      <span class="focus-line"></span>
+    </div>
+
+    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+      <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
     <% end %>
+
+    <div class="field">
+      <%= f.password_field :password, autocomplete: "new-password", class: "text-field" %>
+      <%= f.label :password %> <i>(変更する場合のみ入力)</i>
+      <span class="focus-line"></span>
+    </div>
+
+    <div class="field">
+      <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "text-field" %>
+      <%= f.label :password_confirmation %>
+      <span class="focus-line"></span>
+    </div>
+
+    <div class="field">
+      <%= f.password_field :current_password, autocomplete: "current-password", class: "text-field" %>
+      <%= f.label :current_password %>
+      <span class="focus-line"></span>
+    </div>
+
+    <div class="actions">
+      <%= f.submit "保存" %>
+    </div>
+  <% end %>
+</div>
+
+<div class="content-body">
+  <h5>
+    <a data-toggle="collapse" href="#userProfileAccordion" aria-controls="#userProfileAccordion" aria-expanded="false" class="user-profile-menu">詳細プロフィール</a>
+  </h5>
+
+  <div id="userProfileAccordion" class="collapse" data-parent="#accordionMenu">
+    <div style="width: 50vw" class="userProfileEditForm">
+      <% if resource.user_profile.height %>
+      <div class="field">
+        <label>身長</label>
+        <div><%= resource.user_profile.height %>cm</div>
+      </div>
+      <% end %>
+      <% if resource.user_profile.weight %>
+      <div class="field">
+        <label>体重</label>
+        <div><%= resource.user_profile.weight %>kg</div>
+      </div>
+      <% end %>
+      <% if resource.user_profile.blood_type %>
+      <div class="field">
+        <label>血液型</label>
+        <div><%= resource.user_profile.blood_type %>型</div>
+      </div>
+      <% end %>
+      <% if resource.user_profile.birthplace %>
+      <div class="field">
+        <label>出身地</label>
+        <div><%= resource.user_profile.birthplace.prefecture_name %></div>
+      </div>
+      <% end %>
+      <% if resource.user_profile.occupation %>
+      <div class="field">
+        <label>職種</label>
+        <div><%= resource.user_profile.occupation.occupation_name %></div>
+      </div>
+      <% end %>
+      <% if resource.user_profile.educational_bg %>
+      <div class="field">
+        <label>学歴</label>
+        <div><%= resource.user_profile.educational_bg.ebg_name %></div>
+      </div>
+      <% end %>
+      <% if resource.user_profile.annual_income %>
+      <div class="field">
+        <label>年収</label>
+        <div><%= resource.user_profile.annual_income.income_range %></div>
+      </div>
+      <% end %>
+      <% if resource.user_profile.smoking %>
+      <div class="field">
+        <label>喫煙有無</label>
+        <div><%= resource.user_profile.smoking.smoking_status %></div>
+      </div>
+      <% end %>
+    </div>
+    <button type="button" class="btn btn-yellow mb-12 mt-3" data-toggle="modal" data-target="#editUserProfileModal">編集</button>
   </div>
+</div>
 
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+<div class="modal fade" id="editUserProfileModal" tabindex="-1" role="dialog" aria-labelledby="editUserProfileModal">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <%= form_with(model: [resource, resource.user_profile], url: user_user_profile_path(resource), local: true ) do |f| %>
+      <div class="modal-header">
+        <h5 class="modal-title" id="meetingApplicationModal">詳細プロフィール編集</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="閉じる">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body userProfileEditForm">
+        <div class="field">
+          <%= f.label :height, "身長" %>
+          <span><%= f.number_field :height, class: "text-field" %>cm</span>
+        </div>
+        <div class="field">
+          <%= f.label :weight, "体重" %>
+          <span><%= f.number_field :weight, class: "text-field" %>kg</span>
+        </div>
+        <div class="field">
+          <%= f.label :blood_type, "血液型" %>
+          <%= f.select :blood_type, {'A型': 'A', 'B型': 'B', 'AB型': 'AB', 'O型': 'O'},
+                      {include_blank: ''}, {class: "select-field text-field"} %>
+        </div>
+        <div class="field">
+          <%= f.label :birthplace_id, "出身地" %>
+          <%= f.collection_select	:birthplace_id, @form_option[:birthplaces], :id, :prefecture_name,
+                        {include_blank: ''}, {class: "select-field text-field"} %>
+        </div>
+        <div class="field">
+          <%= f.label :occupation_id, "職種" %>
+          <%= f.collection_select	:occupation_id, @form_option[:occupations], :id, :occupation_name,
+                        {include_blank: ''}, {class: "select-field text-field"} %>
+          <span class="focus-line"></span>
+        </div>
+        <div class="field">
+          <%= f.label :educational_bg_id, "学歴"%>
+          <%= f.collection_select	:educational_bg_id, @form_option[:educational_bgs], :id, :ebg_name,
+                        {include_blank: ''}, {class: "select-field text-field"} %>
+        </div>
+        <div class="field">
+          <%= f.label :annual_income_id, "年収"%>
+          <%= f.collection_select	:annual_income_id, @form_option[:annual_incomes], :id, :income_range, 
+                        {include_blank: ''}, {class: "select-field text-field"} %>
+        </div>
+        <div class="field">
+          <%= f.label :smoking_status_id, "喫煙有無"%>
+          <%= f.collection_select	:smoking_status_id, @form_option[:smoking_statuses], :id, :smoking_status, 
+                        {include_blank: ''}, {class: "select-field text-field"} %>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+        <%= f.submit '保存', class: "btn btn-yellow", id: "editUserProfileSubmit" %>
+      </div>
+      <% end %>
+    </div>
   </div>
+</div>
 
-  <div class="field">
-    <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-    <%= f.password_field :current_password, autocomplete: "current-password" %>
-  </div>
 
-  <div class="actions">
-    <%= f.submit "Update" %>
-  </div>
-<% end %>
 
-<h3>Cancel my account</h3>
-
-<p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
+<div class="pt-5 pb-5 content-body">
+  <h5>アカウントを削除しますか？</h5>
+  <%= button_to "退会", registration_path(resource_name), data: { confirm: "本当に削除しますか?" }, class: "btn btn-red-pink", method: :delete %>
+</div>
 
 <%= link_to "Back", :back %>

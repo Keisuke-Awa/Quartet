@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
 class Users::RegistrationsController < Devise::RegistrationsController
-  layout 'mypage', only: :edit
   before_action :authenticated?, only: [:new]
   before_action :configure_sign_up_params, only: [:create]
+  before_action :ensure_normal_user, only: :destroy
+  before_action :initialize_form_option, only: [:edit, :update]
   # before_action :configure_account_update_params, only: [:update]
 
   # GET /resource/sign_up
@@ -90,5 +91,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def authenticated?
     redirect_to root_path unless session[:auth_code].present?
     session[:auth_code] = nil
+  end
+
+  def ensure_normal_user
+    if resource.email == 'guest@sample.com'
+      redirect_to root_path, alert: 'ゲストユーザーは削除できません。'
+    end
   end
 end

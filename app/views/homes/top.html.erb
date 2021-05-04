@@ -9,6 +9,8 @@
             <button type="button" class="btn sign-up-button" id="signupAuthButton" data-toggle="modal" 
                                                     data-target="#signupAuthModal"><%= t('.sign_up')%></button>
             <%= link_to( t('.login'), new_user_session_path, class: "btn btn-dark login-button") %>
+            <div>
+              <%= link_to( "簡単ログイン", users_guest_sign_in_path, method: :post, class: "btn btn-dark login-button") %>
           <% end %>
           </div>
       </div>
