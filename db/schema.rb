@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_13_010704) do
+ActiveRecord::Schema.define(version: 2021_05_05_093311) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -36,7 +36,7 @@ ActiveRecord::Schema.define(version: 2021_03_13_010704) do
   create_table "annual_income_msts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "income_range"
+    t.string "income_range", null: false
     t.integer "amount_or_more"
     t.integer "less_than_amount"
   end
@@ -49,13 +49,7 @@ ActiveRecord::Schema.define(version: 2021_03_13_010704) do
   end
 
   create_table "educational_bg_msts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "ebg_name"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "meal_type_categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "name", null: false
+    t.string "ebg_name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -71,8 +65,8 @@ ActiveRecord::Schema.define(version: 2021_03_13_010704) do
   end
 
   create_table "meetings", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.datetime "meet_at"
-    t.integer "people"
+    t.datetime "meet_at", null: false
+    t.integer "people", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "place_id", null: false
@@ -104,7 +98,7 @@ ActiveRecord::Schema.define(version: 2021_03_13_010704) do
   create_table "messages", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "message_room_id", null: false
-    t.text "content"
+    t.text "content", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["message_room_id"], name: "index_messages_on_message_room_id"
@@ -121,7 +115,7 @@ ActiveRecord::Schema.define(version: 2021_03_13_010704) do
   end
 
   create_table "occupation_msts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "occupation_name"
+    t.string "occupation_name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -141,7 +135,7 @@ ActiveRecord::Schema.define(version: 2021_03_13_010704) do
   end
 
   create_table "smoking_msts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "smoking_status"
+    t.string "smoking_status", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -242,7 +236,7 @@ ActiveRecord::Schema.define(version: 2021_03_13_010704) do
     t.datetime "locked_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "name"
+    t.string "name", null: false
     t.date "birth_date", null: false
     t.string "sex", limit: 1, null: false
     t.bigint "residence_id", null: false

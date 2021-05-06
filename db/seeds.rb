@@ -58,7 +58,7 @@ ActiveRecord::Base.transaction do
     if n < 150
       sex = '1'
       height = Faker::Number.within(range: 150..190)
-      weight = Faker::Number.within(range: 45..80)
+      weight = Faker::Number.within(range: 50..80)
       blood_type = "A"
       birthplace_id = Faker::Number.within(range: 1..47)
       occupation_id = Faker::Number.within(range: 1..5)
