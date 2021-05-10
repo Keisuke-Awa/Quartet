@@ -1,8 +1,11 @@
-<div>
+<div class="text-center">
   <h5>SMS認証</h5>
-  <%= form_with( url: sms_identifications_send_code_path, local: true) do |f| %>
-    <%= f.telephone_field :phone_number %>
-    <%= f.submit '送信', class: 'btn btn-yellow' %>
-  <% end %>
+  <div class="pt-3">
+    <p>電話番号を入力してください</p>
+    <%= form_with( url: sms_identifications_send_code_path, local: true) do |f| %>
+      <%= f.telephone_field :phone_number %>
+      <%= f.submit '送信', class: 'ml-3 btn btn-yellow' %>
+    <% end %>
+  </div>
 </div>
 

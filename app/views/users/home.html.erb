@@ -1,3 +1,6 @@
-<div>
-  <%= t '.title' %>
+<h3>おすすめプランはこちら</h3>
+
+<div id="meetingPaginate" class="pt-5 pb-3">
+  <%= render "meetings/index_search_result", meetings: @recommend_meetings %>
 </div>
+<%= javascript_bundle_tag "meetings_index" %>

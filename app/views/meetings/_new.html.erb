@@ -1,7 +1,8 @@
 <div class="row wrapper">
   <div class="col-9">
     <h3>プラン作成</h3>
-    <%= form_with(model: @meeting, url: meetings_path, local: true, class: "form meeting-form") do |f| %>
+    <%= form_with(model: @meeting, url: meetings_path, remote: true, class: "form meeting-form") do |f| %>
+      <%= render 'layouts/error_messages', resource: f.object %>
       <div id="firstMeetingForm">
         <div class="field" style="margin-left: 0;">
           <%= f.collection_select :place_id, @places, :id, :name,

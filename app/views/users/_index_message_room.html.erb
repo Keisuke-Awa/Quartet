@@ -1,38 +1,45 @@
-<div class="content-header">
-  <h3>メッセージ一覧</h3>
-</div>
-<% if @message_room_infos.any? %>
-  <% @message_room_infos.each do |info| %>
-    <div class="card w-80">
-      <div class="row no-gutters">
-        <div class="col-md-2 m-auto text-center">
-          <div class="profile-avatar m-auto text-center">
-            <%=link_to image_tag(info[:partner].avatar,
-                alt: "avatar", width: "70vw", class: "rounded-circle bd-placeholder-img img-fluid"), 
-                url_for(info[:partner].avatar), data: {lightbox: "avatar", title: info[:partner].name} %>
+<div class="row wrapper">
+  <div class="col-9">
+    <h3>メッセージ一覧</h3>
+    <% if @message_room_infos.any? %>
+      <% @message_room_infos.each do |info| %>
+        <div class="card w-80">
+          <div class="row no-gutters">
+            <div class="col-md-2 m-auto text-center">
+              <div class="profile-avatar m-auto text-center">
+                <%=link_to image_tag(info[:partner].avatar,
+                    alt: "avatar", width: "70vw", class: "rounded-circle bd-placeholder-img img-fluid"), 
+                    url_for(info[:partner].avatar), data: {lightbox: "avatar", title: info[:partner].name} %>
+              </div>
+            </div>
+            <div class="col-md-8 m-auto text-left">
+              <p>
+                <h5><%= info[:partner].name %></h5>
+              </p>
+              <p>
+                <% if info[:last_message].content.present? %>
+                  <%=truncate(info[:last_message].content, length: 40)%>
+                <% else %>
+                  メッセージがありません。
+                <% end %>
+              </p>
+            </div>
+            <div class="col-md-2 my-auto">
+              <%= link_to("選択", message_room_path(info[:message_room]), class: "btn btn-yellow-red loading-link", remote: true) %>
+            </div>
           </div>
-        </div>
-        <div class="col-md-8 m-auto text-left">
-          <p>
-            <h5><%= info[:partner].name %></h5>
-          </p>
-          <p>
-            <% if info[:last_message].content.present? %>
-              <%=truncate(info[:last_message].content, length: 40)%>
-            <% else %>
-              メッセージがありません。
-            <% end %>
-          </p>
-        </div>
-        <div class="col-md-2 my-auto">
-          <%= link_to("選択", message_room_path(info[:message_room]), class: "btn btn-yellow-red loading-link", remote: true) %>
-        </div>
       </div>
+      <% end %>
+    <% else %>
+      <div class="pt-3">現在、メッセージはありません。</div>
+    <% end %>
   </div>
-  <% end %>
-<% else %>
-  <div>現在、メッセージはありません。</div>
-<% end %>
+  <div class="col-3 text-center">
+    <%= render 'meetings/recommend', recommend_meetings: @recommend_meetings %>
+  </div>
+</div>
+
+
 <script>
 
 function beforeLoad() {

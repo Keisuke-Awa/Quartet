@@ -4,7 +4,7 @@
 
 <div class="form" id="userEditForm">
   <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-    <%= render "users/shared/error_messages", resource: resource %>
+    <%= render "layouts/error_messages", resource: resource %>
 
     <div class="field">
       <%= f.file_field :avatar, class: "text-field" %>
@@ -57,50 +57,50 @@
   </h5>
 
   <div id="userProfileAccordion" class="collapse" data-parent="#accordionMenu">
-    <div style="width: 50vw" class="userProfileEditForm">
-      <% if resource.user_profile.height %>
+    <div style="width: 50vw" id="userProfileEditForm">
+      <% if resource.user_profile.height.present? %>
       <div class="field">
         <label>身長</label>
         <div><%= resource.user_profile.height %>cm</div>
       </div>
       <% end %>
-      <% if resource.user_profile.weight %>
+      <% if resource.user_profile.weight.present? %>
       <div class="field">
         <label>体重</label>
         <div><%= resource.user_profile.weight %>kg</div>
       </div>
       <% end %>
-      <% if resource.user_profile.blood_type %>
+      <% if resource.user_profile.blood_type.present? %>
       <div class="field">
         <label>血液型</label>
         <div><%= resource.user_profile.blood_type %>型</div>
       </div>
       <% end %>
-      <% if resource.user_profile.birthplace %>
+      <% if resource.user_profile.birthplace.present? %>
       <div class="field">
         <label>出身地</label>
         <div><%= resource.user_profile.birthplace.prefecture_name %></div>
       </div>
       <% end %>
-      <% if resource.user_profile.occupation %>
+      <% if resource.user_profile.occupation.present? %>
       <div class="field">
         <label>職種</label>
         <div><%= resource.user_profile.occupation.occupation_name %></div>
       </div>
       <% end %>
-      <% if resource.user_profile.educational_bg %>
+      <% if resource.user_profile.educational_bg.present? %>
       <div class="field">
         <label>学歴</label>
         <div><%= resource.user_profile.educational_bg.ebg_name %></div>
       </div>
       <% end %>
-      <% if resource.user_profile.annual_income %>
+      <% if resource.user_profile.annual_income.present? %>
       <div class="field">
         <label>年収</label>
         <div><%= resource.user_profile.annual_income.income_range %></div>
       </div>
       <% end %>
-      <% if resource.user_profile.smoking %>
+      <% if resource.user_profile.smoking.present? %>
       <div class="field">
         <label>喫煙有無</label>
         <div><%= resource.user_profile.smoking.smoking_status %></div>
@@ -108,6 +108,22 @@
       <% end %>
     </div>
     <button type="button" class="btn btn-yellow mb-12 mt-3" data-toggle="modal" data-target="#editUserProfileModal">編集</button>
+  </div>
+
+  <div class="pt-3">
+    <h5>
+      <a data-toggle="collapse" href="#introductionAccordion" aria-controls="#introductionAccordion" aria-expanded="false" class="introduction-menu mt-5">自己紹介</a>
+    </h5>
+    <div id="introductionAccordion" class="collapse" data-parent="#accordionMenu">
+      <div style="width: 50vw" class="introductionEditForm">
+        <% if resource.user_profile.introduction.present? %>
+        <div class="field pt-3">
+          <div><%= resource.user_profile.introduction %></div>
+        </div>
+        <% end %>
+      </div>
+      <button type="button" class="btn btn-yellow mb-12 mt-3" data-toggle="modal" data-target="#introductionModal">編集</button>
+    </div>
   </div>
 </div>
 
@@ -133,33 +149,33 @@
         <div class="field">
           <%= f.label :blood_type, "血液型" %>
           <%= f.select :blood_type, {'A型': 'A', 'B型': 'B', 'AB型': 'AB', 'O型': 'O'},
-                      {include_blank: ''}, {class: "select-field text-field"} %>
+                      {include_blank: true}, {class: "select-field text-field"} %>
         </div>
         <div class="field">
           <%= f.label :birthplace_id, "出身地" %>
           <%= f.collection_select	:birthplace_id, @form_option[:birthplaces], :id, :prefecture_name,
-                        {include_blank: ''}, {class: "select-field text-field"} %>
+                        {include_blank: true}, {class: "select-field text-field"} %>
         </div>
         <div class="field">
           <%= f.label :occupation_id, "職種" %>
           <%= f.collection_select	:occupation_id, @form_option[:occupations], :id, :occupation_name,
-                        {include_blank: ''}, {class: "select-field text-field"} %>
+                        {include_blank: true}, {class: "select-field text-field"} %>
           <span class="focus-line"></span>
         </div>
         <div class="field">
           <%= f.label :educational_bg_id, "学歴"%>
           <%= f.collection_select	:educational_bg_id, @form_option[:educational_bgs], :id, :ebg_name,
-                        {include_blank: ''}, {class: "select-field text-field"} %>
+                        {include_blank: true}, {class: "select-field text-field"} %>
         </div>
         <div class="field">
           <%= f.label :annual_income_id, "年収"%>
           <%= f.collection_select	:annual_income_id, @form_option[:annual_incomes], :id, :income_range, 
-                        {include_blank: ''}, {class: "select-field text-field"} %>
+                        {include_blank: true}, {class: "select-field text-field"} %>
         </div>
         <div class="field">
           <%= f.label :smoking_status_id, "喫煙有無"%>
           <%= f.collection_select	:smoking_status_id, @form_option[:smoking_statuses], :id, :smoking_status, 
-                        {include_blank: ''}, {class: "select-field text-field"} %>
+                        {include_blank: true}, {class: "select-field text-field"} %>
         </div>
       </div>
       <div class="modal-footer">
@@ -172,6 +188,32 @@
 </div>
 
 
+
+<div class="modal fade" id="introductionModal" tabindex="-1" role="dialog" aria-labelledby="introductionModal">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <%= form_with(model: [resource, resource.user_profile], url: user_user_profile_path(resource), local: true ) do |f| %>
+      <div class="modal-header">
+        <h5 class="modal-title" id="meetingApplicationModal">自己紹介</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="閉じる">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body userProfileEditForm">
+        <div class="field text-area flex-textarea">
+          <div class="flex-textarea__dummy" aria-hidden="true"></div>
+          <%= f.text_area :introduction, autofocus: true, autocomplete: "introduction", id: 'flexTextarea',
+                        class: "text-field text-area-field flex-textarea__textarea", placeholder: "" %>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+        <%= f.submit '保存', class: "btn btn-yellow", id: "editUserProfileSubmit" %>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>
 
 <div class="pt-5 pb-5 content-body">
   <h5>アカウントを削除しますか？</h5>
