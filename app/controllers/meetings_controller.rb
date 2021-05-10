@@ -5,14 +5,11 @@ class MeetingsController < ApplicationController
   before_action :set_meeting, only: :show
   before_action :initialize_search_form, only: %i[index search]
   before_action :set_ransack, only: %i[index search]
+  before_action :initialize_new_form, only: %i[new create]
+  before_action :set_recommend_meetings, only: %i[new create]
 
   def new
-    @recommend_meetings = Meeting.order("RAND()").limit(4)
     @meeting = Form::Meeting.new
-    @people = { "2 on 2": 2, "3 on 3": 3, "4 on 4": 4 }
-    @places = Place.all
-    @date_and_time = initialize_datetime
-    @tag_category = TagCategory.all.includes([:tags])
     respond_to do |format|
       format.html
       format.js
@@ -23,7 +20,7 @@ class MeetingsController < ApplicationController
     return unless @meeting.planning_user == current_user || restrict_by_sex
     @has_appointment = false
     if @meeting.appointment && @meeting.appointment.users.find_by(id: current_user.id)
-      @user = @meeting.appointment .users.select_partner(current_user)
+      @user = @meeting.appointment.users.select_partner(current_user)
       Array(current_user.message_rooms).each do |cmr|
         Array(@puser.message_rooms).each do |ncmr|
           @message_room ||= ncmr if cmr == ncmr
@@ -40,8 +37,14 @@ class MeetingsController < ApplicationController
   end
 
   def create
-    @meeting = Form::Meeting.create(meeting_params)
-    redirect_to home_user_path(current_user.id)
+    @meeting = Form::Meeting.new(meeting_params)
+    if @meeting.save
+      redirect_to home_user_path(current_user.id)
+    else
+      respond_to do |format|
+        format.js { render 'new.js.erb' }
+      end
+    end
   end
 
   def destroy
@@ -97,6 +100,13 @@ class MeetingsController < ApplicationController
     @week = initialize_four_weeks
   end
 
+  def initialize_new_form
+    @people = { "2 on 2": 2, "3 on 3": 3, "4 on 4": 4 }
+    @places = Place.all
+    @date_and_time = initialize_datetime
+    @tag_category = TagCategory.all.includes([:tags])
+  end
+
   def set_meeting
     @meeting = Meeting.find(params[:id])
   end
@@ -107,6 +117,10 @@ class MeetingsController < ApplicationController
       format.html { redirect_to home_user_path(current_user), flash: {error: "該当ページにはアクセスできません。"} }
       format.js { render ajax_redirect_to(home_user_path(current_user)), flash[:error] = "該当ページにはアクセスできません。" }
     end
+  end
+
+  def set_recommend_meetings
+    @recommend_meetings = Meeting.recommend_list(current_user).order("RAND()").limit(4)
   end
 
 end
