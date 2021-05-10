@@ -24,18 +24,18 @@ ul,li{
     }
   }
 }
-.user-profile-menu[aria-expanded=false]::after, #accordionMenu a[aria-expanded=false]::after{
+.introduction-menu[aria-expanded=false]::after, .user-profile-menu[aria-expanded=false]::after, #accordionMenu a[aria-expanded=false]::after{
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
 }
-.user-profile-menu[aria-expanded=true]::after, #accordionMenu a[aria-expanded=true]::after{
+.introduction-menu[aria-expanded=true]::after, .user-profile-menu[aria-expanded=true]::after, #accordionMenu a[aria-expanded=true]::after{
   -webkit-transform: rotate(135deg);
   -ms-transform: rotate(135deg);
   transform: rotate(135deg);
 }
 
-.user-profile-menu{
+.user-profile-menu, .introduction-menu{
   // display: block;
   padding: 0.5rem 1rem 0.5rem 0;
   text-decoration: none;
