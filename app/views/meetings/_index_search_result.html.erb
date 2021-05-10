@@ -1,5 +1,6 @@
-<%= render @meetings %>
-<%= paginate @meetings, remote: true %>
+<%= paginate meetings, remote: true %>
+<%= render meetings %>
+<%= paginate meetings, remote: true %>
 <script>
 function beforeLoad() {
   document.getElementById('loading').classList.remove('loaded');

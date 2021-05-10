@@ -1,50 +1,55 @@
-<div class="content-header">
-  <h3>プラン作成</h3>
-</div>
-<%= form_with(model: @meeting, url: meetings_path, local: true, class: "form meeting-form") do |f| %>
-  <div id="firstMeetingForm">
-    <div class="field" style="margin-left: 0;">
-      <%= f.collection_select :place_id, @places, :id, :name,
-                { include_blank: true }, class: "select-field text-field", required: true %>
-      <%= f.label :place_id, "開催場所" %>
-      <span class="focus-line"></span>
-    </div>
-    <div class="field">
-      <%= f.select :people, @people, { include_blank: true },
-                class: "select-field text-field", required: true %>
-      <%= f.label :people, "人数" %>
-      <span class="focus-line"></span>
-    </div>
-    <div class="field d-flex mx-auto" style="width: 25vw;">
-      <%= f.select	:meet_at_date, @date_and_time[:date], { include_blank: true },
-              class: "select-field text-field", required: true %>
-      <%= f.select	:meet_at_hour, @date_and_time[:hour], { include_blank: true },
-              class: "w-50 select-field text-field", required: true %>
-      <%= f.select	:meet_at_minute, @date_and_time[:minute], { include_blank: true },
-              class: "w-50 select-field text-field", required: true %>
-      <label>開催日時</label>
-      <span class="focus-line"></span>
-    </div>
-    <div class="field form-search-tag">
-      <input type="search" class="text-field" id="tagInput" placeholder="辛いものetc..">
-      <label>タグ</label>
-      <span class="focus-line"></span>
-      <ul class="list-group form-index-tag" id="tagList">
-      </ul>
-    </div>
-    <%= f.hidden_field :tag_list, value: @meeting.tag_list.join(','), id: "tagForm", style: "display:none;" %>
-    <div class="bootstrap-tagsinput">
-    </div>
-    <div class="field text-area">
-      <%= f.text_area :detail, autofocus: true, autocomplete: "detail", required: true, 
-                    class: "text-field text-area-field", placeholder: "" %>
-      <%= f.label :name, "詳細" %>
-    </div>
-    <div class="field form-create-meeting">
-      <%= f.submit "作成", class: "btn btn-yellow" %>
-    </div>
+<div class="row wrapper">
+  <div class="col-9">
+    <h3>プラン作成</h3>
+    <%= form_with(model: @meeting, url: meetings_path, remote: true, class: "form meeting-form") do |f| %>
+      <%= render 'layouts/error_messages', resource: f.object %>
+      <div id="firstMeetingForm">
+        <div class="field" style="margin-left: 0;">
+          <%= f.collection_select :place_id, @places, :id, :name,
+                    { include_blank: true }, class: "select-field text-field", required: true %>
+          <%= f.label :place_id, "開催場所" %>
+          <span class="focus-line"></span>
+        </div>
+        <div class="field">
+          <%= f.select :people, @people, { include_blank: true },
+                    class: "select-field text-field", required: true %>
+          <%= f.label :people, "人数" %>
+          <span class="focus-line"></span>
+        </div>
+        <div class="field d-flex mx-auto" style="width: 25vw;">
+          <%= f.select	:meet_at_date, @date_and_time[:date], { include_blank: true },
+                  class: "select-field text-field", required: true %>
+          <%= f.select	:meet_at_hour, @date_and_time[:hour], { include_blank: true },
+                  class: "w-50 select-field text-field", required: true %>
+          <%= f.select	:meet_at_minute, @date_and_time[:minute], { include_blank: true },
+                  class: "w-50 select-field text-field", required: true %>
+          <label>開催日時</label>
+          <span class="focus-line"></span>
+        </div>
+        <div class="field form-search-tag">
+          <input type="search" class="text-field" id="tagInput" placeholder="辛いものetc..">
+          <label>タグ</label>
+          <span class="focus-line"></span>
+          <ul class="list-group form-index-tag" id="tagList">
+          </ul>
+        </div>
+        <%= f.hidden_field :tag_list, value: @meeting.tag_list.join(','), id: "tagForm", style: "display:none;" %>
+        <div class="bootstrap-tagsinput">
+        </div>
+        <div class="field text-area">
+          <%= f.text_area :detail, autofocus: true, autocomplete: "detail", required: true, 
+                        class: "text-field text-area-field", placeholder: "" %>
+          <%= f.label :name, "詳細" %>
+        </div>
+        <div class="field form-create-meeting">
+          <%= f.submit "作成", class: "btn btn-yellow" %>
+        </div>
+      </div>
+    <% end %>
   </div>
-<% end %>
+  <div class="col-3 text-center">
+    <%= render 'recommend', recommend_meetings: @recommend_meetings %>
+</div>
 <%= javascript_bundle_tag "meetings_new" %>
 <script>
 

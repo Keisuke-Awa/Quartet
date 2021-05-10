@@ -1,6 +1,6 @@
 <%= render 'search_form' %>
 
 <div id="meetingPaginate" class="pt-5 pb-3">
-  <%= render "index_search_result" %>
+  <%= render "index_search_result", meetings: @meetings %>
 </div>
 <%= javascript_bundle_tag "meetings_index" %>

@@ -1,7 +1,5 @@
-<div class="content-header">
-  <h3>成立プラン一覧</h3>
-</div>
-<% if @appointments.any? %>
+<h3>成立プラン一覧</h3>
+<% if @appointments.present? %>
   <% @appointments.each do |a| %>
     <div class="card w-80">
       <div class="row no-gutters">
@@ -21,7 +19,7 @@
             </div>
             <div class="col-md-8 text-left my-auto">
               <div><%=a[:partner].name%></div>
-              <div><%= "#{calculate_age(a[:partner])}歳"%></div>
+              <div><%= "#{a[:partner].age}歳"%></div>
             </div>
           </div>
         </div>  
@@ -32,7 +30,7 @@
   </div>
   <% end %>
 <% else %>
-  <div>成立したプランはありません。</div>
+  <div class="pt-3">成立したプランはありません。</div>
 <% end %>
 <script>
 

@@ -1,0 +1,57 @@
+ja:
+  activerecord:
+    models:
+      annual_income_mast: 年収マスタ
+      appointment: マッチング
+      educational_bg_mst: 学歴マスタ
+      meeting_application: プラン申請
+      meeting: プラン
+      message_room: チャットルーム
+      message: メッセージ
+      new_arrival: 新着通知
+      occupation_mst: 職業マスタ
+      place: 場所
+      prefecture_mst: 都道府県マスタ
+      smoking_mst: 喫煙有無マスタ
+      tag_category: タグカテゴリー
+      tag: タグ
+      user_profile: プロフィール
+      user: ユーザー
+    attributes:
+      meeting_application:
+        detail: 詳細情報
+      meeting:
+        meet_at: 日時
+        people: 人数
+        place: 場所
+        detail: 詳細情報
+        planning_user: 企画者
+        online_url: オンラインURL
+      message:
+        user: ユーザー
+        message_room: チャットルーム
+        content: 本文
+      place:
+        name: 場所名
+      tag_category:
+        category_name: カテゴリー名
+      tag:
+        name: タグ名
+      user_profile:
+        height: 身長
+        weight: 体重
+        blood_type: 血液型
+        birthplace: 出身地
+        occupation: 職業
+        educational_bg: 学歴
+        annual_income: 年収
+        smoking: 喫煙有無
+        introduction: 自己紹介
+      user:
+        name: アカウント名
+        birth_date: 生年月日
+        sex: 性別
+        residence: 居住地
+        phone_number: 電話番号
+
+

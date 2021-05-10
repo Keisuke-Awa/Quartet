@@ -27,7 +27,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def failure
-    redirect_to root_url, alert: "Authentication failed."
+    redirect_to root_url, alert: "認証に失敗しました。"
   end
 
   protected

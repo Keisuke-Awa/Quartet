@@ -1,3 +1,62 @@
-<h2>プロフィール登録</h2>
-
-<%= render 'form' %>
+<div class="content-header">
+  <h3>プロフィール登録</h3>
+</div>
+<%= form_with(model: @user_profile, url: user_user_profile_path(current_user.id), class: "form profile-form", local: true) do |f| %>
+<div id="profileEditForm">
+  <div class="field">
+    <%= f.number_field :height, class: "text-field" %>
+    <%= f.label :height, "身長" %>
+    <span class="focus-line"></span>
+  </div>
+  <div class="field">
+    <%= f.number_field :weight, class: "text-field" %>
+    <%= f.label :weight, "体重" %>
+    <span class="focus-line"></span>
+  </div>
+  <div class="field">
+    <%= f.select :blood_type, {'A型': 'A', 'B型': 'B', 'AB型': 'AB', 'O型': 'O'},
+                {include_blank: true}, {class: "select-field text-field"} %>
+    <%= f.label :blood_type, "血液型" %>
+    <span class="focus-line"></span>
+  </div>
+  <div class="field">
+    <%= f.collection_select	:birthplace_id, @form_option[:birthplaces], :id, :prefecture_name,
+                  {include_blank: true}, {class: "select-field text-field"} %>
+    <%= f.label :birthplace_id, "出身地" %>
+    <span class="focus-line"></span>
+  </div>
+  <div class="field">
+    <%= f.collection_select	:occupation_id, @form_option[:occupations], :id, :occupation_name,
+                  {include_blank: true}, {class: "select-field text-field"} %>
+    <%= f.label :occupation_id, "職種" %>
+    <span class="focus-line"></span>
+  </div>
+  <div class="field">
+    <%= f.collection_select	:educational_bg_id, @form_option[:educational_bgs], :id, :ebg_name,
+                  {include_blank: true}, {class: "select-field text-field"} %>
+    <%= f.label :educational_bg_id, "学歴"%>
+    <span class="focus-line"></span>
+  </div>
+  <div class="field">
+    <%= f.collection_select	:annual_income_id, @form_option[:annual_incomes], :id, :income_range, 
+                  {include_blank: true}, {class: "select-field text-field"} %>
+    <%= f.label :annual_income_id, "年収"%>
+    <span class="focus-line"></span>
+  </div>
+  <div class="field">
+    <%= f.collection_select	:smoking_status_id, @form_option[:smoking_statuses], :id, :smoking_status, 
+                  {include_blank: true}, {class: "select-field text-field"} %>
+    <%= f.label :smoking_status_id, "喫煙有無"%>
+    <span class="focus-line"></span>
+  </div>
+  <div>
+  <div class="field text-area">
+    <%= f.text_area :introduction, autofocus: true, autocomplete: "introduction", required: true, 
+                  class: "text-field text-area-field", placeholder: "" %>
+    <%= f.label :introduction, "自己紹介" %>
+  </div>
+    <%= f.submit "保存", class: "btn btn-yellow" %>
+    <%= link_to("スキップ", home_user_path(current_user.id), class: "btn btn-yellow") %>
+  </div>
+</div>
+<% end %>

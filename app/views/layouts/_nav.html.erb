@@ -18,11 +18,8 @@
               <%= image_tag current_user.avatar.variant(combine_options:{resize:"50x50"}).processed, alt: "icon", class: "rounded-circle" %>
             </div>
             <div class="dropdown-menu dropdown-menu-right" id='dropdownMenu' aria-labelledby="navbarDropdown">
-              <%= link_to 'プロフィール編集', edit_user_user_profile_path(current_user), class: "dropdown-item loading-link" %>
+              <%= link_to 'プロフィール編集', edit_user_registration_path, class: "dropdown-item loading-link" %>
               <%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: "dropdown-item loading-link" %>
-              <div class="dropdown-divider"></div>
-              <%= link_to '退会', user_path(current_user.id), data: { confirm: "本当に退会してよろしいですか?" }, method: :delete, 
-                                        class: "dropdown-item loading-link" %>
             </div>
           </li>
         <% else %>

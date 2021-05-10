@@ -5,6 +5,7 @@ class UsersController < ApplicationController
   before_action :restrict_by_sex, only: :show
   
   def home
+    @recommend_meetings = Meeting.recommend_list(current_user).order("RAND()").limit(120).page(params[:page]).per(30)
   end
   
   def show
@@ -27,15 +28,16 @@ class UsersController < ApplicationController
     end
   end
   
-  def destroy
-    @user.destroy
-    flash[:success] = 'ユーザーを削除しました。'
-    redirect_to root_url
-  end
+  # def destroy
+  #   @user.destroy
+  #   flash[:success] = 'ユーザーを削除しました。'
+  #   redirect_to root_url
+  # end
 
   def index_meeting
     # delete_new_arrivals("MeetingApplication")
-    @applyings = current_user.meetings.where(appointment_id: nil).with_place.with_planning_user.page(params[:page]).per(4)
+    current_user.meeting_applications
+    @applyings = Meeting.where(id: current_user.meeting_applications.select(:meeting_id)).where(appointment_id: nil).with_place.with_planning_user.page(params[:page]).per(4)
     @recruitments = current_user.meetings.as_of_now.with_place.exclude_appointed
                       .eager_load(:meeting_applications).page(params[:page]).per(4)
     respond_to do |format|
@@ -61,6 +63,7 @@ class UsersController < ApplicationController
 
   def index_message_room
     delete_new_arrivals("Message")
+    @recommend_meetings = Meeting.recommend_list(current_user).order("RAND()").limit(4).eager_load(:planning_user)
     message_rooms = current_user.message_rooms.eager_load(users: {avatar_attachment: :blob})
     @message_room_infos = Array(message_rooms).map do |mr|
       last_message = mr.messages.last

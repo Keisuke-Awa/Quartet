@@ -58,7 +58,7 @@ ActiveRecord::Base.transaction do
     if n < 150
       sex = '1'
       height = Faker::Number.within(range: 150..190)
-      weight = Faker::Number.within(range: 45..80)
+      weight = Faker::Number.within(range: 50..80)
       blood_type = "A"
       birthplace_id = Faker::Number.within(range: 1..47)
       occupation_id = Faker::Number.within(range: 1..5)
@@ -85,8 +85,8 @@ ActiveRecord::Base.transaction do
     count = 0
     while count < 5
       detail = Faker::Lorem.sentence
-      meet_at = rand_time(Time.now, 7.days.since)
-      people = rand(6) + 1
+      meet_at = rand_time(Time.now, 21.days.since)
+      people = rand(6) + 2
       place_id = rand(Place.count) + 1
       user = User.find(n + 1)
       meeting = Meeting.create!(detail: detail, meet_at: meet_at, people: people, place_id: place_id, planning_user_id: user.id)

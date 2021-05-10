@@ -4,6 +4,11 @@
     <%= render "users/shared/error_messages", resource: resource %>
 
     <div class="field">
+      <%= f.file_field :avatar, class: "text-field" %>
+      <%= f.label :avatar, "プロフィール画像" %>
+    </div>
+
+    <div class="field">
       <%= f.text_field :name, autofocus: true, autocomplete: "name", required: true, 
                     class: "text-field", placeholder: "" %>
       <%= f.label :name, "名前" %>
@@ -41,31 +46,21 @@
     </div>
 
     <div class="field">
-      <% if @minimum_password_length %>
-      <em>(<%= @minimum_password_length %> characters minimum)</em>
-      <% end %>
-      <%= f.password_field :password, autocomplete: "new-password", required: true, class: "text-field" %>
+      <%= f.password_field :password, autocomplete: "new-password", required: true,  class: "text-field" %>
       <%= f.label :password %>
       <span class="focus-line"></span>
     </div>
 
     <div class="field">
-      <%= f.password_field :password_confirmation, autocomplete: "new-password", required: true, class: "text-field" %>
+      <%= f.password_field :password_confirmation, autocomplete: "new-password", required: true,  class: "text-field" %>
       <%= f.label :password_confirmation %>
       <span class="focus-line"></span>
-    </div>
-
-    <div class="field">
-      <%= f.file_field :avatar, class: "text-field" %>
-      <%= f.label :avatar, "プロフィール画像" %>
     </div>
 
     <div class="actions">
       <%= f.submit "Sign up", class: "btn btn-yellow-red" %>
     </div>
   <% end %>
-
-  <%= render "users/shared/links" %>
 </div>
 
 <script>
