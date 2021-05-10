@@ -8,6 +8,7 @@ class Meeting < ApplicationRecord
 
   acts_as_taggable_on :tags
 
+
   scope :as_of_now, -> { where(meet_at: DateTime.now..Float::INFINITY) }
   scope :from_one_week_later_to_two_weeks_later, -> { where(meet_at: DateTime.now + 1.week..DateTime.now + 2.weeks) }
   scope :exclude_appointed, -> { where(appointment_id: nil) }
@@ -23,7 +24,8 @@ class Meeting < ApplicationRecord
   scope :display_list, -> (user, page) { as_of_now.exclude_appointed.with_user_avatar.exclude_current_user(user)
                                               .exclude_same_sex(user).with_place.paginate(page) }
   scope :recommend_list, -> (user) { from_one_week_later_to_two_weeks_later.exclude_appointed.with_user_avatar.exclude_current_user(user)
-                                            .exclude_same_sex(user).only_same_prefecture(user).only_same_generation(user) }
+                                            .exclude_same_sex(user).only_same_prefecture(user).only_same_generation(user).with_place }
   scope :search_with_appointment, -> (appointments) { where(appointment_id: appointments).with_user_avatar.as_of_now
                                         .with_place.with_appointment }
+  
 end

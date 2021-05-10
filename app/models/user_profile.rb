@@ -6,6 +6,12 @@ class UserProfile < ApplicationRecord
   belongs_to :annual_income, class_name: 'AnnualIncomeMst', optional: true
   belongs_to :smoking, class_name: 'SmokingMst', foreign_key: 'smoking_status_id', optional: true
 
+  validates :height, numericality: { greater_than_or_equal_to: 130, less_than_or_equal_to: 220 }, allow_blank: true
+  validates :weight, numericality: { greater_than_or_equal_to: 30, less_than_or_equal_to: 150 }, allow_blank: true
+  validates :blood_type, inclusion: { in: %w(A B O AB) }, allow_blank: true
+  validates :introduction, length: { maximum: 800 }
+
+
   def self.guest(user)
     find_or_create_by!(user_id: user.id) do |user_profile|
       user_profile.height = 175

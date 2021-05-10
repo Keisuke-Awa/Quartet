@@ -6,6 +6,7 @@ class Form::Meeting < Meeting
     people
     place_id
     tag_list
+    detail
   )
 
   # DatetimeIntegratableで宣言した、 integrate_datetime_fields関数を利用
@@ -16,7 +17,15 @@ class Form::Meeting < Meeting
   # meet_at に戻す
   integrate_datetime_fields :meet_at
 
-  validates :meet_at_date, presence: true
-  validates :meet_at_hour, presence: true
-  validates :meet_at_minute, presence: true
+  validates :meet_at, presence: true
+  validates :people, numericality: { greater_than_or_equal_to: 1, less_than_or_equal_to: 10 }
+  validates :place_id, presence: true
+  validates :detail, length: { maximum: 800 }
+
+  validate :valid_meet_at?
+
+  def valid_meet_at?
+    return if meet_at > DateTime.now && meet_at < DateTime.now + 1.month
+    errors.add(:base, "１ヶ月以内の日時を入力してください。")
+  end
 end
