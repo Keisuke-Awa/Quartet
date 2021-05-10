@@ -28,7 +28,7 @@ class UserProfilesController < ApplicationController
 
   def user_profile_params
     params.require(:user_profile).permit(:height, :weight, :blood_type, :birthplace_id, :occupation_id,
-      :educational_bg_id, :annual_income_id, :smoking_status_id)
+      :educational_bg_id, :annual_income_id, :smoking_status_id, :introduction)
   end
   
 end

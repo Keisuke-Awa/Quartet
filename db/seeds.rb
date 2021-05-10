@@ -85,8 +85,8 @@ ActiveRecord::Base.transaction do
     count = 0
     while count < 5
       detail = Faker::Lorem.sentence
-      meet_at = rand_time(Time.now, 7.days.since)
-      people = rand(6) + 1
+      meet_at = rand_time(Time.now, 21.days.since)
+      people = rand(6) + 2
       place_id = rand(Place.count) + 1
       user = User.find(n + 1)
       meeting = Meeting.create!(detail: detail, meet_at: meet_at, people: people, place_id: place_id, planning_user_id: user.id)

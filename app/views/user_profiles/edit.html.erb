@@ -44,9 +44,8 @@
     <%= f.collection_select	:smoking_status_id, @form_option[:smoking_statuses], :id, :smoking_status, 
                   {include_blank: ''}, {class: "select-field text-field"} %>
     <%= f.label :smoking_status_id, "喫煙有無"%>
-    <span class="focus-line"></span>
   </div>
-  <div>
+  
     <%= f.submit "保存", class: "btn btn-yellow" %>
   </div>
 </div>
