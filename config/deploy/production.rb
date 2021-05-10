@@ -60,3 +60,5 @@
 #     # password: "please use keys"
 #   }
 server '52.68.235.100', user: 'ec2-user', roles: %w{app db web}
+
+set :env_file_path, 'docker/production/.env'

@@ -70,7 +70,7 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::FileUpdateChecker
 
-  config.web_console.whitelisted_ips = '172.23.0.1'
+  config.web_console.allowed_ips = %w(172.23.0.1 172.18.0.1 172.19.0.1)
   # config.middleware.use AssetsPathProxy, ssl_verify_none: true
   config.logger = Logger.new(STDOUT)
 end

@@ -30,9 +30,31 @@ set :unicorn_pid, -> { "#{shared_path}/tmp/pids/unicorn.pid" }
 # Unicornの設定ファイルの場所
 set :unicorn_config_path, -> { "#{current_path}/config/unicorn.rb" }
 
-after 'deploy:publishing', 'deploy:restart'
+# after 'deploy:publishing', 'deploy:restart'
+# namespace :deploy do
+#   task :restart do
+#     invoke 'unicorn:restart'
+#   end
+# end
+
 namespace :deploy do
-  task :restart do
-    invoke 'unicorn:restart'
+#   desc "Initialize application"
+#   task :initialize do
+#     invoke 'composing:build'
+#     invoke 'composing:database:up'
+#     invoke 'composing:database:create'
+#     invoke 'composing:database:migrate'
+#   end
+
+  after :published, :restart do
+    invoke 'composing:restart:web'
+    invoke 'composing:database:migrate'
   end
+
+#   before :finished, :clear_containers do
+#     on roles(:app) do
+#       execute "docker ps -a -q -f status=exited | xargs -r docker rm -v"
+#       execute "docker images -f dangling=true -q | xargs -r docker rmi -f"
+#     end
+#   end
 end
