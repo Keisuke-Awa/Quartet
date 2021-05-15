@@ -1,22 +1,26 @@
-<div id='pagenate'>
-  <div>作成したプラン一覧</div>
-  <% if @meetings.any? %>
-    <div><%= current_user.meetings.count %>件のプランがあります</div>
-    <ul>
-      <% @meetings.each do |meeting| %>
-        <% unless meeting.meet_at.nil? %>
-          <li id='meeting-<%= meeting.id %>'>
-            <%= link_to(meeting.meet_at.strftime("%Y/%m/%d(%a) %H:%M"), meeting_meeting_applications_path(meeting),
-                                  class: 'list-action', remote: true) %>
-          </li>
-        <% end %>
-      <% end %>
+<h3>プラン申請一覧</h3>
+<div class="card mb-3 mt-3">
+  <div class="card-header">
+    <ul class="nav nav-tabs card-header-tabs">
+      <li class="nav-item">
+        <a href="#recruitmentCard" class="nav-link active recruitment-card-tab" data-toggle="tab">募集中プラン</a>
+      </li>
+      <li class="nav-item">
+        <a href="#applicationCard" class="nav-link application-card-tab" data-toggle="tab">申請先プラン</a>
+      </li>
     </ul>
-    <%= paginate @meetings, remote: true %>
-  <% else %>
-    <div>募集中のプランはありません</div>  
-  <% end %>
+  </div>
+    <div class="tab-content">
+      <div id="recruitmentCard" class="tab-pane active card-body">
+        <%= render 'index_recruitment' %>
+      </div>
+      <div id="applicationCard" class="tab-pane card-body">
+        <%= render 'index_meeting_application' %>
+      </div>
+    </div>
+  </div>
 </div>
+
 <script>
 
 function beforeLoad() {
@@ -28,14 +32,12 @@ function completeLoad() {
 };
 
 completeLoad();
-
 $(".loading-link").click(function() {
   beforeLoad();
 });
-
 $("form").submit(function() {
   beforeLoad();
 })
-
 window.onload = completeLoad;
+
 </script>

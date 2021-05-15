@@ -91,7 +91,7 @@
             </li>
             <% end %>
             <li class="list-group-item m-auto">
-              <div><%= render 'messages/message_link' %></div>
+              <div><%= render 'messages/message_link', message_room: @message_room, user: @partner %></div>
             </li>
           </ul>
       </div>

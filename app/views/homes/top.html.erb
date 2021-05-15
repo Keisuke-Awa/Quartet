@@ -1,21 +1,15 @@
+
 <main class="top-first-page container-fluid d-flex align-items-center">
-    <div class="row pl-5 mb-5">
-        <div class="col top-content flex-column">
-          <div><%= image_tag '/assets/images/logo.jpeg', class: "img-fluid top-logo" %></div>
-          <div class="top-button-content">
-          <% if user_signed_in? %>
-            <%= link_to(t('.make_meeting'), home_user_path(current_user.id), class: "btn btn-lg btn-outline-success") %>
-          <% else %>
-            <button type="button" class="btn sign-up-button" id="signupAuthButton" data-toggle="modal" 
-                                                    data-target="#signupAuthModal"><%= t('.sign_up')%></button>
-            <%= link_to( t('.login'), new_user_session_path, class: "btn btn-dark login-button") %>
-            <div>
-              <%= link_to( "簡単ログイン", users_guest_sign_in_path, method: :post, class: "btn btn-dark login-button") %>
-          <% end %>
-          </div>
+  <header><%= render 'layouts/nav' %></header>
+  <div class="row pl-5 mb-5 my-auto">
+    <div class="col top-content flex-column">
+      
+      <div class="top-button-content">
+      <% if user_signed_in? %>
+        <%= link_to(t('.make_meeting'), home_user_path(current_user.id), class: "btn btn-lg btn-outline-success") %>
+      <% end %>
       </div>
     </div>
+  </div>
 </main>
 <%= render "users/registrations/auth_select_modal" %>
-<style>
-</style>

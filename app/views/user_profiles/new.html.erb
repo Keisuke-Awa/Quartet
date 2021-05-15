@@ -49,14 +49,26 @@
     <%= f.label :smoking_status_id, "喫煙有無"%>
     <span class="focus-line"></span>
   </div>
-  <div>
-  <div class="field text-area">
-    <%= f.text_area :introduction, autofocus: true, autocomplete: "introduction", required: true, 
-                  class: "text-field text-area-field", placeholder: "" %>
-    <%= f.label :introduction, "自己紹介" %>
+  <h5>
+    <a data-toggle="collapse" href="#introductionAccordion" aria-controls="#userProfileAccordion" aria-expanded="false" class="user-profile-menu">自己紹介</a>
+  </h5>
+  <div id="introductionAccordion" class="collapse" data-parent="#accordionMenu">
+    <div class="field text-area flex-textarea">
+      <div class="flex-textarea__dummy" aria-hidden="true"></div>
+      <%= f.text_area :introduction, autofocus: true, autocomplete: "introduction", id: 'flexTextarea',
+                    class: "text-field text-area-field flex-textarea__textarea", placeholder: "" %>
+    </div>
   </div>
+  <div>
     <%= f.submit "保存", class: "btn btn-yellow" %>
     <%= link_to("スキップ", home_user_path(current_user.id), class: "btn btn-yellow") %>
+    </div>
   </div>
 </div>
 <% end %>
+
+<style>
+#profileEditForm {
+  margin: 0 auto;
+}
+</style>

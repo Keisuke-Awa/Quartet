@@ -13,6 +13,7 @@
     </div>
     <div class="col-md-2 my-auto">
       <div>
+        <%= link_to('詳細', meeting_path(m), class: "btn btn-red-pink loading-link", remote: true ) %>
         <% if m.meeting_applications.any? %>
           <%= link_to('申請一覧', meeting_meeting_applications_path(m), class: 'btn btn-yellow loading-link',
                               remote: true) %>
