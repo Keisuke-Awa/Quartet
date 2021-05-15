@@ -29,6 +29,7 @@ module.exports = {
     meetings_new: './src/js/modules/meetings-new.js',
     meetings_index: './src/js/modules/meetings-index.js',
     message_rooms_show: './src/js/modules/message_rooms-show.js',
+    textarea: './src/js/modules/textarea.js',
   },
   output: {
     filename: "js/[name]-[hash].js",
