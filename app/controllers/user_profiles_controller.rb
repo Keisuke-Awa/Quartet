@@ -4,6 +4,7 @@ class UserProfilesController < ApplicationController
 
   def new
     @user_profile = current_user.user_profile
+    render layout: 'without_sidebar'
   end
 
   def edit

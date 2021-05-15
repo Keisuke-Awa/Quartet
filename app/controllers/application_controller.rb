@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   include AjaxHelper
   include DatetimeHelper
 
-  # rescue_from StandardError, with: :redirect_to_root
+  # rescue_from ApplicationController::NotAuthorized, with: :redirect_to_root
 
   protect_from_forgery with: :exception
   add_flash_types :success, :info, :warning, :danger
@@ -54,8 +54,8 @@ class ApplicationController < ActionController::Base
 
   def redirect_to_root
     respond_to do |format|
-      format.html { redirect_to root_path, flash: {error: "予期せぬエラーが発生しました。"} }
-      format.js { render ajax_redirect_to(root_path), flash[:error] = "予期せぬエラーが発生しました。" }
+      format.html { redirect_to destroy_user_session_path, flash: {error: "予期せぬエラーが発生しました。"} }
+      format.js { render ajax_redirect_to(destroy_user_session_path), flash[:error] = "予期せぬエラーが発生しました。" }
     end
   end
 
