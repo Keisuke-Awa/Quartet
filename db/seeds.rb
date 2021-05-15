@@ -51,7 +51,7 @@ Place.create!(name: "渋谷", prefecture_id: 13)
 
 ActiveRecord::Base.transaction do
   300.times do |n|
-    name = Faker::Name.name
+    name = Faker::Internet.user_name
     email = "rails#{n+1}@sample.com"
     password = "password"
     birth_date = Faker::Date.birthday(min_age: 20, max_age: 40)
@@ -77,6 +77,8 @@ ActiveRecord::Base.transaction do
         sex: sex, residence_id: 13)
       user.create_user_profile!
     end
+    image_url = Faker::Avatar.image(slug: email, size: '150x150')
+    user.avatar.attach(io: URI.parse(image_url).open, filename: 'avatar.png')
   end
 end
 
@@ -92,9 +94,15 @@ ActiveRecord::Base.transaction do
       meeting = Meeting.create!(detail: detail, meet_at: meet_at, people: people, place_id: place_id, planning_user_id: user.id)
 
       10.times do |an|
-        application_detail = Faker::Lorem.sentence
-        applicant = User.find(rand(280) + 1)
-        MeetingApplication.create!(detail: application_detail, meeting_id: meeting.id, applicant_id: applicant.id + an)
+        if n < 100
+          application_detail = Faker::Lorem.sentence
+          applicant = User.find(rand(100) + 200)
+          MeetingApplication.create!(detail: application_detail, meeting_id: meeting.id, applicant_id: applicant.id + an)
+        elsif 200 < n < 300
+          application_detail = Faker::Lorem.sentence
+          applicant = User.find(rand(100))
+          MeetingApplication.create!(detail: application_detail, meeting_id: meeting.id, applicant_id: applicant.id + an)
+        end
       end
       count += 1
     end
