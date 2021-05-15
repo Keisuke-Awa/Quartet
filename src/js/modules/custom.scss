@@ -420,6 +420,11 @@ header {
   width: 100%;
 }
 
+/* エラーメッセージ */
+#error_explanation {
+  color: red;
+}
+
 /* サブコンテンツ */
 .sub-content {
   border-radius: 1rem;

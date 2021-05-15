@@ -9,7 +9,12 @@
           </button>
         </div>
         <div class="modal-body">
-          <%= f.text_area :detail, class: "form-control", id: "message-text", rows: "20", cols: "100", placeholder: "参加メンバーの年齢や職業\n意気込みなど" %>
+          <div class="pb-2" id='error_explanation'></div>
+          <div class="flex-textarea">
+            <div class="flex-textarea__dummy" aria-hidden="true"></div>
+            <%= f.text_area :detail, autofocus: true, autocomplete: "introduction", id: 'flexTextarea',
+                          class: "text-field text-area-field flex-textarea__textarea", placeholder: "参加メンバーの年齢や職業\n意気込みなど" %>
+          </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
@@ -19,9 +24,18 @@
       </div>
     </div>
   </div>
+<%=javascript_bundle_tag 'textarea' %>
 
 <script>
-  $("#meetingApplicationSubmit").click( function() {
+$(document).on('ajax:beforeSend', 'form', function() {
+  if ($('form').find('textarea').val().length === 0) {
+    document.getElementById('loading').classList.add('loaded');
+    $('#error_explanation').text('詳細情報は800文字以内で入力してください。');
+    return false;
+  } else {
+    $("#meetingApplicationSubmit").click( function() {
       $('#meetingApplicationModal').modal('hide');
-  })
+    })
+  }
+})
 </script>
