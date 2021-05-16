@@ -19,12 +19,19 @@
             </div>
             <div class="dropdown-menu dropdown-menu-right" id='dropdownMenu' aria-labelledby="navbarDropdown">
               <%= link_to 'プロフィール編集', edit_user_registration_path, class: "dropdown-item loading-link" %>
-              <%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: "dropdown-item loading-link" %>
+              <%= link_to 'Logout', destroy_user_session_path, method: :delete, class: "dropdown-item loading-link" %>
             </div>
           </li>
         <% else %>
           <li class="nav-item">
-            <%= link_to( 'ログイン', new_user_session_path, class: "nav-link btn btn-dark") %>
+            <button type="button" class="nav-link btn btn-sign-up mr-3" id="signupAuthButton" data-toggle="modal" 
+                                                data-target="#signupAuthModal">Sign up</button>
+          </li>
+          <li class="nav-item">
+            <%= link_to( 'Login', new_user_session_path, class: "nav-link btn btn-login mr-3") %>
+          </li>
+          <li>
+            <%= link_to( "簡単Login", users_guest_sign_in_path, method: :post, class: "nav-link btn btn-login mr-2") %>
           </li>
         <% end %>
         <!--<li>
