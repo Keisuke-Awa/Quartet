@@ -168,7 +168,7 @@ class User < ApplicationRecord
       user.password = SecureRandom.urlsafe_base64(8)
       user.password_confirmation = user.password
       user.name = "ゲストユーザー"
-      user.sex = "1"
+      user.sex = "2"
       user.residence_id = 13
       user.birth_date = Faker::Date.birthday(min_age: 20, max_age: 40)
     end
