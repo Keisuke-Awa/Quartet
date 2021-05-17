@@ -9,7 +9,7 @@ services:
   #     MYSQL_DATABASE: db
   #     MYSQL_ROOT_PASSWORD: password
   #   ports:
-  #     - '3306:3306'
+  #     - '3309:3309'
   #   command: --default-authentication-plugin=mysql_native_password
   #   volumes:
   #     - mysql-data:/var/lib/mysql
@@ -17,10 +17,10 @@ services:
     build: 
       context: .
       dockerfile: Dockerfile
-    command: bundle exec unicorn -p 3000 -c /Quartet/config/unicorn.rb -E production
+    command: bash -c "rm -f tmp/pids/unicorn.pid && bundle exec unicorn -p 3000 -c /Quartet/config/unicorn.rb -E production
     #command: bundle exec unicorn -p 3000 -c /Quartet/config/unicorn.rb
     #command: dockerize -wait tcp://db:3306 -timeout 20s bundle exec unicorn -p 3000 -c /Quartet/config/unicorn.rb
-    #command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    # command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
     tty: true
     stdin_open: true
     # depends_on:
@@ -31,17 +31,17 @@ services:
       - .:/Quartet
       - public-data:/Quartet/public
       - tmp-data:/Quartet/tmp/sockets
-  nginx:
-    build:
-      context: ./nginx
-      dockerfile: Dockerfile
-    volumes:
-      - public-data:/Quartet/public
-      - tmp-data:/Quartet/tmp/sockets
-    ports:
-      - 80:80
-    restart: always
+  # nginx:
+  #   build:
+  #     context: ./nginx
+  #     dockerfile: Dockerfile
+  #   volumes:
+  #     - public-data:/Quartet/public
+  #     - tmp-data:/Quartet/tmp/sockets
+  #   ports:
+  #     - 80:80
+  #   restart: always
 volumes:
-  # mysql-data:
+  mysql-data:
   public-data:
   tmp-data:
