@@ -43,7 +43,7 @@
     <div class="col-md-6 profile-avatar-content">
       <div class="profile-avatar">
         <%=link_to image_tag(@user.avatar,
-            alt: "avatar", width: "100vw", class: "rounded-circle bd-placeholder-img img-fluid"), 
+            alt: "avatar", width: "100px", height: "100px", class: "rounded-circle bd-placeholder-img"), 
             url_for(@user.avatar), data: {lightbox: "avatar", title: @user.name} %>
       </div>
     </div>

@@ -35,12 +35,18 @@ $(function() {
     return html;
   }
 
-  
+  $(document).on('keypress', function(e){
+    if (e.key === 'Enter') {
+      return false;
+    }
+  });
+
   $('#messageForm').on('submit', function(e){
     e.preventDefault();
     $('#messageBtn').prop('disabled', false);
 
     if ($('#messageText').val() === "") {
+      document.getElementById('loading').classList.add('loaded');
       return false;
     } else {
       const message_form = document.getElementById('messageForm');

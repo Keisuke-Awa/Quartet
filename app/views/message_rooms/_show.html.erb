@@ -11,7 +11,7 @@
     <%= form_with(model: [@message_room, @message_room.messages.build], id: 'messageForm', local: true) do |f| %>
       <div class="message-input-box">
         <%= f.hidden_field :message_room_id, value: @message_room.id %>
-        <%= f.text_field :content, length: {minimum: 1, maximum: 140}, id: 'messageText', class: "message-input-text" %>
+        <%= f.text_field :content, length: {maximum: 140}, id: 'messageText', class: "message-input-text" %>
       </div>
       <%= f.submit 'Send', id: 'messageBtn', class: "btn btn-message btn-yellow" %>
     <% end %>
