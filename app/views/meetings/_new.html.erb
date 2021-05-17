@@ -26,20 +26,33 @@
           <label>開催日時</label>
           <span class="focus-line"></span>
         </div>
-        <div class="field form-search-tag">
-          <input type="search" class="text-field" id="tagInput" placeholder="辛いものetc..">
-          <label>タグ</label>
-          <span class="focus-line"></span>
-          <ul class="list-group form-index-tag" id="tagList">
-          </ul>
+        <div class="pt-3">
+          <h5>
+            <a data-toggle="collapse" href="#meetingTagAccordion" aria-controls="#meetingTagAccordion" aria-expanded="false" class="user-profile-menu mt-5 label">タグ</a>
+          </h5>
+          <div id="meetingTagAccordion" class="collapse">
+            <div class="field form-search-tag">
+              <input type="search" class="text-field" id="tagInput" placeholder="辛いものetc..">
+              <span class="focus-line"></span>
+              <ul class="list-group form-index-tag" id="tagList">
+              </ul>
+            </div>
+            <%= f.hidden_field :tag_list, value: @meeting.tag_list.join(','), id: "tagForm", style: "display:none;" %>
+            <div class="bootstrap-tagsinput">
+            </div>
+          </div>
         </div>
-        <%= f.hidden_field :tag_list, value: @meeting.tag_list.join(','), id: "tagForm", style: "display:none;" %>
-        <div class="bootstrap-tagsinput">
-        </div>
-        <div class="field text-area">
-          <%= f.text_area :detail, autofocus: true, autocomplete: "detail", required: true, 
-                        class: "text-field text-area-field", placeholder: "" %>
-          <%= f.label :name, "詳細" %>
+        <div class="pt-3">
+          <h5>
+            <a data-toggle="collapse" href="#meetingDetailAccordion" aria-controls="#meetingDetailAccordion" aria-expanded="false" class="introduction-menu mt-5 label">詳細</a>
+          </h5>
+          <div id="meetingDetailAccordion" class="collapse mt-5">
+            <div class="flex-textarea">
+              <div class="flex-textarea__dummy" aria-hidden="true"></div>
+              <%= f.text_area :detail, autofocus: true, autocomplete: "introduction", id: 'flexTextarea',
+                            class: "text-field text-area-field flex-textarea__textarea", placeholder: "" %>
+            </div>
+          </div>
         </div>
         <div class="field form-create-meeting">
           <%= f.submit "作成", class: "btn btn-yellow" %>
@@ -51,6 +64,12 @@
     <%= render 'recommend', recommend_meetings: @recommend_meetings %>
 </div>
 <%= javascript_bundle_tag "meetings_new" %>
+<%=javascript_bundle_tag 'textarea' %>
+<style>
+text-area-field:focus {
+  outline: none;
+}
+</style>
 <script>
 
 function beforeLoad() {

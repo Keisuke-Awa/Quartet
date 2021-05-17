@@ -23,12 +23,13 @@
     <% end %>
 
     <div class="actions">
-      <%= f.submit "Log in", class: "btn btn-yellow-red btn-login" %>
+      <%= f.submit "Log in", class: "btn btn-yellow-red" %>
     </div>
 
   <% end %>
   <div class="login-option">
     <%= link_to("Facebook認証", user_facebook_omniauth_authorize_path, class: 'btn btn-facebook') %>
-    <%= render "users/shared/links" %>
+    <!-- <%= render "users/shared/links" %> -->
   </div>
 </div>
+<%= render "users/registrations/auth_select_modal" %>

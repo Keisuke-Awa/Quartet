@@ -14,8 +14,8 @@ class UserProfile < ApplicationRecord
 
   def self.guest(user)
     find_or_create_by!(user_id: user.id) do |user_profile|
-      user_profile.height = 175
-      user_profile.weight = 70
+      user_profile.height = 160
+      user_profile.weight = 55
       user_profile.blood_type = "A"
       user_profile.birthplace_id = 13
       user_profile.occupation_id = Faker::Number.within(range: 1..5)

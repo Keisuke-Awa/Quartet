@@ -6,6 +6,10 @@ class UsersController < ApplicationController
   
   def home
     @recommend_meetings = Meeting.recommend_list(current_user).order("RAND()").limit(120).page(params[:page]).per(30)
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
   
   def show
@@ -37,7 +41,7 @@ class UsersController < ApplicationController
   def index_meeting
     # delete_new_arrivals("MeetingApplication")
     current_user.meeting_applications
-    @applyings = Meeting.where(id: current_user.meeting_applications.select(:meeting_id)).where(appointment_id: nil).with_place.with_planning_user.page(params[:page]).per(4)
+    @applyings = Meeting.where(id: current_user.meeting_applications.select(:meeting_id)).where(appointment_id: nil).with_place.with_user_avatar.page(params[:page]).per(4)
     @recruitments = current_user.meetings.as_of_now.with_place.exclude_appointed
                       .eager_load(:meeting_applications).page(params[:page]).per(4)
     respond_to do |format|

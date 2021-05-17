@@ -51,11 +51,11 @@ Place.create!(name: "渋谷", prefecture_id: 13)
 
 ActiveRecord::Base.transaction do
   300.times do |n|
-    name = Faker::Name.name
     email = "rails#{n+1}@sample.com"
     password = "password"
     birth_date = Faker::Date.birthday(min_age: 20, max_age: 40)
     if n < 150
+      name = "#{Faker::Name.name}太"
       sex = '1'
       height = Faker::Number.within(range: 150..190)
       weight = Faker::Number.within(range: 50..80)
@@ -72,11 +72,16 @@ ActiveRecord::Base.transaction do
         occupation_id: occupation_id, educational_bg_id: educational_bg_id, annual_income_id: annual_income_id,
         smoking_status_id: smoking_status_id, introduction: introduction)
     else
+      name = "#{Faker::Name.name}子"
       sex = '2'
       user = User.create!(name: name, email: email, password: password, password_confirmation: password, birth_date: birth_date,
         sex: sex, residence_id: 13)
       user.create_user_profile!
     end
+    # image_url = Faker::Avatar.image(slug: email, size: '150x150')
+    # user.avatar.attach(io: URI.parse(image_url).open, filename: 'avatar.png')
+    user.avatar.attach(io: File.open(Rails.root.join('src', 'js', 'modules', 'images', 'yumikoIMGL7854_TP_V.jpg')), filename: 'avater.jpeg',
+    content_type: 'image/jpg')
   end
 end
 
@@ -92,9 +97,23 @@ ActiveRecord::Base.transaction do
       meeting = Meeting.create!(detail: detail, meet_at: meet_at, people: people, place_id: place_id, planning_user_id: user.id)
 
       10.times do |an|
-        application_detail = Faker::Lorem.sentence
-        applicant = User.find(rand(280) + 1)
-        MeetingApplication.create!(detail: application_detail, meeting_id: meeting.id, applicant_id: applicant.id + an)
+        if n < 140
+          application_detail = Faker::Lorem.sentence
+          applicant = User.find(n + 151)
+          MeetingApplication.create!(detail: application_detail, meeting_id: meeting.id, applicant_id: applicant.id + an)
+        elsif 140 <= n && n < 150
+          application_detail = Faker::Lorem.sentence
+          applicant = User.find(n + 151)
+          MeetingApplication.create!(detail: application_detail, meeting_id: meeting.id, applicant_id: applicant.id - an)
+        elsif 150 <= n && n < 290
+          application_detail = Faker::Lorem.sentence
+          applicant = User.find(n - 149)
+          MeetingApplication.create!(detail: application_detail, meeting_id: meeting.id, applicant_id: applicant.id + an)
+        elsif 290 <= n && n < 300
+          application_detail = Faker::Lorem.sentence
+          applicant = User.find(n - 151)
+          MeetingApplication.create!(detail: application_detail, meeting_id: meeting.id, applicant_id: applicant.id - an)
+        end
       end
       count += 1
     end

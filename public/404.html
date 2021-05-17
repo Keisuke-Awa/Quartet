@@ -23,7 +23,7 @@
     border-right-color: #999;
     border-left-color: #999;
     border-bottom-color: #BBB;
-    border-top: #B00100 solid 4px;
+    border-top: #BBB solid 1px;
     border-top-left-radius: 9px;
     border-top-right-radius: 9px;
     background-color: white;
@@ -51,6 +51,10 @@
     color: #666;
     box-shadow: 0 3px 8px rgba(50, 50, 50, 0.17);
   }
+
+  a {
+    color: #FFB500;
+  }
   </style>
 </head>
 
@@ -58,11 +62,13 @@
   <!-- This file lives in public/404.html -->
   <div class="dialog">
     <div>
-      <h1>The page you were looking for doesn't exist.</h1>
-      <p>ページがありません</p>
-      <p>You may have mistyped the address or the page may have moved.</p>
+      <img src="assets/images/logo.jpeg" alt="ロゴ画像" title="Quartet">
+      <p>
+        <h3>ページが表示できません</h3>
+      </p>
+      <p>お探しのページは一時的にアクセスできない状況にあるか、移動もしくは削除された可能性があります。</p>
     </div>
-    <p>If you are the application owner check the logs for more information.</p>
+    <p><a href="https://quartet-plan.com">トップページへ戻る</a></p>
   </div>
 </body>
 </html>

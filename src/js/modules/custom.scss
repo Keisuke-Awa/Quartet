@@ -72,7 +72,17 @@ $messageContentColor: #8de055;
 .nav-link {
   animation: SlideLeftIn 1.8s;
 }
+.tab-link {
+  color: black;
+  &:hover {
+    color: $iconColor;
+  }
+}
 
+.rounded-circle {
+  background-position: center;
+  background-size:cover;
+}
 
 
 html {
@@ -235,10 +245,6 @@ a {
   }
 }
 
-.btn-login {
-  margin-bottom: 20px;
-}
-
 .btn-facebook {
   padding: 0.5em;
   margin: 10px 0;
@@ -282,8 +288,7 @@ a {
   text-decoration: none;
   font-weight: bold;
   // font-size:14px;
-  }
-  .btn-sms::before {
+  &::before {
     content: "\f095";
     font-family: "Font Awesome 5 Free";
     font-weight: 900;
@@ -294,12 +299,23 @@ a {
     background-size: contain;
     vertical-align: middle;
   }
-  .btn-sms:hover {
+  &:hover {
     border-color: white;
     background: $green;
     color: white;
   }
+}
 
+.btn-sign-up, .btn-login {
+  border-color: $orange;
+  color: $orange;
+  margin-right: 0.8rem;
+  outline: none;
+  &:hover {
+    background-color: $orange;
+    color: white;
+  }
+}
 
 
 /* アラート*/
@@ -317,31 +333,13 @@ a {
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
+  header {
+    background-color: transparent;
+  }
   .row {
     height: 50%;
     .top-content {
       height: 100%;
-      .top-logo {
-        width: 300px;
-        height: 300px;
-        margin-top: 2.5rem;
-      }
-      .top-button-content{
-        margin-top: 1.5rem;
-        .sign-up-button {
-          border-color: $orange;
-          color: $orange;
-          margin-right: 0.8rem;
-          outline: none;
-          &:hover {
-            background-color: $orange;
-            color: white;
-          }
-        }
-        .login-button {
-          margin-left: 0.8rem;
-        }
-      }
     }
   }
 }
@@ -426,6 +424,11 @@ header {
   width: 100%;
 }
 
+/* エラーメッセージ */
+#error_explanation {
+  color: red;
+}
+
 /* サブコンテンツ */
 .sub-content {
   border-radius: 1rem;
@@ -449,7 +452,7 @@ header {
     position: relative;
     width: 30%;
     // margin: 0 auto;
-    margin: 60px auto 20px auto;
+    margin: 40px auto 20px auto;
     
     .text-field {
       padding: 6px 0 2px 0;
@@ -584,10 +587,6 @@ input[type=date] {
     font: inherit;
     letter-spacing: inherit;
     resize: none;
-    &:focus {
-      box-shadow: 0 0 0 4px rgba(35, 167, 195, 0.3);
-      outline: 0;
-    }
   }
 }
 

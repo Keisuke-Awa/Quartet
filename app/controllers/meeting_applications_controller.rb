@@ -14,6 +14,10 @@ class MeetingApplicationsController < ApplicationController
       format.html { redirect_back(fallback_location: @meeting, notice: "申請が完了しました。") }
       format.js { render ajax_redirect_to(meeting_path(@meeting)), flash[:notice] = "申請が完了しました。" }
     end
+    ActiveRecord:RecodeInvalid => e
+    respond_to do |format|
+      format.js { render ajax_redirect_to(meeting_path(@meeting)), flash[:error] = "申請に失敗しました。" }
+    end
   end
 
   def destroy
@@ -27,7 +31,7 @@ class MeetingApplicationsController < ApplicationController
   end
 
   def index
-    @meeting_applications = @meeting.meeting_applications.eager_load([:applicant]).page(params[:page]).per(10)
+    @meeting_applications = @meeting.meeting_applications.eager_load(applicant: {avatar_attachment: :blob}).page(params[:page]).per(10)
     respond_to do |format|
       format.html
       format.js
@@ -37,9 +41,10 @@ class MeetingApplicationsController < ApplicationController
   def show
     @meeting_application = MeetingApplication.find(params[:id])
     @partner = @meeting_application.applicant
+    @message_room = nil
     Array(current_user.message_rooms).each do |cmr|
       Array(@partner.message_rooms).each do |ncmr|
-        @message_room ||= ncmr if cmr == ncmr
+        @message_room = ncmr if cmr == ncmr
       end
     end
     respond_to do |format|

@@ -48,6 +48,18 @@ class MeetingsController < ApplicationController
   end
 
   def destroy
+    meeting = Meeting.find(params[:id])
+    if meeting.destroy
+      respond_to do |format|
+        format.html { redirect_to(index_meeting_user_path(current_user), notice: "プランを削除しました。") }
+        format.js { render ajax_redirect_to(index_meeting_user_path(current_user)), flash[:notice] = "プランを削除しました。" }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to(index_meeting_user_path(current_user), error: "プランを削除できませんでした。") }
+        format.js { render ajax_redirect_to(index_meeting_user_path(current_user)), flash[:error] = "プランを削除できませんでした。" }
+      end
+    end
   end
 
   def index

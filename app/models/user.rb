@@ -4,7 +4,7 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
 
-  before_create :default_avatar
+  after_save :default_avatar
   
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
@@ -38,7 +38,7 @@ class User < ApplicationRecord
   validates :name, presence: true, length: { maximum: 12 }
   validates :email, presence: true
   validates :birth_date, presence: true
-  # 1: 男, 2: 女　
+  # 1: 男, 2: 女
   validates :sex, presence: true, inclusion: { in: %w(1 2) }
   validates :residence, presence: true
   validates :password, presence: true, on: :create
@@ -165,10 +165,10 @@ class User < ApplicationRecord
   # ゲストユーザー作成
   def self.guest
     find_or_create_by!(email: 'guest@sample.com') do |user|
-      user.password = SecureRandom.urlsafe_base64
+      user.password = SecureRandom.urlsafe_base64(8)
       user.password_confirmation = user.password
       user.name = "ゲストユーザー"
-      user.sex = "1"
+      user.sex = "2"
       user.residence_id = 13
       user.birth_date = Faker::Date.birthday(min_age: 20, max_age: 40)
     end
