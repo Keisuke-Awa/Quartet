@@ -78,10 +78,10 @@ ActiveRecord::Base.transaction do
         sex: sex, residence_id: 13)
       user.create_user_profile!
     end
-    # image_url = Faker::Avatar.image(slug: email, size: '150x150')
-    # user.avatar.attach(io: URI.parse(image_url).open, filename: 'avatar.png')
-    user.avatar.attach(io: File.open(Rails.root.join('src', 'js', 'modules', 'images', 'yumikoIMGL7854_TP_V.jpg')), filename: 'avater.jpeg',
-    content_type: 'image/jpg')
+    image_url = Faker::Avatar.image(slug: email, size: '150x150')
+    user.avatar.attach(io: URI.parse(image_url).open, filename: 'avatar.png')
+    # user.avatar.attach(io: File.open(Rails.root.join('src', 'js', 'modules', 'images', 'yumikoIMGL7854_TP_V.jpg')), filename: 'avater.jpeg',
+    # content_type: 'image/jpg')
   end
 end
 

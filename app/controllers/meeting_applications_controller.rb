@@ -14,7 +14,7 @@ class MeetingApplicationsController < ApplicationController
       format.html { redirect_back(fallback_location: @meeting, notice: "申請が完了しました。") }
       format.js { render ajax_redirect_to(meeting_path(@meeting)), flash[:notice] = "申請が完了しました。" }
     end
-    ActiveRecord:RecodeInvalid => e
+  rescue ActiveRecord::RecodeInvalid
     respond_to do |format|
       format.js { render ajax_redirect_to(meeting_path(@meeting)), flash[:error] = "申請に失敗しました。" }
     end
@@ -26,7 +26,7 @@ class MeetingApplicationsController < ApplicationController
     current_user.unapply_meeting(@meeting)
     respond_to do |format|
       format.html { redirect_back(fallback_location: @meeting, notice: "申請を取り消しました。") }
-      format.js { render ajax_redirect_to(meeting_path(@meeting)), flash[:notice] = "申請を取り消しました。" }
+      format.js #{ render ajax_redirect_to(meeting_path(@meeting)), flash[:notice] = "申請を取り消しました。" }
     end
   end
 
