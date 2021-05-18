@@ -2,11 +2,13 @@
   <div class="card-header">
     <ul class="nav nav-tabs card-header-tabs">
       <li class="nav-item">
-        <a href="#detailCard" class="nav-link active" data-toggle="tab">プラン詳細</a>
+        <a href="#detailCard" class="nav-link tab-link active" data-toggle="tab">プラン詳細</a>
       </li>
+      <% unless current_user?(@user) %>
       <li class="nav-item">
-        <a href="#profileCard" class="nav-link" data-toggle="tab">プロフィール</a>
+        <a href="#profileCard" class="nav-link tab-link" data-toggle="tab">プロフィール</a>
       </li>
+      <% end %>
     </ul>
   </div>
     <div class="tab-content">
@@ -29,87 +31,98 @@
             <p>詳細</p>
             <div><%=@meeting.detail%><div>
           </li>
-          <% unless current_user?(@user) %>
           <li class="list-group-item">
+          <% if current_user?(@user) %>
+          <%= link_to '削除', meeting_path(@meeting), data: { confirm: "本当に削除しますか?" }, method: :delete, class: "btn btn-red-pink mx-auto loading-link", remote: true %>
+          <% else %>
+            <% if @meeting.appointment.blank? %>
             <div id="meeting_application_form" class="mx-auto">
               <%= render "meetings/meeting_application_form" %>
             </div>
+            <% end %>
+          <% end %>
+          </li>
+        </ul>
+      </div>
+      <% unless current_user?(@user) %>
+      <div id="profileCard" class="tab-pane card-body">
+        <div class="row no-gutters">
+          <div class="col-md-6 profile-avatar-content">
+            <div class="profile-avatar">
+              <%=link_to image_tag(@user.avatar,
+                  alt: "avatar", width: "100px", height: "100px", class: "rounded-circle bd-placeholder-img"), 
+                  url_for(@user.avatar), data: {lightbox: "avatar", title: @user.name} %>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="card-body">
+              <p><%= @user.name %></p>
+              <p><%= @user.age %>歳</p>
+              <p><%= @user.residence.prefecture_name %></p>
+            </div>
+          </div>
+        </div>
+        <ul class="list-group list-group-flush pt-4">
+          <li class="list-group-item d-block">
+            <p>自己紹介</p>
+            <div><%= @user.user_profile.introduction if @user.register_introduction? %><div>
+          </li>
+          <% if @user.register_height? %>
+          <li class="list-group-item">
+            <div>身長</div>
+            <div><%=@user.user_profile.height%>cm</div>
+          </li>
+          <% end %>
+          <% if @user.register_weight? %>
+          <li class="list-group-item">
+            <div>体重</div>
+            <div><%=@user.user_profile.weight%>kg</div>
+          </li>
+          <% end %>
+          <% if @user.register_blood_type? %>
+          <li class="list-group-item">
+            <div>血液型</div>
+            <div><%= @user.user_profile.blood_type%>型</div>
+          </li>
+          <% end %>
+          <% if @user.register_birthplace? %>
+          <li class="list-group-item">
+            <div>出身地</div>
+            <div><%= @user.user_profile.birthplace.prefecture_name%></div>
+          </li>
+          <% end %>
+          <% if @user.register_occupation? %>
+          <li class="list-group-item">
+            <div>職業</div>
+            <div><%=@user.user_profile.occupation.occupation_name%></div>
+          </li>
+          <% end %>
+          <% if @user.register_educational_bg? %>
+          <li class="list-group-item">
+            <div>学歴</div>
+            <div><%=@user.user_profile.educational_bg.ebg_name%></div>
+          </li>
+          <% end %>
+          <% if @user.register_annual_income? %>
+          <li class="list-group-item">
+            <div>年収</div>
+            <div><%=@user.user_profile.annual_income.income_range%></div>
+          </li>
+          <% end %>
+          <% if @user.register_smoking? %>
+          <li class="list-group-item">
+            <div>喫煙</div>
+            <div><%=@user.user_profile.smoking.smoking_status%></div>
+          </li>
+          <% end %>
+          <% if @has_appointment %>
+          <li class="list-group-item m-auto">
+            <%= render 'messages/message_link', message_room: @message_room, user: @user %>
           </li>
           <% end %>
         </ul>
       </div>
-      <div id="profileCard" class="tab-pane card-body">
-  <div class="row no-gutters">
-    <div class="col-md-6 profile-avatar-content">
-      <div class="profile-avatar">
-        <%=link_to image_tag(@user.avatar,
-            alt: "avatar", width: "100px", height: "100px", class: "rounded-circle bd-placeholder-img"), 
-            url_for(@user.avatar), data: {lightbox: "avatar", title: @user.name} %>
-      </div>
-    </div>
-    <div class="col-md-6">
-      <div class="card-body">
-        <p><%= @user.name %></p>
-        <p><%= @user.age %>歳</p>
-        <p><%= @user.residence.prefecture_name %></p>
-      </div>
-    </div>
-  </div>
-  <ul class="list-group list-group-flush pt-4">
-    <li class="list-group-item d-block">
-      <p>自己紹介</p>
-      <div><%= @user.user_profile.introduction if @user.register_introduction? %><div>
-    </li>
-    <% if @user.register_height? %>
-    <li class="list-group-item">
-      <div>身長</div>
-      <div><%=@user.user_profile.height%>cm</div>
-    </li>
-    <% end %>
-    <% if @user.register_weight? %>
-    <li class="list-group-item">
-      <div>体重</div>
-      <div><%=@user.user_profile.weight%>kg</div>
-    </li>
-    <% end %>
-    <% if @user.register_blood_type? %>
-    <li class="list-group-item">
-      <div>血液型</div>
-      <div><%= @user.user_profile.blood_type%>型</div>
-    </li>
-    <% end %>
-    <% if @user.register_birthplace? %>
-    <li class="list-group-item">
-      <div>出身地</div>
-      <div><%= @user.user_profile.birthplace.prefecture_name%></div>
-    </li>
-    <% end %>
-    <% if @user.register_occupation? %>
-    <li class="list-group-item">
-      <div>職業</div>
-      <div><%=@user.user_profile.occupation.occupation_name%></div>
-    </li>
-    <% end %>
-    <% if @user.register_educational_bg? %>
-    <li class="list-group-item">
-      <div>学歴</div>
-      <div><%=@user.user_profile.educational_bg.ebg_name%></div>
-    </li>
-    <% end %>
-    <% if @user.register_annual_income? %>
-    <li class="list-group-item">
-      <div>年収</div>
-      <div><%=@user.user_profile.annual_income.income_range%></div>
-    </li>
-    <% end %>
-    <% if @user.register_smoking? %>
-    <li class="list-group-item">
-      <div>喫煙</div>
-      <div><%=@user.user_profile.smoking.smoking_status%></div>
-    </li>
-    <% end %>
-  </ul>
-</div>
+      <% end %>
     </div>
   </div>
 </div>

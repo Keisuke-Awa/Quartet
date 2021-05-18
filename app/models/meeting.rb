@@ -21,8 +21,8 @@ class Meeting < ApplicationRecord
   scope :only_same_prefecture, -> (user) { where(place: Place.same_prefecture_as(user)) }
   scope :with_appointment, -> { eager_load(:appointment) }
   scope :paginate, -> (page) { page(page).per(30) }
-  scope :display_list, -> (user, page) { as_of_now.exclude_appointed.with_user_avatar.exclude_current_user(user)
-                                              .exclude_same_sex(user).with_place.paginate(page) }
+  scope :display_list, -> (user) { as_of_now.exclude_appointed.with_user_avatar.exclude_current_user(user)
+                                              .exclude_same_sex(user).with_place }
   scope :recommend_list, -> (user) { from_one_week_later_to_two_weeks_later.exclude_appointed.with_user_avatar.exclude_current_user(user)
                                             .exclude_same_sex(user).only_same_prefecture(user).only_same_generation(user).with_place }
   scope :search_with_appointment, -> (appointments) { where(appointment_id: appointments).with_user_avatar.as_of_now

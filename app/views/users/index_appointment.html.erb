@@ -1,6 +1,36 @@
-<h3>成立したプラン</h3>
-<% @appointments.each do |appointment| %>
-  <%= link_to appointment.meeting.meet_at, appointment_path(appointment), remote: true %>
+<h3>成立プラン一覧</h3>
+<% if @appointments.present? %>
+  <% @appointments.each do |a| %>
+    <div class="card w-80">
+      <div class="row no-gutters">
+        <div class="col-md-5 m-auto text-center">
+          <div class="card-body">
+            <div><%=a[:meeting].meet_at.strftime("%-m月%-d日") + calculate_day_of_week(a[:meeting].meet_at)%>
+              <%=a[:meeting].meet_at.strftime("%-H時%-M分")%>〜</div>
+            <div><%="#{a[:meeting].place.name} / #{a[:meeting].people}on#{a[:meeting].people}"%></div>
+          </div>
+        </div>
+        <div class="col-md-5 m-auto text-left">
+          <div class="row no-gutters">
+            <div class="col-md-4 profile-avatar">
+              <%=link_to image_tag(a[:partner].avatar,
+                  alt: "avatar", width: "60px", height: "60px", class: "rounded-circle bd-placeholder-img"), 
+                  url_for(a[:partner].avatar), data: {lightbox: "avatar", title: a[:partner].name} %>
+            </div>
+            <div class="col-md-8 text-left my-auto">
+              <div><%=a[:partner].name%></div>
+              <div><%= "#{a[:partner].age}歳"%></div>
+            </div>
+          </div>
+        </div>  
+        <div class="col-md-2 my-auto">
+          <%= link_to "詳細", meeting_path(a[:meeting]), class: "btn btn-yellow-red loading-link", remote: true %>
+        </div>
+      </div>
+  </div>
+  <% end %>
+<% else %>
+  <div class="pt-3">成立したプランはありません。</div>
 <% end %>
 <script>
 

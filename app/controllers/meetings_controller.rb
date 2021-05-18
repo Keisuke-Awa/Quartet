@@ -22,7 +22,7 @@ class MeetingsController < ApplicationController
     if @meeting.appointment && @meeting.appointment.users.find_by(id: current_user.id)
       @user = @meeting.appointment.users.select_partner(current_user)
       Array(current_user.message_rooms).each do |cmr|
-        Array(@puser.message_rooms).each do |ncmr|
+        Array(@user.message_rooms).each do |ncmr|
           @message_room ||= ncmr if cmr == ncmr
         end
       end
@@ -63,7 +63,7 @@ class MeetingsController < ApplicationController
   end
 
   def index
-    @meetings = Meeting.display_list(current_user, params[:page])
+    @meetings = Meeting.display_list(current_user).order("RAND()").page(params[:page]).per(30)
     if user_signed_in?
       respond_to do |format|
         format.html
@@ -77,7 +77,7 @@ class MeetingsController < ApplicationController
   end
 
   def search
-    @meetings = @q.result(distinct: true).display_list(current_user, params[:page])
+    @meetings = @q.result(distinct: true).display_list(current_user).page(params[:page]).per(30)
     respond_to do |format|
       format.html
       format.js
