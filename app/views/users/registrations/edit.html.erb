@@ -29,7 +29,7 @@
 
     <div class="field">
       <%= f.password_field :password, autocomplete: "new-password", class: "text-field" %>
-      <%= f.label :password %> <i>(変更する場合のみ入力)</i>
+      <%= f.label :password %> <!--<i>(変更する場合のみ入力)</i>-->
       <span class="focus-line"></span>
     </div>
 
@@ -45,8 +45,8 @@
       <span class="focus-line"></span>
     </div>
 
-    <div class="actions">
-      <%= f.submit "保存" %>
+    <div>
+      <%= f.submit "保存", class: "btn btn-yellow mb-5" %>
     </div>
   <% end %>
 </div>

@@ -31,17 +31,17 @@ services:
       - .:/Quartet
       - public-data:/Quartet/public
       - tmp-data:/Quartet/tmp/sockets
-  # nginx:
-  #   build:
-  #     context: ./nginx
-  #     dockerfile: Dockerfile
-  #   volumes:
-  #     - public-data:/Quartet/public
-  #     - tmp-data:/Quartet/tmp/sockets
-  #   ports:
-  #     - 80:80
-  #   restart: always
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    volumes:
+      - public-data:/Quartet/public
+      - tmp-data:/Quartet/tmp/sockets
+    ports:
+      - 80:80
+    restart: always
 volumes:
-  mysql-data:
+  # mysql-data:
   public-data:
   tmp-data:
