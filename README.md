@@ -1,6 +1,6 @@
 # Quartet
 
-気軽にできる合コンマッチングサービス。<br>
+気軽に合コンできるマッチングサービス。<br>
 男女に新たな出会いの場を提供します。<br><br>
 URL: [Quartet〜新たな出会いへ〜](https:quartet-plan.com)
 
