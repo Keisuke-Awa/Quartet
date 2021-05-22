@@ -35,14 +35,16 @@ URL：https://quartet-plan.com
 - SSL証明書を発行し、HTTP 化を実装
 
 ## 機能一覧
-- ユーザー認証機能
+- アカウント認証機能
   - **FacebookAPIを用いたOAuth認証**
   - **Twiloを用いたSMS認証**
 - メッセージ自動更新
   - **Ajaxを活用したメッセージ送信や自動更新**
-- モジュールバンドルとしてWebpackを採用
-  - **制約が多いWebpackerを取り除き、webpackでJavaScriptやCSS、画像を管理**
-- ユーザー登録・ログイン(devise)
+- **モジュールバンドルとしてWebpackを採用**
+  - 制約が多いWebpackerを取り除き、webpackでJavaScriptやCSS、画像を管理
+- アカウント登録・ログイン機能(devise)
+- **簡単ログイン機能**
+  - アカウント登録せずにログイン可能
 - タグ付け機能(acts-as-taggable-on)
   - タグをDB上でカテゴリー化(ancestry)
 - プラン検索機能(ransack)
@@ -51,3 +53,4 @@ URL：https://quartet-plan.com
 - Bootstrapのグリッドレイアウトを採用
 - Sassの使用
 - サンプルデータ作成(faker)
+  
