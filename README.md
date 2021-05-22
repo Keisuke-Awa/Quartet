@@ -2,7 +2,7 @@
 
 気軽に合コンできるマッチングサービス。<br>
 男女に新たな出会いの場を提供します。<br><br>
-URL: [Quartet〜新たな出会いへ〜](https:quartet-plan.com)
+URL: [https:quartet-plan.com](https:quartet-plan.com)
 
 ![README_image](https://user-images.githubusercontent.com/62461394/119217950-a8c4a180-bb18-11eb-8bef-ed33aba04f68.png)
 
