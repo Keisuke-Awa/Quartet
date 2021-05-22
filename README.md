@@ -12,9 +12,7 @@ URL: [Quartet〜新たな出会いへ〜](https:quartet-plan.com)
 - Docker/Docker-compose
 - Nginx
 - Unicorn
-- webpack 4
 - jQuery
-- Bootstrap 4
 - AWS
   - VPC
   - EC2
@@ -35,16 +33,19 @@ URL: [Quartet〜新たな出会いへ〜](https:quartet-plan.com)
 - SSL証明書を発行し、HTTP 化を実装
 
 ## 機能一覧
-- ユーザー登録、ログイン機能(devise)
-- OAuth認証機能(facebookAPI)
-- SMS認証機能(twilio)
-- プラン作成機能
-  - タグ機能(acts-as-taggable-on)
-    - カテゴリ機能(ancestry)
+- ユーザー認証機能
+  - **FacebookAPIを用いたOAuth認証**
+  - **Twiloを用いたSMS認証**
+- メッセージ自動更新
+  - **Ajaxを活用したメッセージ送信や自動更新**
+- モジュールバンドルとしてWebpackを採用
+  - **制約が多いWebpackerを取り除き、webpackでJavaScriptやCSS、画像を管理**
+- ユーザー登録・ログイン(devise)
+- タグ付け機能(acts-as-taggable-on)
+  - タグをDB上でカテゴリー化(ancestry)
 - プラン検索機能(ransack)
-  - ページネーション機能(kaminari)
-- メッセージ機能(Ajax)
-  - メッセージルーム削除機能(discard)
+- ページネーション機能(kaminari)
+- メッセージルームの論理削除(discard)
+- Bootstrapのグリッドレイアウトを採用
+- Sassの使用
 - サンプルデータ作成(faker)
-
-## 機能一覧
